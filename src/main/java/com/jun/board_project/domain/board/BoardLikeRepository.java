@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 public class BoardLikeRepository {
     private final JdbcTemplate jdbcTemplate;
 
-//    public void save(BoardLike boardLike) {
-//        String sql = "insert into board_like(board_id, user_id) values(?, ?)";
-//        jdbcTemplate.update(sql, boardLike.getBoardId(), boardLike.getUserId());
-//    }
+    public void save(BoardLike boardLike) {
+        String sql = "insert into board_like(board_id, user_id) values(?, ?)";
+    }
 }
