@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.board;
+package com.jun.board_project.domain.boardDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder @Getter
 public class BoardDetail {
-    private Long boardId;
+    private int boardId;
     private String boardContent;
     private String boardImage;
 

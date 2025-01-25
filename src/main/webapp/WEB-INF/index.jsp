@@ -14,26 +14,17 @@
             text-align: center;
             color: #333;
         }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
+        ul {
+            list-style-type: none;
+            padding: 0;
         }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
+        li {
+            background-color: #fff;
+            margin: 10px auto;
             padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            width: 80%;
+            text-align: center;
         }
         a {
             text-decoration: none;
@@ -42,47 +33,14 @@
         a:hover {
             text-decoration: underline;
         }
-        .new-post {
-            display: block;
-            width: 80%;
-            margin: 20px auto;
-            text-align: right;
-        }
-        .new-post a {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-        .new-post a:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-<h1>게시판</h1>
-<table>
-    <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="board" items="${boards}">
-        <tr>
-            <td>${board.id}</td>
-            <td><a href="board/${board.id}">${board.title}</a></td>
-            <td>${board.userId}</td>
-            <td>${board.createdDate}</td>
-        </tr>
+<h1>게시판 분류</h1>
+<ul>
+    <c:forEach var="category" items="${categories}">
+        <li><a href="board/category/${category.code}">${category.name}</a></li>
     </c:forEach>
-    </tbody>
-</table>
-<div class="new-post">
-    <a href="board/new">새 글 작성</a>
-</div>
+</ul>
 </body>
 </html>

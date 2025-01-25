@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.board;
+package com.jun.board_project.domain.boardBookmark;
 
 
 import lombok.RequiredArgsConstructor;

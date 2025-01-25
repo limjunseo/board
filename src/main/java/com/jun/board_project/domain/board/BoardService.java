@@ -1,5 +1,7 @@
 package com.jun.board_project.domain.board;
 
+import com.jun.board_project.domain.boardDetail.BoardDetail;
+import com.jun.board_project.domain.boardDetail.BoardDetailRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ public class BoardService {
     private final BoardDetailRepository boardDetailRepository;
 
     @Transactional
-    public void save(BoardForm boardForm) {
+    public Long save(BoardForm boardForm) {
         //max + 1 채번
         Long boardId = boardRepository.nextVal();
         
@@ -28,6 +30,8 @@ public class BoardService {
                 .boardContent(boardForm.getBoardContent())
                 .build();
         boardDetailRepository.save(boardDetail);
+
+        return boardId;
     }
 
     public Board getBoard(Long boardId) {

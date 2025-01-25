@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.board;
+package com.jun.board_project.domain.boardBookmark;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder @Getter
 public class BoardBookmark {
-    private Long userId;
+    private String userId;
 
-    private Long boardId;
+    private int boardId;
 
     //북마크 여부
     private char bookmarkYn;

@@ -18,6 +18,21 @@ public class BoardController {
         return "index";
     }
 
+    //새 글 작성 페이지
+    @RequestMapping(value = "/board/new", method = RequestMethod.GET)
+    public String getBoardNewPage(@ModelAttribute BoardForm boardForm) {
+        boardService.save(boardForm);
+        return "board/newBoardForm";
+    }
+
+    //게시글과 게시글 상세 정보 조회
+    @RequestMapping(value = "/board/{boardId}", method = RequestMethod.GET)
+    public String getBoard(@PathVariable("boardId") Long boardId, ModelMap model) {
+        Board board = boardService.getBoard(boardId);
+        model.addAttribute("board", board);
+        return "board";
+    }
+
     //새글 작성
     @RequestMapping(value = "/board", method = RequestMethod.POST)
     public String save(@ModelAttribute BoardForm boardForm) {
@@ -25,18 +40,9 @@ public class BoardController {
         return "redirect:/";
     }
 
-    //게시글과 게시글 상세 정보 조회
-    @RequestMapping(value = "/board/{boardId}", method = RequestMethod.GET)
-    public String getBoard(@PathVariable("boardId") Long boardId, ModelMap model) {
 
-        return "board";
-    }
 
     
-    //새 글 작성 페이지
-    @RequestMapping(value = "/board/new", method = RequestMethod.GET)
-    public String getBoardNewPage() {
-        return "board/newBoardForm";
-    }
+
 
 }

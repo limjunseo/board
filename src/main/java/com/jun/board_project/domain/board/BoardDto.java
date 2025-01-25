@@ -1,7 +1,9 @@
 package com.jun.board_project.domain.board;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public class BoardDto {
     private String userId;

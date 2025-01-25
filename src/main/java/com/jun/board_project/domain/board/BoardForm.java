@@ -1,11 +1,12 @@
 package com.jun.board_project.domain.board;
 
+import com.jun.board_project.domain.boardDetail.BoardDetail;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter @Builder
 public class BoardForm {
-    private String userId;
+    private int userId;
 
     private String boardCategoryCode;
 

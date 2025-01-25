@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.board;
+package com.jun.board_project.domain.boardLike;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,5 +11,6 @@ public class BoardLikeRepository {
 
     public void insert(BoardLike boardLike) {
         String sql = "insert into board_like(board_id, user_id) values(?, ?)";
+        jdbcTemplate.update(sql, boardLike.getBoardId(), boardLike.getUserId());
     }
 }

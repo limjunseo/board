@@ -13,15 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder @Getter
 public class Board{
 
-
-        private Long boardId;
+        private int boardId;
 
         private String userId;
 
         private String boardCategoryCode;
 
         private String boardTitle;
-
 
 
 }
