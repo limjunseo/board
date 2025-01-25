@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BoardController {
     private final BoardService boardService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getMainPage(ModelMap model) {
-        return "index";
-    }
 
     //새 글 작성 페이지
     @RequestMapping(value = "/board/new", method = RequestMethod.GET)

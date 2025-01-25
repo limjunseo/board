@@ -1,15 +1,13 @@
-package com.jun.board_project.global.util;
+package com.jun.board_project.domain.comment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-@RequiredArgsConstructor
 @Repository
-public class Sequence {
+@RequiredArgsConstructor
+public class BoardCommentLikeRepository {
     private final JdbcTemplate jdbcTemplate;
 
-//    public static Long nextVal() {
-//
-//    }
+
 }

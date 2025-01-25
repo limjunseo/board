@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter @Builder
 public class BoardForm {
-    private int userId;
+    private String userId;
 
     private String boardCategoryCode;
 

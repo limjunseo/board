@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class CommentRepository {
+public class BoardCommentRepository {
     private final JdbcTemplate jdbcTemplate;
 
 

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder @Getter
-public class Comment {
+public class BoardComment {
     private int boardId;
 
     //기준 댓글번호

@@ -25,9 +25,9 @@ public class BoardRepository {
     }
 
     //max + 1 채번
-    public Long nextVal() {
+    public int nextVal() {
         String sql = "select nvl(max(board_id), 1) from board";
-        return jdbcTemplate.queryForObject(sql, Long.class);
+        return jdbcTemplate.queryForObject(sql, int.class);
     }
 
     public Board findById(Long boardId) {

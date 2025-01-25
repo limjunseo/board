@@ -14,9 +14,9 @@ public class BoardService {
     private final BoardDetailRepository boardDetailRepository;
 
     @Transactional
-    public Long save(BoardForm boardForm) {
+    public int save(BoardForm boardForm) {
         //max + 1 채번
-        Long boardId = boardRepository.nextVal();
+        int boardId = boardRepository.nextVal();
         
         Board board = Board.builder()
                 .boardId(boardId)
