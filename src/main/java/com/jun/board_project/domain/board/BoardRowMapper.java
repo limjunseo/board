@@ -11,7 +11,7 @@ public class BoardRowMapper implements RowMapper<Board> {
         Board board = Board.builder()
                 .boardId(rs.getInt("board_id"))
                 .userId(rs.getString("user_id"))
-                .boardCategoryCode(rs.getString("board_category_code"))
+                .boardCtId(rs.getString("board_category_code"))
                 .boardTitle(rs.getString("board_title"))
                 .build();
         return board;

@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class BoardRepository {
@@ -15,7 +17,7 @@ public class BoardRepository {
                 "INSERT INTO board (user_id, board_category_code, board_title, board_created_date) VALUES (?, ?, ?, ?)";
 
 
-        jdbcTemplate.update(sql, board.getUserId(), board.getBoardCategoryCode(), board.getBoardTitle(), new java.sql.Timestamp(System.currentTimeMillis()));
+        jdbcTemplate.update(sql, board.getUserId(), board.getBoardCtId(), board.getBoardTitle(), new java.sql.Timestamp(System.currentTimeMillis()));
         return board;
     }
 
@@ -33,6 +35,12 @@ public class BoardRepository {
     public Board findById(Long boardId) {
         String sql = "select * from board where board_id = ?";
         return jdbcTemplate.queryForObject(sql, new BoardRowMapper(), boardId);
+    }
+
+    //특정 카테고리 게시글 조회 페이지별로 10개씩
+    public List<Board> findAllByBoardCtId(String boardCtId) {
+        String sql = "select * from board where board_category_cd = ?";
+        return jdbcTemplate.query(sql, new BoardRowMapper(), boardCtId);
     }
 
 

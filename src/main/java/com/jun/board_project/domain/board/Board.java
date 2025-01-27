@@ -1,12 +1,12 @@
 package com.jun.board_project.domain.board;
 
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,9 +17,12 @@ public class Board{
 
         private String userId;
 
-        private String boardCategoryCode;
+        private String boardCtId;
 
         private String boardTitle;
+
+        private Timestamp boardCreatedDate;
+
 
 
 }

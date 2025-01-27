@@ -17,7 +17,7 @@ public class BoardForm {
     public Board toBoard() {
         return Board.builder()
                 .userId(userId)
-                .boardCategoryCode(boardCategoryCode)
+                .boardCtId(boardCategoryCode)
                 .boardTitle(boardTitle)
                 .build();
     }

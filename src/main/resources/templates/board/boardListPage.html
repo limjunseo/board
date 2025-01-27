@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${boardCtname}"></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .board-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .board-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .board-item:last-child {
+            border-bottom: none;
+        }
+        .board-title {
+            font-size: 1.2em;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .board-title:hover {
+            text-decoration: underline;
+        }
+        .board-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Board List</h1>
+    <ul class="board-list">
+        <li th:each="board : ${boardList}" class="board-item">
+            <a th:href="@{/board/{id}(id=${board.boardId})}" th:text="${board.boardTitle}" class="board-title"></a>
+            <div class="board-meta">
+                <span th:text="'Posted by ' + ${board.userId}"></span> |
+                <span th:text="${#dates.format(board.boardCreatedDate, 'yyyy-MM-dd HH:mm')}"></span>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

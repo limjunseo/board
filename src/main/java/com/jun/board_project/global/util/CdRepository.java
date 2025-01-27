@@ -12,23 +12,16 @@ import java.util.List;
 public class CdRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public CdDto findById(String cdId) {
-        String sql = "select * from cd where cd_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{cdId}, (rs, rowNum) -> {
+    public List<CdDto> findById(String cdTypeId) {
+        String sql = "SELECT * FROM cd WHERE cd_type_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{cdTypeId}, (rs, rowNum) -> {
             CdDto cdDto = new CdDto();
             cdDto.setCdId(rs.getString("cd_id"));
             cdDto.setCdName(rs.getString("cd_name"));
             return cdDto;
         });
+
     }
 
-    public List<CdDto> findAll() {
-        String sql = "select * from cd";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            CdDto cdDto = new CdDto();
-            cdDto.setCdId(rs.getString("cd_id"));
-            cdDto.setCdName(rs.getString("cd_name"));
-            return cdDto;
-        });
-    }
+
 }
