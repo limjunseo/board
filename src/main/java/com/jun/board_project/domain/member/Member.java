@@ -1,11 +1,13 @@
 package com.jun.board_project.domain.member;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@AllArgsConstructor
+@Builder
+@Setter
 @Getter
 @NoArgsConstructor
-public class Memeber {
+public class Member {
 
     private String memberId;
 

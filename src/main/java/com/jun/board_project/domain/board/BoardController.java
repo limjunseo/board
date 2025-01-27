@@ -1,7 +1,9 @@
 package com.jun.board_project.domain.board;
 
 import com.jun.board_project.domain.boardLike.BoardLike;
+import com.jun.board_project.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +22,7 @@ public class BoardController {
 
     //새 글 작성 페이지
     @RequestMapping(value = "/board/new", method = RequestMethod.GET)
-    public String getBoardNewPage(@ModelAttribute BoardForm boardForm) {
+    public String getBoardNewPage(@AuthenticationPrincipal MemberDetails member, @ModelAttribute BoardForm boardForm) {
         boardForm.setDefault();
         return "board/newBoardForm";
     }

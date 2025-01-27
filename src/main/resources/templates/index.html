@@ -16,21 +16,42 @@
             background-color: #f9f9f9;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
         }
 
-        /* 헤더 스타일 */
-        h1 {
+        /* 고정된 네비게이션 스타일 */
+        .nav {
+            position: fixed; /* 상단 고정 */
+            top: 0;
+            left: 0;
+            width: 100%; /* 화면 전체 너비 */
+            height: 70px; /* 높이 지정 */
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* 멋진 그라데이션 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            display: flex; /* 플렉스 박스 사용 */
+            align-items: center; /* 수직 정렬 */
+            justify-content: space-between; /* 좌우 요소 간격 */
+            padding: 0 30px; /* 좌우 패딩 */
+            z-index: 1000; /* 다른 요소보다 위로 표시 */
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #f0f0f0;
+        }
+
+        /* 메인 컨텐츠 여백 */
+        .content {
+            margin-top: 80px; /* 고정된 네비게이션 높이만큼 여백 추가 */
             text-align: center;
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            padding: 20px;
         }
 
         /* 리스트 스타일 */
@@ -89,13 +110,18 @@
     </style>
 </head>
 <body>
-<h1>게시판</h1>
-<ul>
-    <li th:each="boardCt : ${boardCtList}">
-        <a th:href="@{'/board/' + ${boardCt.boardCtId}}">
-            <span th:text="${boardCt.boardCtName}"></span>
-        </a>
-    </li>
-</ul>
+<!-- 고정된 네비게이션 프래그먼트 -->
+<div th:replace="fragments/nav :: nav" class="nav"></div>
+
+<div class="content">
+    <h1>게시판</h1>
+    <ul>
+        <li th:each="boardCt : ${boardCtList}">
+            <a th:href="@{'/board/' + ${boardCt.boardCtId}}">
+                <span th:text="${boardCt.boardCtName}"></span>
+            </a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

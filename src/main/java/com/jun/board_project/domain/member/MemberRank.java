@@ -22,4 +22,8 @@ public class MemberRank {
 
     //랭크 코드
     private String rankCode;
+
+    public static String defaultRank() {
+        return "06";
+    }
 }
