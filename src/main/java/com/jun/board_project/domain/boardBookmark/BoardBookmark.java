@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder @Getter
 public class BoardBookmark {
-    private String userId;
+    private String memberId;
 
     private int boardId;
 

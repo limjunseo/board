@@ -11,6 +11,6 @@ public class BoardLikeRepository {
 
     public void insert(BoardLike boardLike) {
         String sql = "insert into board_like(board_id, user_id) values(?, ?)";
-        jdbcTemplate.update(sql, boardLike.getBoardId(), boardLike.getUserId());
+        jdbcTemplate.update(sql, boardLike.getBoardId(), boardLike.getMemberId());
     }
 }

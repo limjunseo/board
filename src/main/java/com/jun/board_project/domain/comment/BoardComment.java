@@ -21,7 +21,7 @@ public class BoardComment {
 
     private String content;
 
-    private String userId;
+    private String memberId;
 
 
 }

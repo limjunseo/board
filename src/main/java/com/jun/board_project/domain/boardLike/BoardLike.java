@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder @Getter
 public class BoardLike {
-    private String userId;
+    private String memberId;
 
     private int boardId;
 

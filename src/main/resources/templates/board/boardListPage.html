@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${boardCtname}"></title>
+    <title>Board List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,17 +43,48 @@
             font-size: 0.9em;
             color: #666;
         }
+        .new-post-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .new-post-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+        .new-post-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .btn-container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Board List</h1>
+    <h1 th:text="${boardCtName}">Board List</h1>
+
+    <!-- 새 글 작성 버튼 -->
+    <div class="btn-container">
+        <a href="/board/new" class="new-post-btn">새 글 작성하기</a>
+    </div>
+
     <ul class="board-list">
         <li th:each="board : ${boardList}" class="board-item">
             <a th:href="@{/board/{id}(id=${board.boardId})}" th:text="${board.boardTitle}" class="board-title"></a>
             <div class="board-meta">
                 <span th:text="'Posted by ' + ${board.userId}"></span> |
-                <span th:text="${#dates.format(board.boardCreatedDate, 'yyyy-MM-dd HH:mm')}"></span>
+                <span th:text="${#dates.format(board.boardCreatedDt, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
         </li>
     </ul>

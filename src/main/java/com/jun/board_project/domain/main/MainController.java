@@ -1,7 +1,7 @@
 package com.jun.board_project.domain.main;
 
-import com.jun.board_project.domain.board.BoardCtCdRepository;
 import com.jun.board_project.domain.board.BoardCtDto;
+import com.jun.board_project.domain.board.BoardCtIdRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,12 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 @Controller
 public class MainController {
-    private final BoardCtCdRepository boardCtCdRepository;
+    private final BoardCtIdRepository boardCtIdRepository;
 
     //게시판 메인 페이지
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getMainPage(ModelMap model) {
-        List<BoardCtDto> boardCtDtoList = boardCtCdRepository.findById("001");
+        List<BoardCtDto> boardCtDtoList = boardCtIdRepository.findByCdTypeId("001");
         model.put("boardCtList", boardCtDtoList);
         return "index";
     }

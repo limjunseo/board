@@ -9,10 +9,10 @@ import java.util.List;
 
 @AllArgsConstructor
 @Repository
-public class BoardCtCdRepository {
+public class BoardCtIdRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<BoardCtDto> findById(String cdTypeId) {
+    public List<BoardCtDto> findByCdTypeId(String cdTypeId) {
         String sql = "SELECT * FROM cd WHERE cd_type_id = ?";
         return jdbcTemplate.query(sql,  new Object[]{cdTypeId}, (rs, rowNum) -> {
             BoardCtDto boardCtDto = new BoardCtDto();
@@ -22,9 +22,9 @@ public class BoardCtCdRepository {
         });
     }
 
-    public BoardCtDto findByCtCd(String ctCd) {
+    public BoardCtDto findByCtId(String ctId) {
         String sql = "SELECT * FROM cd WHERE cd_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{ctCd}, (rs, rowNum) -> {
+        return jdbcTemplate.queryForObject(sql, new Object[]{ctId}, (rs, rowNum) -> {
             BoardCtDto boardCtDto = new BoardCtDto();
             boardCtDto.setBoardCtId(rs.getString("cd_id"));
             boardCtDto.setBoardCtName(rs.getString("cd_name"));

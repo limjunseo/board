@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+        .submit-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            border: none;
+            border-radius: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>새 글 작성</h1>
+    <form th:action="@{/board/new}" th:object="${boardForm}" method="post">
+        <label for="title">Title</label>
+        <input type="text" id="title" th:field="*{boardTitle}" placeholder="Enter post title" required>
+
+        <label for="content">Content</label>
+        <textarea id="content" th:field="*{boardContent}" placeholder="Enter post content" required></textarea>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+</body>
+</html>

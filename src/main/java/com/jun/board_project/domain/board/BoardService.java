@@ -25,7 +25,7 @@ public class BoardService {
         Board board = Board.builder()
                 .boardId(boardId)
                 .boardTitle(boardForm.getBoardTitle())
-                .userId(boardForm.getUserId())
+                .memberId(boardForm.getMemberId())
                 .build();
         boardRepository.save(board);
 

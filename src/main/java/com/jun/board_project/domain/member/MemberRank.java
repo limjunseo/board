@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.user;
+package com.jun.board_project.domain.member;
 
 
 import lombok.AllArgsConstructor;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder @Getter
-public class UserRank {
-    private Long userId;
+public class MemberRank {
+    private Long memberId;
 
     //회원등급 시작일자 varchar(8)
     private char startDate;

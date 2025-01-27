@@ -21,7 +21,7 @@ public class BoardBookmarkRepository {
                 "when not matched then " +
                 "insert (board_id, user_id, bookmark_yn) values(source.board_id, source.user_id, 'Y')";
 
-        jdbcTemplate.update(sql, boardBookmark.getBoardId(), boardBookmark.getUserId());
+        jdbcTemplate.update(sql, boardBookmark.getBoardId(), boardBookmark.getMemberId());
     }
 
 }

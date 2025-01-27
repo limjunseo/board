@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter @Builder
 public class BoardForm {
-    private String userId;
+    private String memberId;
 
     private String boardCategoryCode;
 
@@ -14,9 +14,14 @@ public class BoardForm {
 
     private String boardContent;
 
+    public void setDefault() {
+        this.boardContent = "여기에 글을 입력하세요";
+        this.boardTitle = "여기에 제목을 입력하세요";
+    }
+
     public Board toBoard() {
         return Board.builder()
-                .userId(userId)
+                .memberId(memberId)
                 .boardCtId(boardCategoryCode)
                 .boardTitle(boardTitle)
                 .build();

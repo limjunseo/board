@@ -15,13 +15,13 @@ public class Board{
 
         private int boardId;
 
-        private String userId;
+        private String memberId;
 
         private String boardCtId;
 
         private String boardTitle;
 
-        private Timestamp boardCreatedDate;
+        private Timestamp boardCreatedDt;
 
 
 

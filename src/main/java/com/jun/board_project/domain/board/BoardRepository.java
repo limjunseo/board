@@ -17,7 +17,7 @@ public class BoardRepository {
                 "INSERT INTO board (user_id, board_category_code, board_title, board_created_date) VALUES (?, ?, ?, ?)";
 
 
-        jdbcTemplate.update(sql, board.getUserId(), board.getBoardCtId(), board.getBoardTitle(), new java.sql.Timestamp(System.currentTimeMillis()));
+        jdbcTemplate.update(sql, board.getMemberId(), board.getBoardCtId(), board.getBoardTitle(), new java.sql.Timestamp(System.currentTimeMillis()));
         return board;
     }
 

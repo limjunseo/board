@@ -15,13 +15,33 @@ import java.util.List;
 @Controller
 public class BoardController {
     private final BoardService boardService;
+    private final BoardCtIdRepository  boardCtIdRepository;
 
 
     //새 글 작성 페이지
     @RequestMapping(value = "/board/new", method = RequestMethod.GET)
     public String getBoardNewPage(@ModelAttribute BoardForm boardForm) {
-        boardService.save(boardForm);
+        boardForm.setDefault();
         return "board/newBoardForm";
+    }
+
+    //새글 작성 요청
+    @RequestMapping(value = "/board/{boardCtCdId}", method = RequestMethod.POST)
+    public String save(@ModelAttribute BoardForm boardForm) {
+        boardService.save(boardForm);
+        return "redirect:/";
+    }
+
+
+    //특정 카테고리 게시글 리스트 조회
+    @RequestMapping(value = "/board/{boardCtId}", method = RequestMethod.GET)
+    public String getBoardList(@PathVariable("boardCtId") String boardCtId, ModelMap model) {
+        List<Board> boardList = boardService.getBoardList(boardCtId);
+        BoardCtDto boardCtDto = boardCtIdRepository.findByCtId(boardCtId);
+
+        model.addAttribute("boardCtName", boardCtDto.getBoardCtName());
+        model.addAttribute("boardList", boardList);
+        return "board/boardListPage";
     }
 
     //게시글과 게시글 상세 정보 조회
@@ -32,26 +52,13 @@ public class BoardController {
         return "board";
     }
 
-    //특정 카테고리 게시글 리스트 조회
-    @RequestMapping(value = "/board/{boardCtId}", method = RequestMethod.GET)
-    public String getBoardList(@PathVariable("boardCtId") String boardCtId, ModelMap model) {
-        List<Board> boardList = boardService.getBoardList(boardCtId);
-        model.addAttribute("boardList", boardList);
-        return "board/boardListPage";
-    }
 
-    //새글 작성
-    @RequestMapping(value = "/board/{boardCtCdId}", method = RequestMethod.POST)
-    public String save(@ModelAttribute BoardForm boardForm) {
-        boardService.save(boardForm);
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/board/{boardId}/user/{userId}", method = RequestMethod.POST)
-    public String like(@PathVariable("boardId") int boardId, @PathVariable("userId") String userId) {
+    //게시글 좋아요 요청
+    @RequestMapping(value = "/board/{boardId}/user/{memberId}", method = RequestMethod.POST)
+    public String like(@PathVariable("boardId") int boardId, @PathVariable("memberId") String memberId) {
         BoardLike boardLike = BoardLike.builder()
                 .boardId(boardId)
-                .userId(userId)
+                .memberId(memberId)
                 .build();
         boardService.like(boardLike);
         return "redirect:/";
