@@ -15,7 +15,7 @@ public class BoardRepository {
     public Board save(Board board) {
         System.out.println("board = " + board);
         String sql =
-                "insert into board (board_id, member_id, board_ct_id, board_title, board_created_dt) valeus (?, ?, ?, ?, ?)";
+                "insert into board (board_id, member_id, board_ct_id, board_title, board_created_dt) values (?, ?, ?, ?, ?)";
 
 
         jdbcTemplate.update(sql,board.getBoardId(), board.getMemberId(), board.getBoardCtId(), board.getBoardTitle(),
@@ -34,9 +34,14 @@ public class BoardRepository {
         return jdbcTemplate.queryForObject(sql, int.class);
     }
 
-    public Board findById(int boardId) {
-        String sql = "select * from board where board_id = ?";
-        return jdbcTemplate.queryForObject(sql, new BoardRowMapper(), boardId);
+    //특정 게시글 상세내용 조회
+    public BoardDto findById(int boardId) {
+        String sql =
+                "select * "
+                +"from board a, board_detail b "
+                +"where a.board_id = b.board_id "
+                +"and a.board_id = ?";
+        return jdbcTemplate.queryForObject(sql, new BoardDtoRowMapper() , boardId);
     }
 
     //특정 카테고리 게시글 조회 페이지별로 10개씩

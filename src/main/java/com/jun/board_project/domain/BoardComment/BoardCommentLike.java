@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.comment;
+package com.jun.board_project.domain.BoardComment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +20,5 @@ public class BoardCommentLike {
 
     //pk
 
-    private String userId;
+    private String memberId;
 }

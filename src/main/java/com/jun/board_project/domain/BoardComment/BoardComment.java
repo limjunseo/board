@@ -1,9 +1,11 @@
-package com.jun.board_project.domain.comment;
+package com.jun.board_project.domain.BoardComment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,9 +21,11 @@ public class BoardComment {
 
     //pk
 
-    private String content;
+    private String commentContent;
 
     private String memberId;
+
+    private Timestamp commentCreatedDt;
 
 
 }

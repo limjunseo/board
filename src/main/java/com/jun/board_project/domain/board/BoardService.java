@@ -39,7 +39,7 @@ public class BoardService {
         return boardId;
     }
 
-    public Board getBoard(int boardId) {
+    public BoardDto getBoard(int boardId) {
         return boardRepository.findById(boardId);
     }
 

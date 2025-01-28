@@ -134,11 +134,14 @@
 <body>
 
 <div class="container">
+    <!-- 게시글 리스트 -->
     <h1 th:text="${boardCtDto.boardCtName}">Board List</h1>
 
     <ul class="board-list">
         <li th:each="board : ${boardList}" class="board-item">
-            <a th:href="@{/board/{id}(id=${board.boardId})}" th:text="${board.boardTitle}" class="board-title"></a>
+            <a th:href="@{/board/{boardCtId}/{boardId}(boardCtId=${board.boardCtId}, boardId=${board.boardId})}"
+               th:text="${board.boardTitle}"
+               class="board-title"></a>
             <div class="board-meta">
                 <span th:text="'Posted by ' + ${board.memberId}"></span> |
                 <span th:text="${#dates.format(board.boardCreatedDt, 'yyyy-MM-dd HH:mm')}"></span>
@@ -147,8 +150,9 @@
     </ul>
 </div>
 
+
 <!-- 새 글 작성 버튼 (페이지네이션 위로 배치) -->
-<a th:href="@{/board/new}" class="new-post-btn">+</a>
+<a th:href="@{/board/{boardCtId}/new(boardCtId=${boardCtId})}" class="new-post-btn">+</a>
 
 <!-- 페이지 네비게이션 -->
 <div class="pagination-container">

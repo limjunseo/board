@@ -1,7 +1,8 @@
 package com.jun.board_project.domain.board;
 
+import com.jun.board_project.domain.BoardComment.BoardComment;
+import com.jun.board_project.domain.BoardComment.BoardCommentRepository;
 import com.jun.board_project.domain.boardLike.BoardLike;
-import com.jun.board_project.domain.member.Member;
 import com.jun.board_project.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +17,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final BoardCtIdRepository  boardCtIdRepository;
+    private final BoardCommentRepository boardCommentRepository;
 
 
     //새 글 작성 페이지
@@ -54,15 +56,18 @@ public class BoardController {
         model.addAttribute("currentPage", page);     // 현재 페이지 번호
         model.addAttribute("boardCtDto", boardCtDto);
         model.addAttribute("boardList", boardList);
-        return "board/boardListPage";
+        return "board/boardList";
     }
 
     //게시글과 게시글 상세 정보 조회
     @RequestMapping(value = "/board/{boardCtId}/{boardId}", method = RequestMethod.GET)
     public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId, ModelMap model) {
-        Board board = boardService.getBoard(boardId);
-        model.addAttribute("board", board);
-        return "board";
+        BoardDto boarddto = boardService.getBoard(boardId);
+        List<BoardComment> boardCommentList = boardCommentRepository.findCommentByBoardId(boardId);
+
+        model.addAttribute("boardCommentList", boardCommentList);
+        model.addAttribute("board", boarddto);
+        return "board/boardDetail";
     }
 
 

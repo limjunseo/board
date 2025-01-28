@@ -43,6 +43,10 @@ public class WebSecurityConfig{
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
+                .rememberMe( (rememberMe) -> rememberMe
+                        .key("uniqueAndSecret")
+                        .tokenValiditySeconds(60*60*7)
+                )
                 .csrf( (csrf) -> csrf.disable() ); //로컬 환경에서 확인을 위해 disable;
 
 

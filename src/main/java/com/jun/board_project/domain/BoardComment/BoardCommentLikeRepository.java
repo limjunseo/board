@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.comment;
+package com.jun.board_project.domain.BoardComment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -6,9 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class BoardCommentRepository {
+public class BoardCommentLikeRepository {
     private final JdbcTemplate jdbcTemplate;
-
 
 
 }
