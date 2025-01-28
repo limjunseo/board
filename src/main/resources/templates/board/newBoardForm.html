@@ -66,10 +66,11 @@
 <body>
 <div class="container">
     <h1>새 글 작성</h1>
-    <form th:action="@{/board/new}" th:object="${boardForm}" method="post">
+    <form th:action="@{/board/{boardCtId}/new(boardCtId=${boardForm.boardCtId})}" th:object="${boardForm}" method="post">
         <label for="title">Title</label>
-        <input type="text" id="title" th:field="*{boardTitle}" placeholder="Enter post title" required>
+        <input type="hidden" th:field="*{boardCtId}">
 
+        <input type="text" id="title" th:field="*{boardTitle}" placeholder="Enter post title" required>
         <label for="content">Content</label>
         <textarea id="content" th:field="*{boardContent}" placeholder="Enter post content" required></textarea>
 

@@ -1,6 +1,7 @@
 package com.jun.board_project.domain.board;
 
 
+import com.jun.board_project.global.util.Cd;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,8 +24,9 @@ public class BoardCtIdRepository {
     }
 
     public BoardCtDto findByCtId(String ctId) {
-        String sql = "SELECT * FROM cd WHERE cd_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{ctId}, (rs, rowNum) -> {
+        String sql = "SELECT * FROM cd WHERE cd_id = ? AND cd_type_id = '001'";
+        return jdbcTemplate.queryForObject(sql, new Object[]{ctId},
+                (rs, rowNum) -> {
             BoardCtDto boardCtDto = new BoardCtDto();
             boardCtDto.setBoardCtId(rs.getString("cd_id"));
             boardCtDto.setBoardCtName(rs.getString("cd_name"));

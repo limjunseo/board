@@ -72,12 +72,13 @@
 </head>
 <body>
 <div class="container">
-    <h1 th:text="${boardCtName}">Board List</h1>
+    <h1 th:text="${boardCtDto.boardCtName}">Board List</h1>
 
-    <!-- 새 글 작성 버튼 -->
     <div class="btn-container">
-        <a href="/board/new" class="new-post-btn">새 글 작성하기</a>
+        <a th:href="@{/board/{boardCtId}/new (boardCtId=${boardCtDto.boardCtId})}"
+           class="new-post-btn">새 글 작성하기</a>
     </div>
+
 
     <ul class="board-list">
         <li th:each="board : ${boardList}" class="board-item">

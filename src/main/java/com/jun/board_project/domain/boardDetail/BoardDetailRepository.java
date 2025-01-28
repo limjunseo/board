@@ -11,7 +11,7 @@ public class BoardDetailRepository {
 
     // 게시글 상세정보 저장
     public void save(BoardDetail boardDetail) {
-        String sql = "insert into board_detail(board_id, content) values(?, ?)";
+        String sql = "insert into board_detail(board_id, board_content) values(?, ?)";
         jdbcTemplate.update(sql, boardDetail.getBoardId(), boardDetail.getBoardContent());
     }
 }

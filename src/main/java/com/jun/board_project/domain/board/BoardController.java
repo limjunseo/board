@@ -1,6 +1,7 @@
 package com.jun.board_project.domain.board;
 
 import com.jun.board_project.domain.boardLike.BoardLike;
+import com.jun.board_project.domain.member.Member;
 import com.jun.board_project.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,15 +22,24 @@ public class BoardController {
 
 
     //새 글 작성 페이지
-    @RequestMapping(value = "/board/new", method = RequestMethod.GET)
-    public String getBoardNewPage(@AuthenticationPrincipal MemberDetails member, @ModelAttribute BoardForm boardForm) {
+    @RequestMapping(value = "/board/{boardCtId}/new", method = RequestMethod.GET)
+    public String getBoardNewPage(@ModelAttribute BoardForm boardForm) {
+        //새 글 기본양식
         boardForm.setDefault();
+
         return "board/newBoardForm";
     }
 
-    //새글 작성 요청
-    @RequestMapping(value = "/board/{boardCtCdId}", method = RequestMethod.POST)
-    public String save(@ModelAttribute BoardForm boardForm) {
+    //새글 작성 POST 요청
+    @RequestMapping(value = "/board/{boardCtId}/new", method = RequestMethod.POST)
+    public String save(@AuthenticationPrincipal MemberDetails member, @ModelAttribute BoardForm boardForm) {
+        if(!member.isEnabled()) {
+            return "redirect:/login";
+        }
+
+        boardForm.setMemberId(member.getUsername());
+
+        System.out.println(boardForm);
         boardService.save(boardForm);
         return "redirect:/";
     }
@@ -41,14 +51,14 @@ public class BoardController {
         List<Board> boardList = boardService.getBoardList(boardCtId);
         BoardCtDto boardCtDto = boardCtIdRepository.findByCtId(boardCtId);
 
-        model.addAttribute("boardCtName", boardCtDto.getBoardCtName());
+        model.addAttribute("boardCtDto", boardCtDto);
         model.addAttribute("boardList", boardList);
         return "board/boardListPage";
     }
 
     //게시글과 게시글 상세 정보 조회
     @RequestMapping(value = "/board/{boardCtId}/{boardId}", method = RequestMethod.GET)
-    public String getBoard(@PathVariable("boardId") Long boardId, ModelMap model) {
+    public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId, ModelMap model) {
         Board board = boardService.getBoard(boardId);
         model.addAttribute("board", board);
         return "board";

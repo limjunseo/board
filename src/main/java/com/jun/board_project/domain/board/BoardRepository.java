@@ -13,11 +13,13 @@ public class BoardRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public Board save(Board board) {
+        System.out.println("board = " + board);
         String sql =
-                "INSERT INTO board (user_id, board_category_code, board_title, board_created_date) VALUES (?, ?, ?, ?)";
+                "INSERT INTO board (board_id, member_id, board_ct_id, board_title, board_created_dt) VALUES (?, ?, ?, ?, ?)";
 
 
-        jdbcTemplate.update(sql, board.getMemberId(), board.getBoardCtId(), board.getBoardTitle(), new java.sql.Timestamp(System.currentTimeMillis()));
+        jdbcTemplate.update(sql,board.getBoardId(), board.getMemberId(), board.getBoardCtId(), board.getBoardTitle(),
+                new java.sql.Timestamp(System.currentTimeMillis()));
         return board;
     }
 
@@ -28,18 +30,18 @@ public class BoardRepository {
 
     //max + 1 채번
     public int nextVal() {
-        String sql = "select nvl(max(board_id), 1) from board";
+        String sql = "select nvl(max(board_id), 1) + 1 from board";
         return jdbcTemplate.queryForObject(sql, int.class);
     }
 
-    public Board findById(Long boardId) {
+    public Board findById(int boardId) {
         String sql = "select * from board where board_id = ?";
         return jdbcTemplate.queryForObject(sql, new BoardRowMapper(), boardId);
     }
 
     //특정 카테고리 게시글 조회 페이지별로 10개씩
     public List<Board> findAllByBoardCtId(String boardCtId) {
-        String sql = "select * from board where board_category_cd = ?";
+        String sql = "select * from board where board_ct_id = ?";
         return jdbcTemplate.query(sql, new BoardRowMapper(), boardCtId);
     }
 

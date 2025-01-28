@@ -26,6 +26,7 @@ public class BoardService {
                 .boardId(boardId)
                 .boardTitle(boardForm.getBoardTitle())
                 .memberId(boardForm.getMemberId())
+                .boardCtId(boardForm.getBoardCtId())
                 .build();
         boardRepository.save(board);
 
@@ -38,7 +39,7 @@ public class BoardService {
         return boardId;
     }
 
-    public Board getBoard(Long boardId) {
+    public Board getBoard(int boardId) {
         return boardRepository.findById(boardId);
     }
 

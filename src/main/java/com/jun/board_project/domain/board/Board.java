@@ -1,13 +1,11 @@
 package com.jun.board_project.domain.board;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder @Getter
