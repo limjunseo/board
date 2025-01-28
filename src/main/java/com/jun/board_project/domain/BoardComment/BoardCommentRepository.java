@@ -19,6 +19,7 @@ public class BoardCommentRepository {
         return jdbcTemplate.query(sql, new BoardCommentRowMapper(), boardId);
     }
 
+    //댓글, 대댓글 한번에 저장.
     public int saveComment(BoardComment boardComment) {
         String sql =
                 "insert into board_comment(board_id, board_id, comment_id, comment_seq, comment_content, member_id "
