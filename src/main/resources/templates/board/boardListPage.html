@@ -3,92 +3,173 @@
 <head>
     <title>Board List</title>
     <style>
+        /* 기본 스타일 (젠슨황 스타일) */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; /* 다크 모드 */
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: 80%;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #1e1e1e;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
+
         h1 {
             text-align: center;
-            color: #333;
+            color: #76ff03; /* 엔비디아 느낌의 네온 그린 */
         }
+
+        /* 게시글 리스트 */
         .board-list {
             list-style-type: none;
             padding: 0;
+            margin-bottom: 80px;
         }
+
         .board-item {
             padding: 15px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #444;
+            transition: background 0.3s ease;
         }
-        .board-item:last-child {
-            border-bottom: none;
+
+        .board-item:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
+
         .board-title {
             font-size: 1.2em;
-            color: #007bff;
+            color: #76ff03;
             text-decoration: none;
+            font-weight: bold;
         }
+
         .board-title:hover {
             text-decoration: underline;
         }
+
         .board-meta {
             font-size: 0.9em;
-            color: #666;
+            color: #b0bec5;
         }
-        .new-post-btn {
+
+        /* 페이지네이션 컨테이너 (하단 고정) */
+        .pagination-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #1e1e1e;
+            padding: 15px 0;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination a {
             display: inline-block;
-            padding: 15px 30px;
-            margin: 20px 0;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: #fff;
-            font-size: 1.1em;
-            font-weight: bold;
+            padding: 12px 18px;
+            color: #76ff03;
             text-decoration: none;
-            border-radius: 30px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .pagination a.active {
+            background-color: #76ff03;
+            color: #000;
+            border-color: #76ff03;
+        }
+
+        .pagination a:hover {
+            background: rgba(118, 255, 3, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* 새 글 작성 버튼 (페이지네이션 위로 배치) */
+        .new-post-btn {
+            position: fixed;
+            bottom: 90px; /* 페이지네이션과 겹치지 않도록 조정 */
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #76ff03, #1e1e1e);
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
             text-align: center;
+            line-height: 70px;
+            border-radius: 50%;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(118, 255, 3, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
         }
+
         .new-post-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(118, 255, 3, 0.7);
         }
+
         .new-post-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        .btn-container {
-            text-align: center;
+            transform: scale(1);
+            box-shadow: 0 6px 15px rgba(118, 255, 3, 0.5);
         }
     </style>
 </head>
 <body>
+
 <div class="container">
     <h1 th:text="${boardCtDto.boardCtName}">Board List</h1>
-
-    <div class="btn-container">
-        <a th:href="@{/board/{boardCtId}/new (boardCtId=${boardCtDto.boardCtId})}"
-           class="new-post-btn">새 글 작성하기</a>
-    </div>
-
 
     <ul class="board-list">
         <li th:each="board : ${boardList}" class="board-item">
             <a th:href="@{/board/{id}(id=${board.boardId})}" th:text="${board.boardTitle}" class="board-title"></a>
             <div class="board-meta">
-                <span th:text="'Posted by ' + ${board.userId}"></span> |
+                <span th:text="'Posted by ' + ${board.memberId}"></span> |
                 <span th:text="${#dates.format(board.boardCreatedDt, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
         </li>
     </ul>
 </div>
+
+<!-- 새 글 작성 버튼 (페이지네이션 위로 배치) -->
+<a th:href="@{/board/new}" class="new-post-btn">+</a>
+
+<!-- 페이지 네비게이션 -->
+<div class="pagination-container">
+    <div class="pagination">
+        <!-- 이전 버튼 -->
+        <a th:if="${currentPage > 10}"
+           th:href="@{/board(page=${currentPage - 10})}"
+           class="prev">이전</a>
+
+        <!-- 페이지 번호 -->
+        <a th:each="i : ${#numbers.sequence((currentPage - 1) / 10 * 10 + 1, ((currentPage - 1) / 10 + 1) * 10)}"
+           th:href="@{/board(page=${i})}"
+           th:classappend="${currentPage == i} ? 'active'"
+           th:text="${i}"></a>
+
+        <!-- 다음 버튼 -->
+        <a th:if="${currentPage <= 90}"
+           th:href="@{/board(page=${currentPage + 10})}"
+           class="next">다음</a>
+    </div>
+</div>
+
 </body>
 </html>

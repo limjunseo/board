@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class BoardController {
 
     //새 글 작성 페이지
     @RequestMapping(value = "/board/{boardCtId}/new", method = RequestMethod.GET)
-    public String getBoardNewPage(@ModelAttribute BoardForm boardForm) {
+    public String getBoardNewFormPage(@ModelAttribute BoardForm boardForm) {
         //새 글 기본양식
         boardForm.setDefault();
 
@@ -39,7 +36,6 @@ public class BoardController {
 
         boardForm.setMemberId(member.getUsername());
 
-        System.out.println(boardForm);
         boardService.save(boardForm);
         return "redirect:/";
     }
@@ -47,10 +43,15 @@ public class BoardController {
 
     //특정 카테고리 게시글 리스트 조회
     @RequestMapping(value = "/board/{boardCtId}", method = RequestMethod.GET)
-    public String getBoardList(@PathVariable("boardCtId") String boardCtId, ModelMap model) {
+    public String getBoardList(@PathVariable("boardCtId") String boardCtId,
+                               @RequestParam(value = "page", defaultValue = "1") int page,
+                               ModelMap model) {
+
+        System.out.println("boardCtId : " + boardCtId);
         List<Board> boardList = boardService.getBoardList(boardCtId);
         BoardCtDto boardCtDto = boardCtIdRepository.findByCtId(boardCtId);
 
+        model.addAttribute("currentPage", page);     // 현재 페이지 번호
         model.addAttribute("boardCtDto", boardCtDto);
         model.addAttribute("boardList", boardList);
         return "board/boardListPage";

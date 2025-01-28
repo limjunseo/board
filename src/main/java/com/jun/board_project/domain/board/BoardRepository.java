@@ -15,7 +15,7 @@ public class BoardRepository {
     public Board save(Board board) {
         System.out.println("board = " + board);
         String sql =
-                "INSERT INTO board (board_id, member_id, board_ct_id, board_title, board_created_dt) VALUES (?, ?, ?, ?, ?)";
+                "insert into board (board_id, member_id, board_ct_id, board_title, board_created_dt) valeus (?, ?, ?, ?, ?)";
 
 
         jdbcTemplate.update(sql,board.getBoardId(), board.getMemberId(), board.getBoardCtId(), board.getBoardTitle(),

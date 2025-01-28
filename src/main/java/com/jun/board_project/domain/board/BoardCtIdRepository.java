@@ -14,7 +14,7 @@ public class BoardCtIdRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public List<BoardCtDto> findByCdTypeId(String cdTypeId) {
-        String sql = "SELECT * FROM cd WHERE cd_type_id = ?";
+        String sql = "select * from cd where cd_type_id = ?";
         return jdbcTemplate.query(sql,  new Object[]{cdTypeId}, (rs, rowNum) -> {
             BoardCtDto boardCtDto = new BoardCtDto();
             boardCtDto.setBoardCtId(rs.getString("cd_id"));
@@ -23,8 +23,9 @@ public class BoardCtIdRepository {
         });
     }
 
+
     public BoardCtDto findByCtId(String ctId) {
-        String sql = "SELECT * FROM cd WHERE cd_id = ? AND cd_type_id = '001'";
+        String sql = "select * from cd where cd_id = ? and cd_type_id = '001'";
         return jdbcTemplate.queryForObject(sql, new Object[]{ctId},
                 (rs, rowNum) -> {
             BoardCtDto boardCtDto = new BoardCtDto();

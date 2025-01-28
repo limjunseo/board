@@ -10,9 +10,10 @@ public class BoardRowMapper implements RowMapper<Board> {
     public Board mapRow(ResultSet rs, int rowNum) throws SQLException {
         Board board = Board.builder()
                 .boardId(rs.getInt("board_id"))
-                .memberId(rs.getString("user_id"))
-                .boardCtId(rs.getString("board_category_code"))
+                .memberId(rs.getString("member_id"))
+                .boardCtId(rs.getString("board_ct_id"))
                 .boardTitle(rs.getString("board_title"))
+                .boardCreatedDt(rs.getTimestamp("board_created_dt"))
                 .build();
         return board;
     }
