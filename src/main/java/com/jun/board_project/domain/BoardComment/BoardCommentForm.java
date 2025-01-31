@@ -1,11 +1,15 @@
 package com.jun.board_project.domain.BoardComment;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@AllArgsConstructor
+@Getter @Builder @Setter
 public class BoardCommentForm {
     private int boardId;
-
-    private int commentId;
-
-    private int commentSeq;
 
     private String memberId;
 
@@ -14,8 +18,6 @@ public class BoardCommentForm {
     public BoardComment toBoard() {
         return BoardComment.builder()
                 .boardId(boardId)
-                .commentId(commentId)
-                .commentSeq(commentSeq)
                 .memberId(memberId)
                 .commentContent(commentContent)
                 .build();

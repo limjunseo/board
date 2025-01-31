@@ -115,18 +115,17 @@
                 <!-- 댓글 내용 -->
                 <div class="content" th:text="${comment.commentContent}">댓글 내용</div>
 
-                <!-- 대댓글 작성 버튼 -->
-                <div class="reply">
+                <!-- 댓글인 경우에만 '답글 작성' 버튼 표시 -->
+                <div class="reply" th:if="${comment.commentSeq == 1}">
                     <a th:href="@{'#reply-form-' + ${comment.commentId}}"
                        th:onclick="document.getElementById('reply-form-' + [[${comment.commentId}]]).style.display='block'; return false;">답글 작성</a>
                 </div>
 
                 <!-- 대댓글 작성 폼 (숨김 처리) -->
                 <div class="reply-form" th:attr="id='reply-form-' + ${comment.commentId}" style="display: none;">
-                    <form th:action="@{/board/{boardCtId}/{boardId}/comment(boardCtId=${board.boardCtId}, boardId=${board.boardId})}" method="post">
+                    <form th:action="@{/board/{boardCtId}/{boardId}/comment/{commentId}
+                    (boardCtId=${board.boardCtId}, boardId=${board.boardId}, commentId=${comment.commentId})}" method="post">
                         <textarea name="content" placeholder="답글 내용을 입력하세요"></textarea>
-                        <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
-                        <input type="hidden" name="commentSeq" value="2"/> <!-- 대댓글은 항상 2 이상의 seq -->
                         <button type="submit">답글 등록</button>
                     </form>
                 </div>
@@ -137,8 +136,6 @@
         <div class="new-comment-form">
             <form th:action="@{/board/{boardCtId}/{boardId}/comment(boardCtId=${board.boardCtId}, boardId=${board.boardId})}" method="post">
                 <textarea name="content" placeholder="댓글을 입력하세요"></textarea>
-                <input type="hidden" name="commentId" value="0"/> <!-- 댓글의 기본 commentId는 0 -->
-                <input type="hidden" name="commentSeq" value="1"/> <!-- 기본 댓글은 seq 1 -->
                 <button type="submit">댓글 등록</button>
             </form>
         </div>

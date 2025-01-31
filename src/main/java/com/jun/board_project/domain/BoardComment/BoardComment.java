@@ -27,5 +27,13 @@ public class BoardComment {
 
     private Timestamp commentCreatedDt;
 
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public void setDefaultCommentSeq() {
+        this.commentSeq = 1;
+    }
+
 
 }
