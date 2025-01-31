@@ -19,6 +19,15 @@ public class BoardCommentService {
         return boardCommentRepository.saveComment(boardComment);
     }
 
+    @Transactional
+    public int saveCommentRe(BoardComment boardComment) {
+        int commentSeq = boardCommentRepository.findCommentSeqByBoardIdAndCommentId(
+                boardComment.getBoardId(), boardComment.getCommentId());
+
+        boardComment.setCommentSeq(commentSeq);
+        return boardCommentRepository.saveComment(boardComment);
+    }
+
     public List<BoardComment> findCommentByBoardId(int boardId) {
         return boardCommentRepository.findCommentByBoardId(boardId);
     }

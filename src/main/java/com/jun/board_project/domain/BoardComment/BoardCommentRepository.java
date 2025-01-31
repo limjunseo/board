@@ -20,7 +20,7 @@ public class BoardCommentRepository {
         return jdbcTemplate.query(sql, new BoardCommentRowMapper(), boardId);
     }
 
-    //기본 댓글 저장.
+    //기본 댓글, 대댓글 저장
     public int saveComment(BoardComment boardComment) {
         String sql =
                 "insert into board_comment(board_id, comment_id, comment_seq, " +
@@ -34,6 +34,8 @@ public class BoardCommentRepository {
 
         return boardComment.getCommentId();
     }
+
+
 
     //댓글 commentId 가져오기
     public int findCommentIdByBoardId(int boardId) {

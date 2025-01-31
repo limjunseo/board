@@ -35,5 +35,9 @@ public class BoardComment {
         this.commentSeq = 1;
     }
 
+    public void setCommentSeq(int commentSeq) {
+        this.commentSeq = commentSeq;
+    }
+
 
 }
