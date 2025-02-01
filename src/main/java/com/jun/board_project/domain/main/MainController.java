@@ -19,6 +19,7 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getMainPage(ModelMap model) {
         List<BoardCtDto> boardCtDtoList = boardCtIdRepository.findByCdTypeId("001");
+
         model.put("boardCtList", boardCtDtoList);
         return "index";
     }

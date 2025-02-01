@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>내 프로필</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .bookmarked-list {
+            margin-top: 20px;
+        }
+
+        .bookmarked-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .bookmarked-item a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .bookmarked-item a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>내 프로필</h1>
+    <h2>북마크한 게시글</h2>
+
+    <div class="bookmarked-list">
+        <div th:each="board : ${bookmarkedBoards}" class="bookmarked-item">
+            <a th:href="@{/board/{boardCtId}/{boardId}(boardCtId=${board.boardCtId}, boardId=${board.boardId})}"
+               th:text="${board.boardTitle}">게시글 제목</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.jun.board_project.domain.boardComment;
 
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLike;
+import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,11 @@ public class BoardCommentService {
     //댓글 좋아요 저장
     public void saveBoardCommentLike(BoardCommentLike boardCommentLike){
         boardCommentLikeRepository.saveBoardCommentLike(boardCommentLike);
+    }
+    
+    //member가 특정 board에서 좋아요 누른 댓글들 가져오기
+    public List<BoardCommentLikeDto> findLikedBoardCommentByBoardIdAndMemberId(int boardId, String memberId) {
+        return boardCommentLikeRepository.findLikedBoardComment(boardId, memberId);
     }
 
 

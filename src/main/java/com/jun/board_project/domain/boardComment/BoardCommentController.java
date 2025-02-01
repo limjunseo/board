@@ -42,6 +42,8 @@ public class BoardCommentController {
                               @ModelAttribute BoardCommentForm boardCommentForm,
                                  @AuthenticationPrincipal MemberDetails member) {
 
+        System.out.println("commentId = " + commentId);
+
         BoardComment boardComment = BoardComment.builder()
                 .boardId(boardId)
                 .commentId(commentId)

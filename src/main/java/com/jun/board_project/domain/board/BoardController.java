@@ -2,6 +2,8 @@ package com.jun.board_project.domain.board;
 
 import com.jun.board_project.domain.boardComment.BoardCommentDto;
 import com.jun.board_project.domain.boardComment.BoardCommentService;
+import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
+import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeRepository;
 import com.jun.board_project.domain.boardLike.BoardLike;
 import com.jun.board_project.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,6 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final BoardCtIdRepository  boardCtIdRepository;
-    private final BoardCommentService boardComentService;
     private final BoardCommentService boardCommentService;
 
 
@@ -66,6 +67,16 @@ public class BoardController {
                            @AuthenticationPrincipal MemberDetails member, ModelMap model) {
         BoardDto boarddto = boardService.getBoard(boardId);
         List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
+        List<BoardCommentLikeDto> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
+
+        //좋아요한 댓글 is liked true 설정
+        for (BoardCommentDto boardCommentDto : boardCommentListDto) {
+            for (BoardCommentLikeDto boardCommentLikeDto : boardCommentLikeListDto) {
+                if (boardCommentDto.getCommentId() == boardCommentLikeDto.getCommentId() && boardCommentDto.getCommentSeq() == boardCommentLikeDto.getCommentSeq()) {
+                    boardCommentDto.setLiked(true);
+                }
+            }
+        }
 
         model.addAttribute("boardCommentList", boardCommentListDto);
         model.addAttribute("board", boarddto);

@@ -27,4 +27,10 @@ public class BoardCommentDto {
 
     private int commentLikeCnt;
 
+    boolean isLike;
+
+    public void setLiked(boolean isLike) {
+        this.isLike = isLike;
+    }
+
 }

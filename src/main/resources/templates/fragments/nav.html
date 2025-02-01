@@ -44,23 +44,30 @@
             color: #f0f0f0;
         }
 
-        /* 로그인 상태 텍스트 */
+        /* 로그인 상태 표시 */
+        .auth-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .username {
             font-size: 1em;
             font-weight: bold;
-            margin-right: 20px;
         }
     </style>
 </head>
 <body>
 <div th:fragment="nav" class="nav">
     <a href="/">Home</a>
-    <!-- 로그인되지 않은 상태 -->
+
+    <!-- 로그인되지 않은 상태: Login 버튼만 표시 -->
     <a sec:authorize="isAnonymous()" href="/login">Login</a>
 
-    <!-- 로그인된 상태 -->
+    <!-- 로그인된 상태: 사용자 이름과 Logout 버튼만 표시 -->
     <div sec:authorize="isAuthenticated()" class="auth-links">
-        <span class="username" th:text="${member}"></span>
+        <span class="username" sec:authentication="name"></span>
+        <a href="/profile">Profile</a>
         <a href="/logout">Logout</a>
     </div>
 </div>

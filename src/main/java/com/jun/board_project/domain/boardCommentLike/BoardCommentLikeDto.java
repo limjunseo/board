@@ -1,15 +1,15 @@
 package com.jun.board_project.domain.boardCommentLike;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
-public class BoardCommentLikeForm {
+@Builder
+@Getter @Setter
+public class BoardCommentLikeDto {
     private int commentId;
 
     private int commentSeq;
-
 }
