@@ -10,8 +10,8 @@ import lombok.Setter;
 public class BoardCommentLikeForm {
     private int boardId;
 
-    private int boardCommentId;
+    private int commentId;
 
-    private int boardCommentSeq;
+    private int commentSeq;
 
 }

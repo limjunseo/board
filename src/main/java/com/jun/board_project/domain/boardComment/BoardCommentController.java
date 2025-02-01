@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BoardCommentController {
     private final BoardCommentService boardCommentService;
 
+    //기본댓글 POST 요청
     @RequestMapping(value = "/board/{boardCtId}/{boardId}/comment", method = RequestMethod.POST)
     public String saveComment(@PathVariable("boardCtId") String boardCtId,
                               @PathVariable("boardId") int boardId,
@@ -63,9 +64,12 @@ public class BoardCommentController {
 
         BoardCommentLike boardCommentLike
                 = BoardCommentLike.builder()
-                .commentId(boardCommentLikeForm.getBoardCommentId())
-                .boardId(boardCommentLikeForm.getBoardId())
-                .commentSeq(boardCommentLikeForm.getBoardCommentSeq()).build();
+                .commentId(boardCommentLikeForm.getCommentId())
+                .boardId(boardId)
+                .commentSeq(boardCommentLikeForm.getCommentSeq())
+                .memberId(member.getUsername()).build();
+
+        System.out.println(boardCommentLike);
 
         boardCommentService.saveBoardCommentLike(boardCommentLike);
         return "redirect:/board/" + boardCtId + "/" + boardId;

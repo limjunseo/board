@@ -49,53 +49,12 @@
             margin-bottom: 8px;
         }
 
-        .comment .reply {
-            margin-top: 5px;
-            text-align: right;
-        }
-
-        .comment .reply a {
-            font-size: 0.9em;
-            color: #007bff;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
         .reply-comment {
             margin-left: 30px;
             border-left: 3px solid #007bff;
             padding-left: 15px;
         }
 
-        .new-comment-form,
-        .reply-form {
-            margin-top: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 1em;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        /* 좋아요 버튼 스타일 */
         .like-button {
             display: flex;
             align-items: center;
@@ -120,32 +79,29 @@
 </head>
 <body>
 <div class="container">
-    <!-- 게시글 제목 및 내용 -->
     <h1 th:text="${board.boardTitle}">게시글 제목</h1>
     <div class="content" th:text="${board.boardContent}">게시글 내용</div>
 
-    <!-- 댓글 섹션 -->
     <div class="comments-section">
         <h2>댓글</h2>
-
-        <!-- 댓글 및 대댓글 출력 -->
         <ul>
             <li th:each="comment : ${boardCommentList}" class="comment" th:classappend="${comment.commentSeq > 1} ? 'reply-comment'">
                 <div>
-                    <!-- 댓글 작성자 및 작성 날짜 -->
                     <div class="meta">
                         <span th:text="${comment.memberId}">작성자</span> |
                         <span th:text="${#dates.format(comment.commentCreatedDt, 'yyyy-MM-dd HH:mm')}">작성 날짜</span>
                     </div>
-
-                    <!-- 댓글 내용 -->
                     <div class="content" th:text="${comment.commentContent}">댓글 내용</div>
                 </div>
 
-                <!-- 좋아요 버튼 -->
-                <button class="like-button" th:attr="data-comment-id=${comment.commentId}">
-                    👍 <span class="like-count" th:text="${comment.likeCount}">0</span>
+                <button class="like-button"
+                        th:attr="data-comment-id=${comment.commentId},
+                                 data-comment-seq=${comment.commentSeq},
+                                 data-board-ctid=${board.boardCtId},
+                                 data-board-id=${board.boardId}">
+                    👍 <span class="like-count" th:text="${comment.commentLikeCnt}">0</span>
                 </button>
+
             </li>
         </ul>
     </div>
@@ -163,6 +119,9 @@
                 }
 
                 const commentId = this.getAttribute("data-comment-id");
+                const commentSeq = this.getAttribute("data-comment-seq"); // 추가된 commentSeq
+                const boardCtId = this.getAttribute("data-board-ctid"); // path에서 사용됨
+                const boardId = this.getAttribute("data-board-id"); // path에서 사용됨
                 const likeCountSpan = this.querySelector(".like-count");
 
                 // 좋아요 개수 증가
@@ -171,15 +130,20 @@
                 // 버튼 비활성화
                 this.classList.add("disabled");
 
-                // AJAX 요청 보내기
-                fetch(`/api/comment/${commentId}/like`, {
+                // form-data 방식으로 AJAX 요청 보내기
+                const formData = new URLSearchParams();
+                formData.append("commentId", commentId);
+                formData.append("commentSeq", commentSeq);
+
+                fetch(`/board/${boardCtId}/${boardId}/comment/like`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ liked: true })
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: formData.toString()
                 }).catch(err => console.error("좋아요 요청 실패:", err));
             });
         });
     });
+
 </script>
 
 </body>

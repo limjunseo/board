@@ -17,8 +17,8 @@ public class BoardCommentRepository {
                 (select count(*)
                 from board_comment_like
                 where a.board_id = board_id
-                and a.board_comment_id = board_comment_id
-                and a.board_comment_seq = board_comment_seq) as like_cnt
+                and a.comment_id = comment_id
+                and a.comment_seq = comment_seq) as like_cnt
         from board_comment a
         where a.board_id = ?""";
 

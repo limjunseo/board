@@ -62,7 +62,8 @@ public class BoardController {
 
     //게시글과 게시글 상세 정보 조회
     @RequestMapping(value = "/board/{boardCtId}/{boardId}", method = RequestMethod.GET)
-    public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId, ModelMap model) {
+    public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId,
+                           @AuthenticationPrincipal MemberDetails member, ModelMap model) {
         BoardDto boarddto = boardService.getBoard(boardId);
         List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
 

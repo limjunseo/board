@@ -2,8 +2,10 @@ package com.jun.board_project.domain.boardCommentLike;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 
+@ToString
 @Getter @Builder
 public class BoardCommentLike {
     private int boardId;

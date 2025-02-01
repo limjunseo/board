@@ -25,6 +25,6 @@ public class BoardCommentDto {
 
     private Timestamp commentCreatedDt;
 
-    private int boardCommentLikeCnt;
+    private int commentLikeCnt;
 
 }

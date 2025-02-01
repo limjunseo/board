@@ -16,7 +16,8 @@ public class BoardCommentLikeRepository {
                         +"values(?, ?, ?, ?)";
 
         jdbcTemplate.update(sql,
-                boardCommentLike.getBoardId(), boardCommentLike.getCommentSeq(), boardCommentLike.getMemberId());
+                boardCommentLike.getBoardId(), boardCommentLike.getCommentId(),
+                boardCommentLike.getCommentSeq(), boardCommentLike.getMemberId());
     }
 
 }

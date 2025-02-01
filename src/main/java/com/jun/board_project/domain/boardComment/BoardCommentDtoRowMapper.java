@@ -15,6 +15,6 @@ public class BoardCommentDtoRowMapper implements RowMapper<BoardCommentDto> {
                 .commentContent(rs.getString("comment_content"))
                 .memberId(rs.getString("member_id"))
                 .commentCreatedDt(rs.getTimestamp("comment_created_dt"))
-                .boardCommentLikeCnt(rs.getInt("like_cnt")).build();
+                .commentLikeCnt(rs.getInt("like_cnt")).build();
     }
 }
