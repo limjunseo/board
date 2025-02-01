@@ -1,10 +1,9 @@
-package com.jun.board_project.domain.BoardComment;
+package com.jun.board_project.domain.boardComment;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -12,12 +11,20 @@ import java.util.List;
 public class BoardCommentRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<BoardComment> findCommentByBoardId(int boardId) {
-        String sql =
-                "select * from board_comment "
-                +"where board_id = ?";
+    public List<BoardCommentDto> findCommentByBoardId(int boardId) {
+        String sql = """
+        select a.*,
+                (select count(*)
+                from board_comment_like
+                where a.board_id = board_id
+                and a.board_comment_id = board_comment_id
+                and a.board_comment_seq = board_comment_seq) as like_cnt
+        from board_comment a
+        where a.board_id = ?""";
 
-        return jdbcTemplate.query(sql, new BoardCommentRowMapper(), boardId);
+
+
+        return jdbcTemplate.query(sql, new BoardCommentDtoRowMapper(), boardId);
     }
 
     //기본 댓글, 대댓글 저장
@@ -34,6 +41,7 @@ public class BoardCommentRepository {
 
         return boardComment.getCommentId();
     }
+
 
 
 

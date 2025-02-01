@@ -1,15 +1,14 @@
-package com.jun.board_project.domain.BoardComment;
+package com.jun.board_project.domain.boardComment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 
-@NoArgsConstructor
+@Getter @Builder
 @AllArgsConstructor
-@Builder @Getter
-public class BoardCommentLike {
+public class BoardCommentDto {
     private int boardId;
 
     //기준 댓글번호
@@ -20,5 +19,12 @@ public class BoardCommentLike {
 
     //pk
 
+    private String commentContent;
+
     private String memberId;
+
+    private Timestamp commentCreatedDt;
+
+    private int boardCommentLikeCnt;
+
 }

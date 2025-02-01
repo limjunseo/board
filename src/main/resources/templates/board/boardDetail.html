@@ -38,24 +38,23 @@
             margin-bottom: 10px;
             background-color: #f0f0f0;
             border-radius: 10px;
-            position: relative;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .comment .meta {
             font-size: 0.85em;
             color: #555;
-        }
-
-        .comment .actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 8px;
         }
 
         .comment .reply {
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .comment .reply a {
             font-size: 0.9em;
             color: #007bff;
             cursor: pointer;
@@ -63,8 +62,8 @@
         }
 
         .reply-comment {
-            margin-left: 20px;  /* 너무 깊게 들어가지 않도록 조절 */
-            border-left: 2px solid #007bff;
+            margin-left: 30px;
+            border-left: 3px solid #007bff;
             padding-left: 15px;
         }
 
@@ -83,57 +82,39 @@
 
         button {
             margin-top: 10px;
-            padding: 8px 16px;
+            padding: 10px 20px;
             font-size: 1em;
             color: #fff;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
         button:hover {
             background-color: #0056b3;
         }
 
-        /* 좋아요 버튼 */
+        /* 좋아요 버튼 스타일 */
         .like-button {
+            display: flex;
+            align-items: center;
             background: none;
             border: none;
             cursor: pointer;
             font-size: 1.2em;
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: #ff4d4d;
         }
 
-        .like-button i {
-            color: #888;
-            transition: color 0.3s ease;
+        .like-button.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
         }
 
-        .like-button.liked i {
-            color: #ff3b30;
-        }
-
-        .like-button:active {
-            transform: scale(1.2);
-        }
-
-        .reply-form {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background: #f8f8f8;
-            border-radius: 5px;
-        }
-
-        .cancel-reply {
-            background: #ccc;
-            color: #333;
-            margin-left: 10px;
+        .like-button span {
+            margin-left: 5px;
+            font-size: 1em;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -150,50 +131,25 @@
         <!-- 댓글 및 대댓글 출력 -->
         <ul>
             <li th:each="comment : ${boardCommentList}" class="comment" th:classappend="${comment.commentSeq > 1} ? 'reply-comment'">
-                <!-- 댓글 작성자 및 작성 날짜 -->
-                <div class="meta">
-                    <span th:text="${comment.memberId}">작성자</span> |
-                    <span th:text="${#dates.format(comment.commentCreatedDt, 'yyyy-MM-dd HH:mm')}">작성 날짜</span>
+                <div>
+                    <!-- 댓글 작성자 및 작성 날짜 -->
+                    <div class="meta">
+                        <span th:text="${comment.memberId}">작성자</span> |
+                        <span th:text="${#dates.format(comment.commentCreatedDt, 'yyyy-MM-dd HH:mm')}">작성 날짜</span>
+                    </div>
+
+                    <!-- 댓글 내용 -->
+                    <div class="content" th:text="${comment.commentContent}">댓글 내용</div>
                 </div>
 
-                <!-- 댓글 내용 -->
-                <div class="content" th:text="${comment.commentContent}">댓글 내용</div>
-
-                <div class="actions">
-                    <!-- 좋아요 버튼 -->
-                    <button class="like-button" th:attr="data-comment-id=${comment.commentId}">
-                        <i class="fa fa-heart"></i> <span class="like-count">0</span>
-                    </button>
-
-                    <!-- 답글 버튼 (대댓글이 아닌 경우에만 표시) -->
-                    <a class="reply" th:if="${comment.commentSeq == 1}"
-                       th:onclick="showReplyForm([[${comment.commentId}]])">답글 작성</a>
-                </div>
-
-                <!-- 대댓글 작성 폼 -->
-                <div class="reply-form" th:attr="id='reply-form-' + ${comment.commentId}">
-                    <form th:action="@{/board/{boardCtId}/{boardId}/comment/{commentId}
-                    (boardCtId=${board.boardCtId}, boardId=${board.boardId}, commentId=${comment.commentId})}" method="post">
-                        <textarea name="commentContent" placeholder="답글 내용을 입력하세요"></textarea>
-                        <button type="submit">답글 등록</button>
-                        <button type="button" class="cancel-reply" onclick="hideReplyForm([[${comment.commentId}]])">취소</button>
-                    </form>
-                </div>
+                <!-- 좋아요 버튼 -->
+                <button class="like-button" th:attr="data-comment-id=${comment.commentId}">
+                    👍 <span class="like-count" th:text="${comment.likeCount}">0</span>
+                </button>
             </li>
         </ul>
-
-        <!-- 새 댓글 작성 -->
-        <div class="new-comment-form">
-            <form th:action="@{/board/{boardCtId}/{boardId}/comment(boardCtId=${board.boardCtId}, boardId=${board.boardId})}" method="post">
-                <textarea name="commentContent" placeholder="댓글을 입력하세요"></textarea>
-                <button type="submit">댓글 등록</button>
-            </form>
-        </div>
     </div>
 </div>
-
-<!-- FontAwesome 아이콘 -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -201,34 +157,29 @@
 
         likeButtons.forEach(button => {
             button.addEventListener("click", function () {
+                if (this.classList.contains("disabled")) {
+                    alert("이미 좋아요를 눌렀습니다.");
+                    return;
+                }
+
                 const commentId = this.getAttribute("data-comment-id");
                 const likeCountSpan = this.querySelector(".like-count");
 
-                // 좋아요 여부 토글
-                const liked = this.classList.toggle("liked");
+                // 좋아요 개수 증가
+                likeCountSpan.textContent = parseInt(likeCountSpan.textContent) + 1;
 
-                // 숫자 변경
-                likeCountSpan.textContent = liked
-                    ? parseInt(likeCountSpan.textContent) + 1
-                    : parseInt(likeCountSpan.textContent) - 1;
+                // 버튼 비활성화
+                this.classList.add("disabled");
 
-                // Ajax 요청 (서버에 좋아요 상태 저장 또는 삭제)
+                // AJAX 요청 보내기
                 fetch(`/api/comment/${commentId}/like`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ liked: liked })
-                }).catch(err => console.error("좋아요 저장 실패:", err));
+                    body: JSON.stringify({ liked: true })
+                }).catch(err => console.error("좋아요 요청 실패:", err));
             });
         });
     });
-
-    function showReplyForm(commentId) {
-        document.getElementById(`reply-form-${commentId}`).style.display = "block";
-    }
-
-    function hideReplyForm(commentId) {
-        document.getElementById(`reply-form-${commentId}`).style.display = "none";
-    }
 </script>
 
 </body>

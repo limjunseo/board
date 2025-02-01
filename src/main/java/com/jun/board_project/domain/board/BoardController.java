@@ -1,7 +1,7 @@
 package com.jun.board_project.domain.board;
 
-import com.jun.board_project.domain.BoardComment.BoardComment;
-import com.jun.board_project.domain.BoardComment.BoardCommentService;
+import com.jun.board_project.domain.boardComment.BoardCommentDto;
+import com.jun.board_project.domain.boardComment.BoardCommentService;
 import com.jun.board_project.domain.boardLike.BoardLike;
 import com.jun.board_project.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
@@ -64,9 +64,9 @@ public class BoardController {
     @RequestMapping(value = "/board/{boardCtId}/{boardId}", method = RequestMethod.GET)
     public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId, ModelMap model) {
         BoardDto boarddto = boardService.getBoard(boardId);
-        List<BoardComment> boardCommentList = boardCommentService.findCommentByBoardId(boardId);
+        List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
 
-        model.addAttribute("boardCommentList", boardCommentList);
+        model.addAttribute("boardCommentList", boardCommentListDto);
         model.addAttribute("board", boarddto);
         return "board/boardDetail";
     }

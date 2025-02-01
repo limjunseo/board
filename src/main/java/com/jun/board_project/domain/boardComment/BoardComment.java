@@ -1,15 +1,12 @@
-package com.jun.board_project.domain.BoardComment;
+package com.jun.board_project.domain.boardComment;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder @Getter
+@Builder @Getter @ToString
 public class BoardComment {
     private int boardId;
 
@@ -26,6 +23,7 @@ public class BoardComment {
     private String memberId;
 
     private Timestamp commentCreatedDt;
+
 
     public void setCommentId(int commentId) {
         this.commentId = commentId;

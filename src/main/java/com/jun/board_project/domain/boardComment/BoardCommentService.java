@@ -1,5 +1,6 @@
-package com.jun.board_project.domain.BoardComment;
+package com.jun.board_project.domain.boardComment;
 
+import com.jun.board_project.domain.boardCommentLike.BoardCommentLike;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class BoardCommentService {
     private final BoardCommentRepository boardCommentRepository;
+    private final com.jun.board_project.domain.boardCommentLike.BoardCommentLikeRepository boardCommentLikeRepository;
 
     @Transactional
     public int saveComment(BoardComment boardComment) {
@@ -28,8 +30,14 @@ public class BoardCommentService {
         return boardCommentRepository.saveComment(boardComment);
     }
 
-    public List<BoardComment> findCommentByBoardId(int boardId) {
+    public List<BoardCommentDto> findCommentByBoardId(int boardId) {
         return boardCommentRepository.findCommentByBoardId(boardId);
+    }
+
+
+    //댓글 좋아요 저장
+    public void saveBoardCommentLike(BoardCommentLike boardCommentLike){
+        boardCommentLikeRepository.saveBoardCommentLike(boardCommentLike);
     }
 
 
