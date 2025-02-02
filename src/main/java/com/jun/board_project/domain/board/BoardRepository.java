@@ -34,13 +34,16 @@ public class BoardRepository {
         return jdbcTemplate.queryForObject(sql, int.class);
     }
 
-    //특정 게시글 상세내용 조회
+    //특정 게시글 상세내용과 좋아요수 반환
     public BoardDto findById(int boardId) {
-        String sql =
-                "select * "
-                +"from board a, board_detail b "
-                +"where a.board_id = b.board_id "
-                +"and a.board_id = ?";
+
+        String sql = """
+    select a.board_id, a.board_title, a.board_created_dt, a.board_ct_id, b.board_content,
+           (select count(*) from board_like where board_id = a.board_id) as like_cnt
+    from board a, board_detail b
+    where a.board_id = b.board_id and a.board_id = ?
+    """;
+
         return jdbcTemplate.queryForObject(sql, new BoardDtoRowMapper() , boardId);
     }
 

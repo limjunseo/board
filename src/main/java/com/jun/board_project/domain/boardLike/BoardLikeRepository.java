@@ -13,4 +13,21 @@ public class BoardLikeRepository {
         String sql = "insert into board_like(board_id, user_id) values(?, ?)";
         jdbcTemplate.update(sql, boardLike.getBoardId(), boardLike.getMemberId());
     }
+
+    //반환값이 없을 경우 'N'으로 반환
+    public String findLikeYn(int boardId, String memberId) {
+        String sql =
+                """
+                select case when exists 
+                (
+                    select '1'
+                    from board_like
+                    where board_id = ?
+                    and member_id = ?
+                ) then 'Y' else 'N' end like_cnt
+                from dual
+                """;
+
+        return jdbcTemplate.queryForObject(sql, String.class, boardId, memberId);
+    }
 }

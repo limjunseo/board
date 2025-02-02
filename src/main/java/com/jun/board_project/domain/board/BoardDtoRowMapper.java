@@ -14,6 +14,7 @@ public class BoardDtoRowMapper implements RowMapper<BoardDto> {
                 .boardContent(rs.getString("board_content"))
                 .boardCreatedDt(rs.getTimestamp("board_created_dt"))
                 .boardCtId(rs.getString("board_ct_id"))
+                .boardLikeCnt(rs.getInt("like_cnt"))
                 .build();
     }
 }

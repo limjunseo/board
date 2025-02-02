@@ -6,6 +6,7 @@ import com.jun.board_project.domain.boardComment.BoardCommentService;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeRepository;
 import com.jun.board_project.domain.boardLike.BoardLike;
+import com.jun.board_project.domain.boardLike.BoardLikeService;
 import com.jun.board_project.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,7 +23,7 @@ public class BoardController {
     private final BoardCtIdRepository  boardCtIdRepository;
     private final BoardCommentService boardCommentService;
     private final BoardBookmarkService boardBookmarkService;
-
+    private final BoardLikeService boardLikeService;
 
 
     //새 글 작성 페이지
@@ -72,6 +73,11 @@ public class BoardController {
         List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
         List<BoardCommentLikeDto> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
         String bookmarkYn = boardBookmarkService.findBookmarkYn(boardId, member.getUsername());
+        String likeYn = boardLikeService.findLikeYn(boardId, member.getUsername());
+
+        boarddto.setBookmarkYn(bookmarkYn); //북마크 여부설정
+        boarddto.setLikeYn(likeYn);
+
         //좋아요한 댓글 is liked true 설정
         for (BoardCommentDto boardCommentDto : boardCommentListDto) {
             for (BoardCommentLikeDto boardCommentLikeDto : boardCommentLikeListDto) {
@@ -81,10 +87,11 @@ public class BoardController {
             }
         }
 
-        //북마크 여부도 같이 전달.
-        model.addAttribute("bookmarkYn", bookmarkYn);
-        model.addAttribute("boardCommentList", boardCommentListDto);
-        model.addAttribute("board", boarddto);
+        
+        //게시글 좋아요숫자, 좋아요여부
+        model.addAttribute("bookmarkYn", bookmarkYn); //북마크 여부
+        model.addAttribute("boardCommentList", boardCommentListDto); //댓글 리스트
+        model.addAttribute("board", boarddto); //게시글 상세내용
         return "board/boardDetail";
     }
 

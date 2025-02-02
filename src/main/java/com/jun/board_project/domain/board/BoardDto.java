@@ -20,4 +20,20 @@ public class BoardDto {
     private String boardContent;
 
     private Timestamp boardCreatedDt;
+
+    private int boardLikeCnt; //좋아요 숫자
+
+    private String bookmarkYn; //북마크 여부
+
+    private String likeYn; //좋아요 여부
+    
+    
+    void setLikeYn(String likeYn) {
+        this.likeYn = likeYn;
+    }
+
+    void setBookmarkYn(String bookmarkYn) {
+        this.bookmarkYn = bookmarkYn;
+    }
+    
 }
