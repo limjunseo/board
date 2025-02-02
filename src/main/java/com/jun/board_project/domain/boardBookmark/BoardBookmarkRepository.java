@@ -24,4 +24,9 @@ public class BoardBookmarkRepository {
         jdbcTemplate.update(sql, boardBookmark.getBoardId(), boardBookmark.getMemberId());
     }
 
+    public String findBookmarkYn(int boardId, String memberId ) {
+        String sql = "select bookmark_yn from board_bookmark where board_id = ? and member_id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, boardId, memberId);
+    }
+
 }

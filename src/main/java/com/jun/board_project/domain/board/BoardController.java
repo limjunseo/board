@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.board;
 
+import com.jun.board_project.domain.boardBookmark.BoardBookmarkService;
 import com.jun.board_project.domain.boardComment.BoardCommentDto;
 import com.jun.board_project.domain.boardComment.BoardCommentService;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
@@ -20,6 +21,8 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardCtIdRepository  boardCtIdRepository;
     private final BoardCommentService boardCommentService;
+    private final BoardBookmarkService boardBookmarkService;
+
 
 
     //새 글 작성 페이지
@@ -68,7 +71,7 @@ public class BoardController {
         BoardDto boarddto = boardService.getBoard(boardId);
         List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
         List<BoardCommentLikeDto> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
-
+        String bookmarkYn = boardBookmarkService.findBookmarkYn(boardId, member.getUsername());
         //좋아요한 댓글 is liked true 설정
         for (BoardCommentDto boardCommentDto : boardCommentListDto) {
             for (BoardCommentLikeDto boardCommentLikeDto : boardCommentLikeListDto) {
@@ -78,6 +81,8 @@ public class BoardController {
             }
         }
 
+        //북마크 여부도 같이 전달.
+        model.addAttribute("bookmarkYn", bookmarkYn);
         model.addAttribute("boardCommentList", boardCommentListDto);
         model.addAttribute("board", boarddto);
         return "board/boardDetail";

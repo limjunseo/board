@@ -24,6 +24,6 @@ public class BoardBookmarkController {
         boardBookmark.setMemberId(member.getUsername());
         System.out.println("boardBookmark : " + boardBookmark);
         boardBookmarkService.saveOrBoardBookmark(boardBookmark);
-        return "";
+        return "redirect:/board/" + boardCtId + "/" + boardId;
     }
 }

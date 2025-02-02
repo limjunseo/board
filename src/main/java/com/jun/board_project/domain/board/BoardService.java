@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.board;
 
+import com.jun.board_project.domain.boardBookmark.BoardBookmarkService;
 import com.jun.board_project.domain.boardDetail.BoardDetail;
 import com.jun.board_project.domain.boardDetail.BoardDetailRepository;
 import com.jun.board_project.domain.boardLike.BoardLike;
@@ -51,4 +52,6 @@ public class BoardService {
     public List<Board> getBoardList(String boardCtId) {
         return boardRepository.findAllByBoardCtId(boardCtId);
     }
+
+
 }

@@ -12,4 +12,9 @@ public class BoardBookmarkService {
     public void saveOrBoardBookmark(BoardBookmark boardBookmark) {
         boardBookmarkRepository.insertOrUpdateBoardBookmark(boardBookmark);
     }
+
+    //북마크여부 조회
+    public String findBookmarkYn(int boardId, String memberId){
+        return boardBookmarkRepository.findBookmarkYn(boardId, memberId);
+    }
 }

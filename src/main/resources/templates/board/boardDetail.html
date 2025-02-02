@@ -142,12 +142,13 @@
     <h1 th:text="${board.boardTitle}">게시글 제목</h1>
 
 
-    <!-- 수정 후: boardCtId 속성 추가 -->
+    <!-- bookmarkYn이 'Y'이면 bookmarked 클래스를 추가하고, 아이콘은 '⭐'로 표시 -->
     <button id="bookmark-button"
-            th:classappend="${bookmarkYn} ? 'bookmarked'"
+            th:classappend="${bookmarkYn eq 'Y'} ? 'bookmarked'"
             th:attr="data-board-ctid=${board.boardCtId}, data-board-id=${board.boardId}">
-        <span th:text="${bookmarkYn} ? '⭐' : '☆'"></span>
+        <span th:text="${bookmarkYn eq 'Y'} ? '⭐' : '☆'"></span>
     </button>
+
 
 
     <div class="content" th:text="${board.boardContent}">게시글 내용</div>
@@ -244,27 +245,30 @@
             const boardCtId = this.getAttribute("data-board-ctid");
             const boardId = this.getAttribute("data-board-id");
 
-            // 나머지 로직은 동일
-
-            const bookmarkYn = this.classList.contains("bookmarked") ? 'Y' : 'N';
-            this.innerHTML = bookmarkYn === 'Y' ? "☆" : "⭐";
+            // 먼저 토글하여 현재 상태를 변경
             this.classList.toggle("bookmarked");
 
+            // 토글 이후의 상태를 읽어 bookmarkYn 변수에 할당 ('Y' 또는 'N')
+            const bookmarkYn = this.classList.contains("bookmarked") ? 'Y' : 'N';
 
-            const xmlData = `<bookmark>
-        <boardCtId>${boardCtId}</boardCtId>
-        <boardId>${boardId}</boardId>
-        <bookmarked>${!bookmarkYn}</bookmarked>
-    </bookmark>`;
+            // 새로운 상태에 따라 아이콘 업데이트 (예시: 'Y'이면 꽉 찬 별, 'N'이면 빈 별)
+            this.innerHTML = bookmarkYn === 'Y' ? "⭐" : "☆";
 
-            fetch(`/board/${boardCtId}/${boardId}/bookmark?boardCtId=${boardCtId}&boardId=${boardId}`, {
+            // 이후 API 요청 등 처리
+            const formData = new URLSearchParams();
+            formData.append("boardCtId", boardCtId);
+            formData.append("boardId", boardId);
+            formData.append("bookmarkYn", bookmarkYn);
+
+            fetch(`/board/${boardCtId}/${boardId}/bookmark`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/xml"
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: xmlData
+                body: formData.toString()
             }).catch(err => console.error("❌ 북마크 요청 실패:", err));
         });
+
 
 
 
