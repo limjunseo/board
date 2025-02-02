@@ -1,13 +1,10 @@
 package com.jun.board_project.domain.boardBookmark;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder @Getter
+@Builder @Getter @ToString
 public class BoardBookmark {
     private String memberId;
 
@@ -15,4 +12,9 @@ public class BoardBookmark {
 
     //북마크 여부
     private char bookmarkYn;
+
+
+    void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
 }

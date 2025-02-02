@@ -68,7 +68,7 @@
         }
 
         .like-button.liked {
-            color: #1877f2; /* 페이스북 파랑 */
+            color: #1877f2;
         }
 
         .like-count {
@@ -89,19 +89,84 @@
             text-decoration: underline;
         }
 
+        .comment-form {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            resize: none;
+        }
+
+        .submit-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        #bookmark-button {
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: gray;
+        }
+
+        #bookmark-button.bookmarked {
+            color: red;
+        }
+
     </style>
 </head>
 <body>
 <div class="container">
     <h1 th:text="${board.boardTitle}">게시글 제목</h1>
+
+
+    <!-- 수정 후: boardCtId 속성 추가 -->
+    <button id="bookmark-button"
+            th:classappend="${bookmarkYn} ? 'bookmarked'"
+            th:attr="data-board-ctid=${board.boardCtId}, data-board-id=${board.boardId}">
+        <span th:text="${bookmarkYn} ? '⭐' : '☆'"></span>
+    </button>
+
+
     <div class="content" th:text="${board.boardContent}">게시글 내용</div>
+
+    <!-- ✅ 게시글에 대한 기본 댓글 입력 폼 (commentSeq=1) -->
+    <div class="new-comment-form">
+        <h3>댓글 작성</h3>
+        <form th:action="@{/board/{boardCtId}/{boardId}/comment(boardCtId=${board.boardCtId}, boardId=${board.boardId})}" method="post">
+            <textarea name="commentContent" placeholder="댓글을 입력하세요" required></textarea>
+            <button type="submit" class="submit-button">댓글 등록</button>
+        </form>
+    </div>
 
     <div class="comments-section">
         <h2>댓글</h2>
 
         <ul>
             <th:block th:each="comment : ${boardCommentList}">
-                <!-- 기본 댓글 -->
+                <!-- ✅ 기본 댓글 (commentSeq == 1) -->
                 <li th:if="${comment.commentSeq == 1}" class="comment">
                     <div>
                         <div class="meta">
@@ -110,21 +175,23 @@
                         </div>
                         <div class="content" th:text="${comment.commentContent}">댓글 내용</div>
 
-                        <!-- ✅ 좋아요 버튼 -->
+                        <!-- ✅ 기본댓글 좋아요 버튼 -->
                         <button class="like-button"
                                 th:classappend="${comment.isLike} ? 'liked'"
                                 th:attr="data-comment-id=${comment.commentId},
-                                         data-board-ctid=${board.boardCtId},
-                                         data-board-id=${board.boardId}">
+                                        data-comment-seq=${comment.commentSeq},
+                                        data-board-ctid=${board.boardCtId},
+                                        data-board-id=${board.boardId}">
                             👍 <span class="like-count" th:text="${comment.commentLikeCnt}">0</span>
                         </button>
+
 
 
 
                         <!-- ✅ 대댓글 버튼 -->
                         <button class="reply-button" th:attr="data-comment-id=${comment.commentId}">답글 작성</button>
 
-                        <!-- ✅ 대댓글 입력 폼 -->
+                        <!-- ✅ 대댓글 입력 폼 (기본 댓글에 대한 대댓글만 가능하도록) -->
                         <div class="comment-form" th:id="'reply-form-' + ${comment.commentId}" style="display: none;">
                             <form th:action="@{/board/{boardCtId}/{boardId}/comment/{commentId}(boardCtId=${board.boardCtId}, boardId=${board.boardId}, commentId=${comment.commentId})}"
                                   method="post">
@@ -134,17 +201,33 @@
                             </form>
                         </div>
                     </div>
-                </li>
 
-                <!-- 대댓글 -->
-                <li th:if="${comment.commentSeq > 1}" class="reply-comment">
-                    <div>
-                        <div class="meta">
-                            <span th:text="${comment.memberId}">작성자</span> |
-                            <span th:text="${#dates.format(comment.commentCreatedDt, 'yyyy-MM-dd HH:mm')}">작성 날짜</span>
-                        </div>
-                        <div class="content" th:text="${comment.commentContent}">대댓글 내용</div>
-                    </div>
+                    <!-- 대댓글 목록 -->
+                    <ul>
+                        <th:block th:each="child : ${boardCommentList}">
+                            <li th:if="${child.commentSeq > 1 and child.commentId == comment.commentId}" class="reply-comment">
+                                <div>
+                                    <div class="meta">
+                                        <span th:text="${child.memberId}">작성자</span> |
+                                        <span th:text="${#dates.format(child.commentCreatedDt, 'yyyy-MM-dd HH:mm')}">작성 날짜</span>
+                                    </div>
+                                    <div class="content" th:text="${child.commentContent}">대댓글 내용</div>
+
+                                    <!-- 대댓글 좋아요 버튼 (요청 API는 기본 댓글과 동일) -->
+                                    <button class="like-button"
+                                            th:classappend="${child.isLike} ? 'liked'"
+                                            th:attr="data-comment-id=${child.commentId},
+                                             data-comment-seq=${child.commentSeq},
+                                             data-board-ctid=${board.boardCtId},
+                                             data-board-id=${board.boardId}">
+                                        👍 <span class="like-count" th:text="${child.commentLikeCnt}">0</span>
+                                    </button>
+
+
+                                </div>
+                            </li>
+                        </th:block>
+                    </ul>
                 </li>
             </th:block>
         </ul>
@@ -155,6 +238,46 @@
     document.addEventListener("DOMContentLoaded", function () {
         const likeButtons = document.querySelectorAll(".like-button");
         const replyButtons = document.querySelectorAll(".reply-button");
+        const bookmarkButton = document.getElementById("bookmark-button");
+
+        bookmarkButton.addEventListener("click", function () {
+            const boardCtId = this.getAttribute("data-board-ctid");
+            const boardId = this.getAttribute("data-board-id");
+
+            // 나머지 로직은 동일
+
+            const bookmarkYn = this.classList.contains("bookmarked") ? 'Y' : 'N';
+            this.innerHTML = bookmarkYn === 'Y' ? "☆" : "⭐";
+            this.classList.toggle("bookmarked");
+
+
+            const xmlData = `<bookmark>
+        <boardCtId>${boardCtId}</boardCtId>
+        <boardId>${boardId}</boardId>
+        <bookmarked>${!bookmarkYn}</bookmarked>
+    </bookmark>`;
+
+            fetch(`/board/${boardCtId}/${boardId}/bookmark?boardCtId=${boardCtId}&boardId=${boardId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/xml"
+                },
+                body: xmlData
+            }).catch(err => console.error("❌ 북마크 요청 실패:", err));
+        });
+
+
+
+        // ✅ 대댓글 입력 폼 토글
+        replyButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const commentId = this.getAttribute("data-comment-id");
+                const replyForm = document.getElementById(`reply-form-${commentId}`);
+                if (replyForm) {
+                    replyForm.style.display = replyForm.style.display === "block" ? "none" : "block";
+                }
+            });
+        });
 
         // ✅ 좋아요 버튼 이벤트 리스너 추가
         likeButtons.forEach(button => {
@@ -165,12 +288,13 @@
                 }
 
                 const commentId = this.getAttribute("data-comment-id");
-                const boardCtId = this.getAttribute("data-board-ctid");  // ✅ 버튼에서 가져옴
-                const boardId = this.getAttribute("data-board-id");      // ✅ 버튼에서 가져옴
+                const commentSeq = this.getAttribute("data-comment-seq");
+                const boardCtId = this.getAttribute("data-board-ctid");
+                const boardId = this.getAttribute("data-board-id");
                 const likeCountSpan = this.querySelector(".like-count");
 
-                if (!boardCtId || !boardId) {
-                    console.error("❌ boardCtId 또는 boardId가 정의되지 않음. HTML을 확인하세요.");
+                if (!boardCtId || !boardId || !commentSeq) {
+                    console.error("❌ boardCtId, boardId, commentSeq 중 하나가 정의되지 않음. HTML을 확인하세요.");
                     return;
                 }
 
@@ -183,8 +307,9 @@
                 // ✅ form-data 방식으로 AJAX 요청 보내기
                 const formData = new URLSearchParams();
                 formData.append("commentId", commentId);
-                formData.append("boardCtId", boardCtId);  // ✅ 추가됨
-                formData.append("boardId", boardId);      // ✅ 추가됨
+                formData.append("commentSeq", commentSeq);
+                formData.append("boardCtId", boardCtId);
+                formData.append("boardId", boardId);
 
                 fetch(`/board/${boardCtId}/${boardId}/comment/like`, {
                     method: "POST",
@@ -193,20 +318,7 @@
                 }).catch(err => console.error("❌ 좋아요 요청 실패:", err));
             });
         });
-
-        // ✅ 대댓글 버튼 이벤트 리스너 추가
-        replyButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                const commentId = this.getAttribute("data-comment-id");
-                const replyForm = document.getElementById(`reply-form-${commentId}`);
-                if (replyForm) {
-                    replyForm.style.display = replyForm.style.display === "block" ? "none" : "block";
-                }
-            });
-        });
     });
-
 </script>
-
 </body>
 </html>
