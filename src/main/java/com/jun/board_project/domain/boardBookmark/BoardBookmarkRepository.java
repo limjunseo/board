@@ -25,7 +25,18 @@ public class BoardBookmarkRepository {
     }
 
     public String findBookmarkYn(int boardId, String memberId ) {
-        String sql = "select bookmark_yn from board_bookmark where board_id = ? and member_id = ?";
+        String sql = """
+            select case when exists 
+           (
+             select '1'
+             from board_like
+             where board_id = ?
+               and member_id = ?
+           ) then 'Y' else 'N' end like_cnt
+            from dual
+    """;
+
+
         return jdbcTemplate.queryForObject(sql, String.class, boardId, memberId);
     }
 
