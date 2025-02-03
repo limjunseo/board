@@ -55,7 +55,7 @@
             margin-bottom: 8px;
         }
 
-        .like-button {
+        .comment-like-button {
             display: flex;
             align-items: center;
             gap: 5px;
@@ -67,11 +67,11 @@
             transition: color 0.3s;
         }
 
-        .like-button.liked {
+        .comment-like-button.liked {
             color: #1877f2;
         }
 
-        .like-count {
+        .comment-like-count {
             font-size: 1em;
             font-weight: bold;
         }
@@ -149,8 +149,20 @@
             color: red;
         }
 
-        #like-button.liked {
+        #board-like-button.liked {
             color: #1877f2; /* 좋아요 버튼 색상 */
+        }
+
+        #board-like-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: color 0.3s;
         }
 
     </style>
@@ -173,8 +185,8 @@
     </button>
 
     <!-- 게시글 좋아요 버튼 -->
-    <button id="like-button"
-            th:classappend="${board.likeYn} ? 'liked'"
+    <button id="board-like-button"
+            th:classappend="${board.likeYn eq 'Y'} ? 'liked'"
             th:attr="data-board-ctid=${board.boardCtId}, data-board-id=${board.boardId}">
         👍 <span class="like-count" th:text="${board.boardLikeCnt}">0</span>
     </button>
@@ -205,7 +217,7 @@
                         <div class="content" th:text="${comment.commentContent}">댓글 내용</div>
 
                         <!-- ✅ 기본댓글 좋아요 버튼 -->
-                        <button class="like-button"
+                        <button class="comment-like-button"
                                 th:classappend="${comment.isLike} ? 'liked'"
                                 th:attr="data-comment-id=${comment.commentId},
                                         data-comment-seq=${comment.commentSeq},
@@ -213,6 +225,8 @@
                                         data-board-id=${board.boardId}">
                             👍 <span class="like-count" th:text="${comment.commentLikeCnt}">0</span>
                         </button>
+
+
 
 
 
@@ -243,7 +257,7 @@
                                     <div class="content" th:text="${child.commentContent}">대댓글 내용</div>
 
                                     <!-- 대댓글 좋아요 버튼 (요청 API는 기본 댓글과 동일) -->
-                                    <button class="like-button"
+                                    <button class="comment-like-button"
                                             th:classappend="${child.isLike} ? 'liked'"
                                             th:attr="data-comment-id=${child.commentId},
                                              data-comment-seq=${child.commentSeq},
@@ -265,9 +279,10 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const likeButtons = document.querySelectorAll(".like-button");
+        const commentLikeButtons = document.querySelectorAll(".comment-like-button");
         const replyButtons = document.querySelectorAll(".reply-button");
         const bookmarkButton = document.getElementById("bookmark-button");
+        const boardLikeButton = document.getElementById("board-like-button")
 
         bookmarkButton.addEventListener("click", function () {
             const boardCtId = this.getAttribute("data-board-ctid");
@@ -339,7 +354,7 @@
         });
 
         // ✅ 좋아요 버튼 이벤트 리스너 추가
-        likeButtons.forEach(button => {
+        commentLikeButtons.forEach(button => {
             button.addEventListener("click", function () {
                 if (this.classList.contains("liked")) {
                     alert("이미 좋아요를 눌렀습니다.");

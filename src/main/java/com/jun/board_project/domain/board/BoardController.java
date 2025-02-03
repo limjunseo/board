@@ -69,14 +69,15 @@ public class BoardController {
     @RequestMapping(value = "/board/{boardCtId}/{boardId}", method = RequestMethod.GET)
     public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId,
                            @AuthenticationPrincipal MemberDetails member, ModelMap model) {
-        BoardDto boarddto = boardService.getBoard(boardId);
+        BoardDto boardDto = boardService.getBoard(boardId);
         List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
         List<BoardCommentLikeDto> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
         String bookmarkYn = boardBookmarkService.findBookmarkYn(boardId, member.getUsername());
         String likeYn = boardLikeService.findLikeYn(boardId, member.getUsername());
 
-        boarddto.setBookmarkYn(bookmarkYn); //북마크 여부설정
-        boarddto.setLikeYn(likeYn);
+
+        boardDto.setBookmarkYn(bookmarkYn); //북마크 여부설정
+        boardDto.setLikeYn(likeYn);
 
         //좋아요한 댓글 is liked true 설정
         for (BoardCommentDto boardCommentDto : boardCommentListDto) {
@@ -91,19 +92,22 @@ public class BoardController {
         //게시글 좋아요숫자, 좋아요여부
         model.addAttribute("bookmarkYn", bookmarkYn); //북마크 여부
         model.addAttribute("boardCommentList", boardCommentListDto); //댓글 리스트
-        model.addAttribute("board", boarddto); //게시글 상세내용
+        model.addAttribute("board", boardDto); //게시글 상세내용
         return "board/boardDetail";
     }
 
 
     //게시글 좋아요 요청
-    @RequestMapping(value = "/board/{boardId}/user/{memberId}", method = RequestMethod.POST)
-    public String like(@PathVariable("boardId") int boardId, @PathVariable("memberId") String memberId) {
+    @RequestMapping(value = "/board/{boardCtId}/{boardId}/like", method = RequestMethod.POST)
+    public String like(@PathVariable("boardId") int boardId,
+                       @PathVariable("boardCtId") String boardCtId,
+                       @AuthenticationPrincipal MemberDetails member) {
+
         BoardLike boardLike = BoardLike.builder()
                 .boardId(boardId)
-                .memberId(memberId)
+                .memberId(member.getUsername())
                 .build();
-        boardService.like(boardLike);
+        boardService.saveBoardLike(boardLike);
         return "redirect:/";
     }
 

@@ -1,6 +1,5 @@
 package com.jun.board_project.domain.board;
 
-import com.jun.board_project.domain.boardBookmark.BoardBookmarkService;
 import com.jun.board_project.domain.boardDetail.BoardDetail;
 import com.jun.board_project.domain.boardDetail.BoardDetailRepository;
 import com.jun.board_project.domain.boardLike.BoardLike;
@@ -44,9 +43,9 @@ public class BoardService {
         return boardRepository.findById(boardId);
     }
 
-    //좋아요 기능
-    public void like(BoardLike boardLike) {
-        boardLikeRepository.insert(boardLike);
+    //게시글 좋아요 기능
+    public void saveBoardLike(BoardLike boardLike) {
+        boardLikeRepository.saveBoardLike(boardLike);
     }
 
     public List<Board> getBoardList(String boardCtId) {

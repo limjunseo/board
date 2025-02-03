@@ -9,11 +9,13 @@ import org.springframework.stereotype.Repository;
 public class BoardLikeRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public void insert(BoardLike boardLike) {
-        String sql = "insert into board_like(board_id, user_id) values(?, ?)";
+    public void saveBoardLike(BoardLike boardLike) {
+        String sql = "insert into board_like(board_id, member_id) values(?, ?)";
         jdbcTemplate.update(sql, boardLike.getBoardId(), boardLike.getMemberId());
     }
 
+    
+    //게시글 좋아요 여부
     //반환값이 없을 경우 'N'으로 반환
     public String findLikeYn(int boardId, String memberId) {
         String sql =
@@ -24,9 +26,10 @@ public class BoardLikeRepository {
                     from board_like
                     where board_id = ?
                     and member_id = ?
-                ) then 'Y' else 'N' end like_cnt
+                ) then 'Y' else 'N' end like_yn
                 from dual
                 """;
+
 
         return jdbcTemplate.queryForObject(sql, String.class, boardId, memberId);
     }

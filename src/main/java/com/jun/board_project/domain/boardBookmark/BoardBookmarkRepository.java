@@ -26,16 +26,14 @@ public class BoardBookmarkRepository {
 
     public String findBookmarkYn(int boardId, String memberId ) {
         String sql = """
-            select case when exists 
-           (
-             select '1'
-             from board_like
-             where board_id = ?
-               and member_id = ?
-           ) then 'Y' else 'N' end like_cnt
+            select nvl(
+             (select bookmark_yn
+                 from board_bookmark
+                 where board_id = ?
+                 and member_id = ?),'N')
             from dual
     """;
-
+        //칼럼이 존재하지않거나 값이 없으면 N을 반환
 
         return jdbcTemplate.queryForObject(sql, String.class, boardId, memberId);
     }
