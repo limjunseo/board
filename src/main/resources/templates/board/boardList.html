@@ -145,6 +145,8 @@
             <div class="board-meta">
                 <span th:text="'Posted by ' + ${board.memberId}"></span> |
                 <span th:text="${#dates.format(board.boardCreatedDt, 'yyyy-MM-dd HH:mm')}"></span>
+                <span th:text="'Likes: ' + ${board.boardLikeCnt}"></span> <!-- 좋아요 수 추가 -->
+
             </div>
         </li>
     </ul>

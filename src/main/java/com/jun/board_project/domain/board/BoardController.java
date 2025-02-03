@@ -56,7 +56,7 @@ public class BoardController {
                                ModelMap model) {
 
         System.out.println("boardCtId : " + boardCtId);
-        List<Board> boardList = boardService.getBoardList(boardCtId);
+        List<BoardCtPageDto> boardList = boardService.getBoardList(boardCtId);
         BoardCtDto boardCtDto = boardCtIdRepository.findByCtId(boardCtId);
 
         model.addAttribute("currentPage", page);     // 현재 페이지 번호

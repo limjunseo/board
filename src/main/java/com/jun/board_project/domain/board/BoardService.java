@@ -48,7 +48,7 @@ public class BoardService {
         boardLikeRepository.saveBoardLike(boardLike);
     }
 
-    public List<Board> getBoardList(String boardCtId) {
+    public List<BoardCtPageDto> getBoardList(String boardCtId) {
         return boardRepository.findAllByBoardCtId(boardCtId);
     }
 

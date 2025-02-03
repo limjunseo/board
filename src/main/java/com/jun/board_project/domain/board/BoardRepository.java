@@ -47,10 +47,20 @@ public class BoardRepository {
         return jdbcTemplate.queryForObject(sql, new BoardDtoRowMapper() , boardId);
     }
 
-    //특정 카테고리 게시글 조회 페이지별로 10개씩
-    public List<Board> findAllByBoardCtId(String boardCtId) {
-        String sql = "select * from board where board_ct_id = ?";
-        return jdbcTemplate.query(sql, new BoardRowMapper(), boardCtId);
+    //게시글별 좋아요수 반환
+    //특정 카테고리 게시글 조회 페이지별로 10개씩 반환
+    public List<BoardCtPageDto> findAllByBoardCtId(String boardCtId) {
+        String sql = """
+            select *, 
+                (select count(*) 
+                from board_like 
+                where board_id = a.board_id) board_like_cnt
+            from board a
+            where a.board_ct_id = ?
+            order by board_id desc
+    """;
+
+        return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), boardCtId);
     }
 
 
