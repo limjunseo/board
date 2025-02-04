@@ -3,44 +3,49 @@
 <head>
     <title>내 프로필</title>
     <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-
         .container {
-            max-width: 800px;
+            width: 80%;
             margin: 0 auto;
-            background-color: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Arial', sans-serif;
         }
-
-        h1 {
-            font-size: 1.8em;
-            color: #333;
+        h1, h2 {
+            text-align: center;
         }
-
         .bookmarked-list {
-            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
         }
-
         .bookmarked-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: calc(33% - 20px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
+        .bookmarked-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
         .bookmarked-item a {
             text-decoration: none;
-            color: #007bff;
+            font-size: 1.2em;
             font-weight: bold;
+            color: #333;
         }
-
         .bookmarked-item a:hover {
-            color: #0056b3;
+            text-decoration: underline;
+        }
+        .meta {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 10px;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -48,11 +53,17 @@
 <div class="container">
     <h1>내 프로필</h1>
     <h2>북마크한 게시글</h2>
-
     <div class="bookmarked-list">
-        <div th:each="board : ${bookmarkedBoards}" class="bookmarked-item">
+        <div th:each="board : ${bookmarkedBoardList}" class="bookmarked-item">
+            <!-- 게시글 제목과 상세 페이지 링크 -->
             <a th:href="@{/board/{boardCtId}/{boardId}(boardCtId=${board.boardCtId}, boardId=${board.boardId})}"
                th:text="${board.boardTitle}">게시글 제목</a>
+            <!-- 메타 정보: 작성자, 작성일, 좋아요 수 -->
+            <div class="meta">
+                <div th:text="'작성자: ' + ${board.memberId}"></div>
+                <div th:text="'작성일: ' + ${#dates.format(board.boardCreatedDt, 'yyyy-MM-dd HH:mm')}"></div>
+                <div th:text="'좋아요: ' + ${board.boardLikeCnt}"></div>
+            </div>
         </div>
     </div>
 </div>

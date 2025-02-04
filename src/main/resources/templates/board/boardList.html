@@ -143,9 +143,9 @@
                th:text="${board.boardTitle}"
                class="board-title"></a>
             <div class="board-meta">
-                <span th:text="'Posted by ' + ${board.memberId}"></span> |
-                <span th:text="${#dates.format(board.boardCreatedDt, 'yyyy-MM-dd HH:mm')}"></span>
-                <span th:text="'Likes: ' + ${board.boardLikeCnt}"></span> <!-- 좋아요 수 추가 -->
+                <span th:text="'글쓴이 ' + ${board.memberId}"></span> |
+                <span th:text="${#dates.format(board.boardCreatedDt, 'yyyy년MM월dd / HH시mm분')}"></span> |
+                <span th:text="'좋아요 ' + ${board.boardLikeCnt}"></span> <!-- 좋아요 수 추가 -->
 
             </div>
         </li>

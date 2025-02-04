@@ -23,5 +23,7 @@ public class MainController {
         model.put("boardCtList", boardCtDtoList);
         return "index";
     }
+    
+
 
 }

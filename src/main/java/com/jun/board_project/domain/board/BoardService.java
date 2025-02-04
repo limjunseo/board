@@ -52,5 +52,9 @@ public class BoardService {
         return boardRepository.findAllByBoardCtId(boardCtId);
     }
 
+    public List<BoardCtPageDto> getBookmarkedBoardList(String memberId) {
+        return boardRepository.findBookmarkedBoardList(memberId);
+    }
+
 
 }

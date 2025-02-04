@@ -51,7 +51,7 @@ public class BoardRepository {
     //특정 카테고리 게시글 조회 페이지별로 10개씩 반환
     public List<BoardCtPageDto> findAllByBoardCtId(String boardCtId) {
         String sql = """
-            select *, 
+            select a.*, 
                 (select count(*) 
                 from board_like 
                 where board_id = a.board_id) board_like_cnt
@@ -61,6 +61,22 @@ public class BoardRepository {
     """;
 
         return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), boardCtId);
+    }
+
+    //특정 회원이 북마크한 게시글 리스트 반환
+    public List<BoardCtPageDto> findBookmarkedBoardList(String memberId) {
+        String sql = """
+            select a.*,
+                 (select count(*) from board_like where board_id = a.board_id) as board_like_cnt
+            from board a, board_bookmark b
+            where b.member_id = ?
+            and a.board_id = b.board_id
+    """;
+
+
+        return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), memberId);
+
+
     }
 
 
