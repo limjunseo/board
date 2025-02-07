@@ -49,7 +49,7 @@ public class BoardRepository {
 
     //게시글별 좋아요수 반환
     //특정 카테고리 게시글 조회 페이지별로 10개씩 반환
-    public List<BoardCtPageDto> findAllByBoardCtId(String boardCtId) {
+    public List<BoardCtPageDto> findAllByBoardCtId(String boardCtId, int page) {
         String sql = """
             select a.*, 
                 (select count(*) 

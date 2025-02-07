@@ -48,8 +48,8 @@ public class BoardService {
         boardLikeRepository.saveBoardLike(boardLike);
     }
 
-    public List<BoardCtPageDto> getBoardList(String boardCtId) {
-        return boardRepository.findAllByBoardCtId(boardCtId);
+    public List<BoardCtPageDto> getBoardList(String boardCtId,int page) {
+        return boardRepository.findAllByBoardCtId(boardCtId, page);
     }
 
     public List<BoardCtPageDto> getBookmarkedBoardList(String memberId) {
