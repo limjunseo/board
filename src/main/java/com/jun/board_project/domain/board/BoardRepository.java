@@ -51,14 +51,22 @@ public class BoardRepository {
     //특정 카테고리 게시글 조회 페이지별로 10개씩 반환
     public List<BoardCtPageDto> findAllByBoardCtId(String boardCtId, int page) {
         String sql = """
-            select a.*, 
-                (select count(*) 
-                from board_like 
-                where board_id = a.board_id) board_like_cnt
-            from board a
-            where a.board_ct_id = ?
-            order by board_id desc
+    SELECT a.*,
+           (SELECT count(*)
+            FROM BOARD_LIKE 
+            WHERE board_id = a.board_id) AS like_count
+    FROM (
+        SELECT rownum rn, t.*
+        FROM (
+            SELECT *
+            FROM BOARD 
+            ORDER BY board_id DESC
+        ) t
+        WHERE ROWNUM <= (:page) * 10
+    ) a
+    WHERE rn >= (:page - 1) * 10 + 1
     """;
+
 
         return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), boardCtId);
     }
