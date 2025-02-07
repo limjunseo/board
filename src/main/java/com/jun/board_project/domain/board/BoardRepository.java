@@ -54,21 +54,22 @@ public class BoardRepository {
     SELECT a.*,
            (SELECT count(*)
             FROM BOARD_LIKE 
-            WHERE board_id = a.board_id) AS like_count
+            WHERE board_id = a.board_id) AS board_like_cnt
     FROM (
         SELECT rownum rn, t.*
         FROM (
             SELECT *
             FROM BOARD 
+            WHERE board_ct_id = ?
             ORDER BY board_id DESC
         ) t
-        WHERE ROWNUM <= (:page) * 10
+        WHERE ROWNUM <= ? * 10
     ) a
-    WHERE rn >= (:page - 1) * 10 + 1
+    WHERE rn >= (? - 1) * 10 + 1
     """;
 
 
-        return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), boardCtId);
+        return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), boardCtId, page, page);
     }
 
     //특정 회원이 북마크한 게시글 리스트 반환
