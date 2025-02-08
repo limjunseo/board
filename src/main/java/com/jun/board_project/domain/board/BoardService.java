@@ -49,12 +49,20 @@ public class BoardService {
     }
 
     public List<BoardCtPageDto> getBoardList(String boardCtId,int page) {
+
+        //HOT 게시판 조회
+        if(boardCtId.equals("04")) {
+            System.out.println("boardCtId = " + boardCtId  + "if 문 안쪽 실행");
+            return boardRepository.findHotBoardByBoardCtId(boardCtId, page);
+        }
         return boardRepository.findAllByBoardCtId(boardCtId, page);
     }
 
     public List<BoardCtPageDto> getBookmarkedBoardList(String memberId) {
         return boardRepository.findBookmarkedBoardList(memberId);
     }
+
+
 
 
 }

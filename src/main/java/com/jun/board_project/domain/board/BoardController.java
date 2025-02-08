@@ -55,6 +55,7 @@ public class BoardController {
                                @RequestParam(value = "page", defaultValue = "1") int page,
                                ModelMap model) {
 
+
         List<BoardCtPageDto> boardList = boardService.getBoardList(boardCtId, page);
         BoardCtDto boardCtDto = boardCtIdRepository.findByCtId(boardCtId);
 

@@ -85,8 +85,33 @@ public class BoardRepository {
 
         return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), memberId);
 
+    }
+
+    public List<BoardCtPageDto> findHotBoardByBoardCtId(String boardCtId, int page) {
+        String sql = """
+    
+    SELECT b.*, a.board_like_cnt
+    FROM (
+        SELECT ROWNUM rn, t.*
+        FROM (
+            SELECT board_id, count(*) board_like_cnt 
+            FROM board_like 
+            GROUP BY board_id
+            ORDER BY board_like_cnt DESC 
+        ) t
+        WHERE ROWNUM <= ? * 10
+    ) a, board b
+    WHERE rn >= (? - 1) * 10 + 1
+    AND a.board_id = b.board_id
+    ORDER BY board_like_cnt DESC
+    """;
+
+            return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), page, page);
+
+
 
     }
+
 
 
 }
