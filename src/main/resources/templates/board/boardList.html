@@ -161,19 +161,21 @@
     <div class="pagination">
         <!-- 이전 버튼 -->
         <a th:if="${currentPage > 10}"
-           th:href="@{/board(page=${currentPage - 10})}"
+           th:href="@{/board/{boardCtId}(boardCtId=${boardCtId}, page=${currentPage - 10})}"
            class="prev">이전</a>
 
-        <!-- 페이지 번호 -->
-        <a th:each="i : ${#numbers.sequence((currentPage - 1) / 10 * 10 + 1, ((currentPage - 1) / 10 + 1) * 10)}"
-           th:href="@{/board(page=${i})}"
-           th:classappend="${currentPage == i} ? 'active'"
-           th:text="${i}"></a>
 
-        <!-- 다음 버튼 -->
+        <!-- 페이지 번호 -->
+        <a th:each="i : ${#numbers.sequence(((currentPage - 1) / 10) * 10 + 1, ((currentPage - 1) / 10 + 1) * 10)}"
+           th:href="@{/board/{boardCtId}(boardCtId=${boardCtId}, page=${i})}"
+           th:text="${i}"
+           th:classappend="${currentPage == i} ? 'active'"></a>
+
+
         <a th:if="${currentPage <= 90}"
-           th:href="@{/board(page=${currentPage + 10})}"
+           th:href="@{/board/{boardCtId}(boardCtId=${boardCtId}, page=${currentPage + 10})}"
            class="next">다음</a>
+
     </div>
 </div>
 
