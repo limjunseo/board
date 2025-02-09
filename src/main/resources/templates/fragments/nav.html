@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Navigation Fragment</title>
     <style>
@@ -60,6 +59,7 @@
 <body>
 <div th:fragment="nav" class="nav">
     <a href="/">Home</a>
+    <a href="/admin">Admin</a> <!-- Admin 메뉴 추가 -->
 
     <!-- 로그인되지 않은 상태: Login 버튼만 표시 -->
     <a sec:authorize="isAnonymous()" href="/login">Login</a>
