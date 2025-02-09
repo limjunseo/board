@@ -24,7 +24,6 @@ public class WebSecurityConfig{
         http
                 .authorizeHttpRequests((authorize) -> authorize
                                 .requestMatchers("/post").hasRole("USER")
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                         //.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         //.anyRequest().authenticated()

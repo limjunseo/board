@@ -23,6 +23,11 @@ public class MainController {
         model.put("boardCtList", boardCtDtoList);
         return "index";
     }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String getAdminPage() {
+        return "admin/dashboard";
+    }
     
 
 

@@ -89,27 +89,27 @@ public class BoardRepository {
 
     public List<BoardCtPageDto> findHotBoardByBoardCtId(String boardCtId, int page) {
         String sql = """
-    
-    SELECT b.*, a.board_like_cnt
-    FROM (
-        SELECT ROWNUM rn, t.*
+        SELECT b.*, a.board_like_cnt
         FROM (
-            SELECT board_id, count(*) board_like_cnt 
-            FROM board_like 
-            GROUP BY board_id
-            ORDER BY board_like_cnt DESC 
-        ) t
-        WHERE ROWNUM <= ? * 10
-    ) a, board b
-    WHERE rn >= (? - 1) * 10 + 1
-    AND a.board_id = b.board_id
-    ORDER BY board_like_cnt DESC
-    """;
+            SELECT ROWNUM rn, t.*
+            FROM (
+                SELECT /*+ leading(b) index_ffs(b BOARD_X1) use_hash(a) no_place_group_by */ 
+                       b.board_id, COUNT(*) board_like_cnt
+                FROM board_like a, board b
+                WHERE b.BOARD_CREATED_DT >= TRUNC(SYSDATE - 7)
+                AND b.board_id = a.board_id
+                GROUP BY b.board_id
+                ORDER BY board_like_cnt DESC
+            ) t
+            WHERE ROWNUM <= (? * 10)
+        ) a, board b
+        WHERE rn >= (? - 1) * 10 + 1
+        AND a.board_id = b.board_id
+        ORDER BY board_like_cnt DESC;
+        """;
+
 
             return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), page, page);
-
-
-
     }
 
 
