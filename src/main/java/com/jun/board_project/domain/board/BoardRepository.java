@@ -87,7 +87,7 @@ public class BoardRepository {
 
     }
 
-    public List<BoardCtPageDto> findHotBoardByBoardCtId(String boardCtId, int page) {
+    public List<BoardCtPageDto> findHotBoard(String boardCtId, int page) {
         String sql = """
         SELECT b.*, a.board_like_cnt
         FROM (
@@ -105,7 +105,7 @@ public class BoardRepository {
         ) a, board b
         WHERE rn >= (? - 1) * 10 + 1
         AND a.board_id = b.board_id
-        ORDER BY board_like_cnt DESC;
+        ORDER BY board_like_cnt DESC
         """;
 
 

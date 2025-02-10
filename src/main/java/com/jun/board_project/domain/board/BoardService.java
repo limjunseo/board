@@ -59,7 +59,7 @@ public class BoardService {
         //HOT 게시판 조회
         if(boardCtId.equals("04")) {
             System.out.println("boardCtId = " + boardCtId  + "if 문 안쪽 실행");
-            return boardRepository.findHotBoardByBoardCtId(boardCtId, page);
+            return boardRepository.findHotBoard(boardCtId, page);
         }
         return boardRepository.findAllByBoardCtId(boardCtId, page);
     }
