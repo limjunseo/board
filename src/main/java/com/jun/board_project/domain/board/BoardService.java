@@ -18,10 +18,16 @@ public class BoardService {
     private final BoardLikeRepository boardLikeRepository;
 
     @Transactional
-    public int save(BoardForm boardForm) {
+    public int save(BoardForm boardForm)   {
         //max + 1 채번
         int boardId = boardRepository.nextVal();
-        
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         Board board = Board.builder()
                 .boardId(boardId)
                 .boardTitle(boardForm.getBoardTitle())

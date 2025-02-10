@@ -77,25 +77,143 @@
     <h1>Admin Dashboard</h1>
 
     <div class="section">
-        <h2>Point Distribution Settings</h2>
-        <form th:action="@{/admin/update-points}" method="post">
+        <h2>기준 등록 (CodeMeta 매핑)</h2>
+        <form th:action="@{/admin/codeMeta}" method="post">
             <div class="form-group">
-                <label for="registrationPoints">Points for Registration:</label>
-                <input type="number" id="registrationPoints" name="registrationPoints" min="0" placeholder="Enter points for registration" required>
+                <label for="codeMetaId">코드 메타 ID:</label>
+                <input type="text" id="codeMetaId" name="codeMetaId" placeholder="코드 메타 ID 입력" required>
             </div>
             <div class="form-group">
-                <label for="loginPoints">Points for Daily Login:</label>
-                <input type="number" id="loginPoints" name="loginPoints" min="0" placeholder="Enter points for daily login" required>
+                <label for="codeMetaName">코드 메타 이름:</label>
+                <input type="text" id="codeMetaName" name="codeMetaName" placeholder="코드 메타 이름 입력" required>
             </div>
             <div class="form-group">
-                <label for="referralPoints">Points for Referrals:</label>
-                <input type="number" id="referralPoints" name="referralPoints" min="0" placeholder="Enter points for referrals" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Update Point Settings</button>
+                <button type="submit">기준 등록</button>
             </div>
         </form>
     </div>
+
+    <div class="section">
+        <h2>매트릭스 등록 (함수 파라미터 매핑 조건4개까지)</h2>
+        <form th:action="@{/admin/register-matrix}" method="post">
+            <div class="form-group">
+                <label for="functionId">함수 ID:</label>
+                <input type="text" id="functionId" name="functionId" placeholder="함수 ID 입력" required>
+            </div>
+
+            <!-- Dimension 1 -->
+            <div class="form-group">
+                <label for="dimen1">Dimension 1 (기준 선택):</label>
+                <select id="dimen1" name="dimen1">
+                    <option value="">없음</option>
+                    <option th:each="codeMeta : ${codeMetaList}" th:value="${codeMeta.codeMetaId}" th:text="${codeMeta.codeMetaName}"></option>
+                </select>
+            </div>
+
+            <!-- Dimension 2 -->
+            <div class="form-group">
+                <label for="dimen2">Dimension 2 (기준 선택):</label>
+                <select id="dimen2" name="dimen2">
+                    <option value="">없음</option>
+                    <option th:each="codeMeta : ${codeMetaList}" th:value="${codeMeta.codeMetaId}" th:text="${codeMeta.codeMetaName}"></option>
+                </select>
+            </div>
+
+            <!-- Dimension 3 -->
+            <div class="form-group">
+                <label for="dimen3">Dimension 3 (기준 선택):</label>
+                <select id="dimen3" name="dimen3">
+                    <option value="">없음</option>
+                    <option th:each="codeMeta : ${codeMetaList}" th:value="${codeMeta.codeMetaId}" th:text="${codeMeta.codeMetaName}"></option>
+                </select>
+            </div>
+
+            <!-- Dimension 4 -->
+            <div class="form-group">
+                <label for="dimen4">Dimension 4 (기준 선택):</label>
+                <select id="dimen4" name="dimen4">
+                    <option value="">없음</option>
+                    <option th:each="codeMeta : ${codeMetaList}" th:value="${codeMeta.codeMetaId}" th:text="${codeMeta.codeMetaName}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">매트릭스 등록</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="section">
+        <h2>포인트 지급 목록 등록 (Point List Base 매핑)</h2>
+        <form th:action="@{/admin/register-point-list}" method="post">
+            <div class="form-group">
+                <label for="ptBaseId">포인트 기준 ID:</label>
+                <input type="text" id="ptBaseId" name="ptBaseId" placeholder="포인트 기준 ID 입력" required>
+            </div>
+            <div class="form-group">
+                <label for="functionId">함수 ID:</label>
+                <input type="text" id="functionId" name="functionId" placeholder="함수 ID 입력" required>
+            </div>
+            <div class="form-group">
+                <label for="ptBaseName">포인트 기준 이름:</label>
+                <input type="text" id="ptBaseName" name="ptBaseName" placeholder="포인트 기준 이름 입력" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">포인트 목록 등록</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="section">
+        <h2>포인트 값 등록 (Dimension 4 확장 + 포인트 기준 이름 표시)</h2>
+        <form th:action="@{/admin/register-point-value}" method="post">
+            <!-- 함수 ID 선택 -->
+            <div class="form-group">
+                <label for="functionId">함수 ID (등록된 함수 선택):</label>
+                <select id="functionId" name="functionId" th:each="function : ${functionList}" th:value="${function.functionId}" th:text="${function.functionId}" required></select>
+            </div>
+
+            <!-- Dimension 1~4 값 입력 -->
+            <div class="form-group">
+                <label for="dimen1Value">Dimension 1 값:</label>
+                <input type="text" id="dimen1Value" name="dimen1Value" placeholder="Dimension 1 값 입력">
+            </div>
+            <div class="form-group">
+                <label for="dimen2Value">Dimension 2 값:</label>
+                <input type="text" id="dimen2Value" name="dimen2Value" placeholder="Dimension 2 값 입력">
+            </div>
+            <div class="form-group">
+                <label for="dimen3Value">Dimension 3 값:</label>
+                <input type="text" id="dimen3Value" name="dimen3Value" placeholder="Dimension 3 값 입력">
+            </div>
+            <div class="form-group">
+                <label for="dimen4Value">Dimension 4 값:</label>
+                <input type="text" id="dimen4Value" name="dimen4Value" placeholder="Dimension 4 값 입력">
+            </div>
+
+            <!-- Target Value 입력 -->
+            <div class="form-group">
+                <label for="targetValue">포인트 값 (Target Value):</label>
+                <input type="number" id="targetValue" name="targetValue" min="0" placeholder="포인트 값 입력" required>
+            </div>
+
+            <!-- 포인트 기준 이름 선택 -->
+            <div class="form-group">
+                <label for="ptBaseId">포인트 기준 이름 (등록된 기준 선택):</label>
+                <select id="ptBaseId" name="ptBaseId" th:each="pointBase : ${pointBaseList}" th:value="${pointBase.ptBaseId}" th:text="${pointBase.ptBaseName}" required></select>
+            </div>
+
+            <!-- 제출 버튼 -->
+            <div class="form-group">
+                <button type="submit">포인트 값 등록</button>
+            </div>
+        </form>
+    </div>
+
+
+
 </div>
 </body>
 </html>
