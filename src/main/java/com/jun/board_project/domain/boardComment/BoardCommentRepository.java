@@ -20,7 +20,8 @@ public class BoardCommentRepository {
                 and a.comment_id = comment_id
                 and a.comment_seq = comment_seq) as like_cnt
         from board_comment a
-        where a.board_id = ?""";
+        where a.board_id = ?
+        order by a.comment_id, a.comment_seq""";
 
 
 

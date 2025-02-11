@@ -88,7 +88,10 @@ public class BoardController {
             }
         }
 
-        
+        for (BoardCommentDto boardCommentDto : boardCommentListDto) {
+            System.out.println("boardCommentDto = " + boardCommentDto);
+        }
+
         //게시글 좋아요숫자, 좋아요여부
         model.addAttribute("bookmarkYn", bookmarkYn); //북마크 여부
         model.addAttribute("boardCommentList", boardCommentListDto); //댓글 리스트

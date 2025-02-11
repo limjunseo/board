@@ -3,11 +3,12 @@ package com.jun.board_project.domain.boardComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.sql.Timestamp;
 
 @Getter @Builder
-@AllArgsConstructor
+@AllArgsConstructor @ToString
 public class BoardCommentDto {
     private int boardId;
 

@@ -41,7 +41,8 @@ public class BoardRepository {
     select a.board_id, a.board_title, a.board_created_dt, a.board_ct_id, b.board_content,
            (select count(*) from board_like where board_id = a.board_id) as like_cnt
     from board a, board_detail b
-    where a.board_id = b.board_id and a.board_id = ?
+    where a.board_id = b.board_id 
+    and a.board_id = ?
     """;
 
         return jdbcTemplate.queryForObject(sql, new BoardDtoRowMapper() , boardId);
