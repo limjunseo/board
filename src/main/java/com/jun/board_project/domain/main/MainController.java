@@ -24,10 +24,7 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String getAdminPage() {
-        return "admin/dashboard";
-    }
+
     
 
 
