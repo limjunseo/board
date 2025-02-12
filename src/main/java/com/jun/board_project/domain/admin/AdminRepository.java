@@ -44,6 +44,11 @@ public class AdminRepository {
 
     }
 
+    public String findCodeMetaName(String codeMetaId) {
+        String sql = "select code_meta_name from code_meta where code_meta_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{codeMetaId}, String.class);
+    }
+
     public List<CodeMetaInfo> findAllCodeMeta() {
         String sql = "select * from code_meta";
 
@@ -66,8 +71,17 @@ public class AdminRepository {
         });
     }
 
+    public String findCodeMetaName(int codeMetaId) {
+        String sql = "select code_meta_name from code_meta where code_meta_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{codeMetaId}, String.class);
+    }
+
     public List<RuleSetInfo> findRuleSetByPtBaseId(int ptBaseId) {
-        String sql = "select * from rule_set where pt_base_id = ?";
+        String sql = """
+         SELECT * 
+         FROM rule_set a, fnparam b
+         WHERE a.function_id = b.function_id
+""";
         return jdbcTemplate.query(sql, new Object[]{ptBaseId}, (rs, rowNum) -> {
             RuleSetInfo ruleSetInfo = new RuleSetInfo();
             ruleSetInfo.setPtBaseId(rs.getInt("pt_base_id"));
@@ -76,6 +90,10 @@ public class AdminRepository {
             ruleSetInfo.setStartDt(rs.getString("start_dt"));
             ruleSetInfo.setEndDt(rs.getString("end_dt"));
             ruleSetInfo.setTargetValue(rs.getInt("target_value"));
+            ruleSetInfo.setDimen1(rs.getString("dimen1"));
+            ruleSetInfo.setDimen2(rs.getString("dimen2"));
+            ruleSetInfo.setDimen3(rs.getString("dimen3"));
+            ruleSetInfo.setDimen4(rs.getString("dimen4"));
             return ruleSetInfo;
         });
     }

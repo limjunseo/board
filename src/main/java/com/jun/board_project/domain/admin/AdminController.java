@@ -3,9 +3,7 @@ package com.jun.board_project.domain.admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,9 +29,35 @@ public class AdminController {
         adminService.savePtBase(ptBaseForm);
         return "redirect:/admin";
     }
+
+    @ResponseBody
     @RequestMapping(value = "/admin/ruleSet", method = RequestMethod.GET)
-    public String getRuleSetPage() {
-        return "admin/ruleSet";
+    public List<RuleSetInfo> getRuleSetInfo(@RequestParam int ptBaseId ) {
+        List<RuleSetInfo> ruleSetInfoList = adminService.findRuleSet(ptBaseId);
+        String [] dimenId = new String[4];
+        String [] dimenName = new String[4];
+
+        for (RuleSetInfo ruleSetInfo : ruleSetInfoList) {
+            dimenId[0] = ruleSetInfo.getDimen1();
+            dimenId[1] = ruleSetInfo.getDimen2();
+            dimenId[2] = ruleSetInfo.getDimen3();
+            dimenId[3] = ruleSetInfo.getDimen4();
+        }
+
+        for (int i = 0; i < 4; i++) {
+            dimenName[i] = adminService.findCodeMetaName(dimenId[i]);
+        }
+
+        for (RuleSetInfo ruleSetInfo : ruleSetInfoList) {
+            ruleSetInfo.setDimen1Name(dimenName[0]);
+            ruleSetInfo.setDimen2Name(dimenName[1]);
+            ruleSetInfo.setDimen3Name(dimenName[2]);
+            ruleSetInfo.setDimen4Name(dimenName[3]);
+            System.out.println(ruleSetInfo);
+        }
+
+
+        return ruleSetInfoList;
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

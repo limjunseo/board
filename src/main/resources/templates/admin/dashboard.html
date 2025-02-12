@@ -251,14 +251,13 @@
 
 
 
-
     <div class="section">
         <h2>포인트 값 등록 및 규칙 관리</h2>
 
         <!-- 포인트 기준 선택 -->
         <div class="form-group">
             <label for="ptBaseId">포인트 기준 선택:</label>
-            <select id="ptBaseId" name="ptBaseId" onchange="loadRuleSummary()" required>
+            <select id="ptBaseId" name="ptBaseId" required>
                 <option value="">포인트 기준 선택</option>
                 <option th:each="pointBase : ${ptBaseList}"
                         th:value="${pointBase.ptBaseId}"
@@ -275,40 +274,64 @@
                 <tr>
                     <th>Function ID</th>
                     <th>Cell ID</th>
-                    <th>Dimension 1 Value</th>
-                    <th>Dimension 2 Value</th>
-                    <th>Dimension 3 Value</th>
-                    <th>Dimension 4 Value</th>
+                    <th>Dimension 1 Name</th>
+                    <th>Dimension 2 Name</th>
+                    <th>Dimension 3 Name</th>
+                    <th>Dimension 4 Name</th>
                     <th>Target Value</th>
                 </tr>
                 </thead>
-                <tbody id="ruleSummaryTable">
-                <tr th:each="rule : ${ruleSummaryMap[ptBaseId]}">
-                    <td th:text="${rule.functionId}"></td>
-                    <td th:text="${rule.cellId}"></td>
-                    <td th:text="${rule.dimen1Value}"></td>
-                    <td th:text="${rule.dimen2Value}"></td>
-                    <td th:text="${rule.dimen3Value}"></td>
-                    <td th:text="${rule.dimen4Value}"></td>
-                    <td th:text="${rule.targetValue}"></td>
-                </tr>
-                </tbody>
+                <tbody id="ruleSummaryTable"></tbody>
             </table>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const ptBaseSelect = document.getElementById('ptBaseId');
+
+                ptBaseSelect.addEventListener('change', loadRuleSummary);
+
+                function loadRuleSummary() {
+                    const selectedPtBaseId = ptBaseSelect.value;
+                    const ruleSummarySection = document.getElementById('ruleSummarySection');
+                    const ruleSummaryTable = document.getElementById('ruleSummaryTable');
+
+                    ruleSummaryTable.innerHTML = ''; // 기존 데이터 초기화
+
+                    if (selectedPtBaseId) {
+                        fetch(`/admin/ruleSet?ptBaseId=${selectedPtBaseId}`)
+                            .then(response => response.json())
+                            .then(data => console.log(data))
+                            .then(data => {
+                                if (data.length > 0) {
+                                    data.forEach(rule => {
+                                        const row = document.createElement('tr');
+                                        row.innerHTML = `
+                                        <td>${rule.functionId}</td>
+                                        <td>${rule.cellId}</td>
+                                        <td>${rule.dimen1Name}</td>
+                                        <td>${rule.dimen2Name}</td>
+                                        <td>${rule.dimen3Name}</td>
+                                        <td>${rule.dimen4Name}</td>
+                                        <td>${rule.targetValue}</td>
+                                    `;
+                                        ruleSummaryTable.appendChild(row);
+                                    });
+                                    ruleSummarySection.classList.remove('hidden');
+                                } else {
+                                    ruleSummarySection.classList.add('hidden');
+                                }
+                            })
+                            .catch(error => console.error('Error fetching rule summaries:', error));
+                    } else {
+                        ruleSummarySection.classList.add('hidden');
+                    }
+                }
+            });
+        </script>
     </div>
 
-    <script>
-        function loadRuleSummary() {
-            const selectedPtBaseId = document.getElementById('ptBaseId').value;
-            const ruleSummarySection = document.getElementById('ruleSummarySection');
 
-            if (selectedPtBaseId) {
-                ruleSummarySection.classList.remove('hidden');
-            } else {
-                ruleSummarySection.classList.add('hidden');
-            }
-        }
-    </script>
 
 
 

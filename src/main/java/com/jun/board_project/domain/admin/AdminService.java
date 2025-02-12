@@ -22,6 +22,14 @@ public class AdminService {
         adminRepository.savePtBase(ptBaseForm);
     }
 
+    public String findCodeMetaName(String codeMetaId) {
+        return adminRepository.findCodeMetaName(codeMetaId);
+    }
+
+    public List<RuleSetInfo> findRuleSet(int ptBaseId) {
+        return adminRepository.findRuleSetByPtBaseId(ptBaseId);
+    }
+
     public List<CodeMetaInfo> findAllCodeMeta() {
         return adminRepository.findAllCodeMeta();
     }
