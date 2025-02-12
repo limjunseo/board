@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class Scheduler {
     private final SchedulerService schedulerService;
 
-    @Scheduled
+    @Scheduled(cron = "0 0 0 * * *")
     public void saveTopMember() {
         schedulerService.saveTopMember(); //일일단위 우수멤버 선정 스케줄
     }

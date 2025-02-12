@@ -1,13 +1,13 @@
 package com.jun.board_project.domain.job;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Repository
-public class SchedulerRepository {
-    private final JdbcTemplate jdbcTemplate;
+public class TopMemberHisRepository {
+    private JdbcTemplate jdbcTemplate;
 
     public void saveTopMember() {
         String sql = """
@@ -47,7 +47,7 @@ public class SchedulerRepository {
     where rn <= 10;
 """;
 
-            jdbcTemplate.update(sql);
+        jdbcTemplate.update(sql);
     }
 
 }
