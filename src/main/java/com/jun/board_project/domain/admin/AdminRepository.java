@@ -44,7 +44,7 @@ public class AdminRepository {
 
     }
 
-    public List<CodeMetaInfo> findCodeMeta() {
+    public List<CodeMetaInfo> findAllCodeMeta() {
         String sql = "select * from code_meta";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -53,7 +53,17 @@ public class AdminRepository {
             codeMetaInfo.setCodeMetaName(rs.getString("code_meta_name"));
             return codeMetaInfo;
         });
+    }
 
+    public List<PtBaseInfo> findAllPtBase() {
+        String sql = "select * from pt_base";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            PtBaseInfo ptBaseInfo = new PtBaseInfo();
+            ptBaseInfo.setPtBaseId(rs.getInt("pt_base_id"));
+            ptBaseInfo.setPtBaseName(rs.getString("pt_base_name"));
+            ptBaseInfo.setFunctionId(rs.getInt("function_id"));
+            return ptBaseInfo;
+        });
     }
 
 

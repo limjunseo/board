@@ -34,8 +34,9 @@ public class AdminController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String getAdminPage(ModelMap map) {
-        List<CodeMetaInfo> codeMetaInfoList = adminService.findCodeMeta();
+        List<CodeMetaInfo> codeMetaInfoList = adminService.findAllCodeMeta();
         List<FunctionInfo> functionInfoList = adminService.findAllFunction();
+        List<PtBaseInfo> ptBaseInfoList = adminService.findAllPtBase();
 
         for (FunctionInfo functionInfo : functionInfoList) {
             for (CodeMetaInfo codeMetaInfo : codeMetaInfoList) {
@@ -57,6 +58,7 @@ public class AdminController {
             }
         }
 
+        map.put("ptBaseList", ptBaseInfoList);
         map.put("functionList", functionInfoList);
         map.put("codeMetaList", codeMetaInfoList);
         return "admin/dashboard";

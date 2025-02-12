@@ -1,12 +1,10 @@
 package com.jun.board_project.domain.admin;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
-@Getter
+@Getter @NoArgsConstructor @Setter
 public class PtBaseInfo {
     private int ptBaseId;
 

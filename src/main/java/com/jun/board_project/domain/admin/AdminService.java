@@ -22,11 +22,15 @@ public class AdminService {
         adminRepository.savePtBase(ptBaseForm);
     }
 
-    public List<CodeMetaInfo> findCodeMeta() {
-        return adminRepository.findCodeMeta();
+    public List<CodeMetaInfo> findAllCodeMeta() {
+        return adminRepository.findAllCodeMeta();
     }
 
     public List<FunctionInfo> findAllFunction() {
         return adminRepository.findAllFunction();
+    }
+
+    public List<PtBaseInfo> findAllPtBase() {
+        return adminRepository.findAllPtBase();
     }
 }
