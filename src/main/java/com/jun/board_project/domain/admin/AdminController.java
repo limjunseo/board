@@ -31,6 +31,10 @@ public class AdminController {
         adminService.savePtBase(ptBaseForm);
         return "redirect:/admin";
     }
+    @RequestMapping(value = "/admin/ruleSet", method = RequestMethod.GET)
+    public String getRuleSetPage() {
+        return "admin/ruleSet";
+    }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String getAdminPage(ModelMap map) {

@@ -250,24 +250,25 @@
 
 
 
+
+
     <div class="section">
         <h2>포인트 값 등록 및 규칙 관리</h2>
-        <form th:action="@{/admin/register-point-value}" method="post">
-            <!-- 포인트 기준 선택 -->
-            <div class="form-group">
-                <label for="ptBaseId">포인트 기준 선택:</label>
-                <select id="ptBaseId" name="ptBaseId" onchange="loadRuleSummary()" required>
-                    <option value="">포인트 기준 선택</option>
-                    <option th:each="pointBase : ${ptBaseList}"
-                            th:value="${pointBase.ptBaseId}"
-                            th:text="${pointBase.ptBaseId + ' - ' + pointBase.ptBaseName}">
-                    </option>
-                </select>
-            </div>
-        </form>
+
+        <!-- 포인트 기준 선택 -->
+        <div class="form-group">
+            <label for="ptBaseId">포인트 기준 선택:</label>
+            <select id="ptBaseId" name="ptBaseId" onchange="loadRuleSummary()" required>
+                <option value="">포인트 기준 선택</option>
+                <option th:each="pointBase : ${ptBaseList}"
+                        th:value="${pointBase.ptBaseId}"
+                        th:text="${pointBase.ptBaseId + ' - ' + pointBase.ptBaseName}">
+                </option>
+            </select>
+        </div>
 
         <!-- 규칙집합 목록 표시 -->
-        <div id="ruleSummarySection" style="display:none;">
+        <div id="ruleSummarySection" class="hidden">
             <h3>규칙집합 목록</h3>
             <table>
                 <thead>
@@ -279,77 +280,38 @@
                     <th>Dimension 3 Value</th>
                     <th>Dimension 4 Value</th>
                     <th>Target Value</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody id="ruleSummaryTable">
-                <!-- 데이터는 JavaScript로 동적으로 채워짐 -->
+                <tr th:each="rule : ${ruleSummaryMap[ptBaseId]}">
+                    <td th:text="${rule.functionId}"></td>
+                    <td th:text="${rule.cellId}"></td>
+                    <td th:text="${rule.dimen1Value}"></td>
+                    <td th:text="${rule.dimen2Value}"></td>
+                    <td th:text="${rule.dimen3Value}"></td>
+                    <td th:text="${rule.dimen4Value}"></td>
+                    <td th:text="${rule.targetValue}"></td>
+                </tr>
                 </tbody>
             </table>
-            <button onclick="openAddRuleForm()">새 규칙 추가</button>
         </div>
-
-        <script>
-            // 규칙집합 예시 데이터 (실제로는 Ajax로 가져와야 함)
-            const ruleSummaries = {
-                'PT001': [
-                    { functionId: 'FUNC001', cellId: 'CELL001', dimen1: 'A', dimen2: 'B', dimen3: 'C', dimen4: 'D', targetValue: 100 },
-                    { functionId: 'FUNC001', cellId: 'CELL002', dimen1: 'E', dimen2: 'F', dimen3: 'G', dimen4: 'H', targetValue: 200 }
-                ],
-                'PT002': [
-                    { functionId: 'FUNC002', cellId: 'CELL003', dimen1: 'X', dimen2: 'Y', dimen3: 'Z', dimen4: 'W', targetValue: 300 }
-                ]
-            };
-
-            function loadRuleSummary() {
-                const selectedPtBaseId = document.getElementById('ptBaseId').value;
-                const ruleSummarySection = document.getElementById('ruleSummarySection');
-                const ruleSummaryTable = document.getElementById('ruleSummaryTable');
-
-                ruleSummaryTable.innerHTML = ''; // 기존 데이터 초기화
-
-                if (selectedPtBaseId && ruleSummaries[selectedPtBaseId]) {
-                    ruleSummaries[selectedPtBaseId].forEach(rule => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                        <td>${rule.functionId}</td>
-                        <td>${rule.cellId}</td>
-                        <td>${rule.dimen1}</td>
-                        <td>${rule.dimen2}</td>
-                        <td>${rule.dimen3}</td>
-                        <td>${rule.dimen4}</td>
-                        <td>${rule.targetValue}</td>
-                        <td>
-                            <button onclick="editRule('${rule.cellId}')">수정</button>
-                            <button onclick="deleteRule('${rule.cellId}')">삭제</button>
-                        </td>
-                    `;
-                        ruleSummaryTable.appendChild(row);
-                    });
-                    ruleSummarySection.style.display = 'block';
-                } else {
-                    ruleSummarySection.style.display = 'none';
-                }
-            }
-
-            function openAddRuleForm() {
-                alert('새 규칙 추가 폼으로 이동합니다.');
-                // 실제로는 새 페이지나 팝업으로 이동하도록 구현 필요
-            }
-
-            function editRule(cellId) {
-                alert(`수정 폼으로 이동합니다. (Cell ID: ${cellId})`);
-                // 수정 폼 페이지로 이동하는 코드 추가 필요
-            }
-
-            function deleteRule(cellId) {
-                if (confirm(`정말로 Cell ID: ${cellId} 규칙을 삭제하시겠습니까?`)) {
-                    alert('삭제 완료.');
-                    // 실제 삭제 요청을 Ajax로 서버에 전송해야 함
-                }
-            }
-        </script>
     </div>
+
+    <script>
+        function loadRuleSummary() {
+            const selectedPtBaseId = document.getElementById('ptBaseId').value;
+            const ruleSummarySection = document.getElementById('ruleSummarySection');
+
+            if (selectedPtBaseId) {
+                ruleSummarySection.classList.remove('hidden');
+            } else {
+                ruleSummarySection.classList.add('hidden');
+            }
+        }
+    </script>
+
+
+
 
 
 

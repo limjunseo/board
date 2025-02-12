@@ -66,5 +66,18 @@ public class AdminRepository {
         });
     }
 
+    public List<RuleSetInfo> findRuleSetByPtBaseId(int ptBaseId) {
+        String sql = "select * from rule_set where pt_base_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{ptBaseId}, (rs, rowNum) -> {
+            RuleSetInfo ruleSetInfo = new RuleSetInfo();
+            ruleSetInfo.setPtBaseId(rs.getInt("pt_base_id"));
+            ruleSetInfo.setFunctionId(rs.getInt("function_id"));
+            ruleSetInfo.setCellId(rs.getInt("cell_id"));
+            ruleSetInfo.setStartDt(rs.getString("start_dt"));
+            ruleSetInfo.setEndDt(rs.getString("end_dt"));
+            ruleSetInfo.setTargetValue(rs.getInt("target_value"));
+            return ruleSetInfo;
+        });
+    }
 
 }
