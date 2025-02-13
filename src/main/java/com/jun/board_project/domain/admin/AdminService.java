@@ -18,6 +18,14 @@ public class AdminService {
         adminRepository.saveFunction(functionForm);
     }
 
+    public void saveRuleSet(RuleSetForm ruleSetForm) {
+        adminRepository.saveRuleSet(ruleSetForm);
+    }
+
+    public void saveRuleMatrix(RuleMatrixForm ruleMatrixForm) {
+        adminRepository.saveRuleMatrix(ruleMatrixForm);
+    }
+
     public void savePtBase(PtBaseForm ptBaseForm) {
         adminRepository.savePtBase(ptBaseForm);
     }

@@ -1,11 +1,10 @@
 package com.jun.board_project.domain.admin;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +33,15 @@ public class RuleSetController {
         model.addAttribute("ruleSetList", ruleSetInfoList);
 
         return "admin/ruleSetPage";
+    }
+
+    @RequestMapping(value = "/admin/ruleSet", method = RequestMethod.POST)
+    public ResponseEntity<Void> saveRuleSet(@RequestBody RuleMatrixForm ruleMatrixForm,
+                                            @RequestBody RuleSetForm ruleSetForm) {
+
+        adminService.saveRuleSet(ruleSetForm);
+        adminService.saveRuleMatrix(ruleMatrixForm);
+        return ResponseEntity.ok().build();
     }
 
 

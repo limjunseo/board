@@ -26,6 +26,16 @@ public class AdminRepository {
         jdbcTemplate.update(sql, ptBaseForm.getPtBaseId(), ptBaseForm.getPtBaseName(), ptBaseForm.getFunctionId());
     }
 
+    public void saveRuleSet(RuleSetForm ruleSetForm) {
+        String sql = "insert into rule_set(pt_base_id, function_id, cell_id, start_dt, end_dt, target_value) values(?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, ruleSetForm.getPtBaseId(), ruleSetForm.getFunctionId(), ruleSetForm.getCellId(), ruleSetForm.getStartDt(), ruleSetForm.getEndDt(), ruleSetForm.getTargetValue());
+    }
+
+    public void saveRuleMatrix(RuleMatrixForm ruleMatrixForm) {
+        String sql = "insert into rule_matrix(function_id, cell_id, dimen1_value, dimen2_value, dimen3_value, dimen4_value) values(?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, ruleMatrixForm.getFunctionId(), ruleMatrixForm.getCellId(), ruleMatrixForm.getDimen1Value(), ruleMatrixForm.getDimen2Value(), ruleMatrixForm.getDimen3Value(), ruleMatrixForm.getDimen4Value());
+    }
+
     public List<FunctionInfo> findAllFunction() {
         String sql = "select * from fnparam";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
