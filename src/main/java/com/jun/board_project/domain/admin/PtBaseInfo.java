@@ -3,7 +3,7 @@ package com.jun.board_project.domain.admin;
 import lombok.*;
 
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor @ToString
 @Getter @NoArgsConstructor @Setter
 public class PtBaseInfo {
     private int ptBaseId;
@@ -11,4 +11,7 @@ public class PtBaseInfo {
     private int functionId;
 
     private String ptBaseName;
+
+    private String ptBaseDescription;
+
 }

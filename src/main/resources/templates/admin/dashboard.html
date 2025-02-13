@@ -94,7 +94,7 @@
     </div>
 
     <div class="section">
-        <h2>함수 등록 (Function Registration)</h2>
+        <h2>함수 파라미터 등록</h2>
         <form th:action="@{/admin/function}" method="post">
             <div class="form-group">
                 <label for="functionId">함수 ID:</label>
@@ -142,93 +142,18 @@
 
 
     <div class="section">
-        <h2>매트릭스 등록 (함수 파라미터 매핑 조건4개까지)</h2>
-        <form th:action="@{/admin/register-matrix}" method="post">
-            <!-- 함수 선택 -->
+        <h2 class="text-2xl font-bold text-purple-600 mb-6">포인트 지급 목록 등록 (Point List Base 매핑)</h2>
+        <form th:action="@{/admin/pointBase}" method="post" class="space-y-4">
             <div class="form-group">
-                <label for="functionId">함수 선택:</label>
-                <select id="functionId" name="functionId" onchange="loadFunctionInfo()" required>
-                    <option value="">함수 선택</option>
-                    <option th:each="function : ${functionList}"
-                            th:value="${function.functionId}"
-                            th:text="${function.functionId + ' - ' + function.dimen1Name + ', ' + function.dimen2Name + ', ' + function.dimen3Name + ', ' + function.dimen4Name}">
-                    </option>
-                </select>
-            </div>
-
-
-            <!-- Dimension 값 입력 -->
-            <div id="dimenValues" style="display:none;">
-                <div class="form-group">
-                    <label for="dimen1Value">Dimension 1 (<span id="dimen1Name"></span>):</label>
-                    <input type="text" id="dimen1Value" name="dimen1Value" placeholder="Dimension 1 값 입력">
-                </div>
-
-                <div class="form-group">
-                    <label for="dimen2Value">Dimension 2 (<span id="dimen2Name"></span>):</label>
-                    <input type="text" id="dimen2Value" name="dimen2Value" placeholder="Dimension 2 값 입력">
-                </div>
-
-                <div class="form-group">
-                    <label for="dimen3Value">Dimension 3 (<span id="dimen3Name"></span>):</label>
-                    <input type="text" id="dimen3Value" name="dimen3Value" placeholder="Dimension 3 값 입력">
-                </div>
-
-                <div class="form-group">
-                    <label for="dimen4Value">Dimension 4 (<span id="dimen4Name"></span>):</label>
-                    <input type="text" id="dimen4Value" name="dimen4Value" placeholder="Dimension 4 값 입력">
-                </div>
-            </div>
-
-            <script>
-                // 선택된 함수 정보 저장 (예시: 서버에서 이 데이터를 Ajax로 받아올 수 있음)
-                const functionDetails = {
-                    'FUNC001': { dimen1: '판매 코드', dimen2: '배송 코드', dimen3: '반품 코드', dimen4: '결제 코드' },
-                    'FUNC002': { dimen1: '회원 코드', dimen2: '할인 코드', dimen3: '상품 코드', dimen4: '배송지 코드' }
-                };
-
-                function loadFunctionInfo() {
-                    const selectedFunctionId = document.getElementById('functionId').value;
-                    const dimenValuesSection = document.getElementById('dimenValues');
-
-                    if (selectedFunctionId && functionDetails[selectedFunctionId]) {
-                        // Dimension 이름 설정
-                        document.getElementById('dimen1Name').innerText = functionDetails[selectedFunctionId].dimen1;
-                        document.getElementById('dimen2Name').innerText = functionDetails[selectedFunctionId].dimen2;
-                        document.getElementById('dimen3Name').innerText = functionDetails[selectedFunctionId].dimen3;
-                        document.getElementById('dimen4Name').innerText = functionDetails[selectedFunctionId].dimen4;
-
-                        // 입력 필드 보이기
-                        dimenValuesSection.style.display = 'block';
-                    } else {
-                        // 선택되지 않았을 때 Dimension 값 입력 필드 숨김
-                        dimenValuesSection.style.display = 'none';
-                    }
-                }
-            </script>
-
-
-            <div class="form-group">
-                <button type="submit">매트릭스 등록</button>
-            </div>
-        </form>
-    </div>
-
-
-
-
-
-    <div class="section">
-        <h2>포인트 지급 목록 등록 (Point List Base 매핑)</h2>
-        <form th:action="@{/admin/pointBase}" method="post">
-            <div class="form-group">
-                <label for="ptBaseId">포인트 기준 ID:</label>
-                <input type="text" id="ptBaseId" name="ptBaseId" placeholder="포인트 기준 ID 입력" required>
+                <label for="ptBaseId" class="block text-sm font-medium text-gray-700">포인트 기준 ID:</label>
+                <input type="text" id="ptBaseId" name="ptBaseId" placeholder="포인트 기준 ID 입력" required
+                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500">
             </div>
 
             <div class="form-group">
-                <label for="functionId">함수 선택 (Function ID - 4개 CodeMetaName 표시):</label>
-                <select id="functionId" name="functionId" required>
+                <label for="functionId" class="block text-sm font-medium text-gray-700">함수 선택 (Function ID - 4개 CodeMetaName 표시):</label>
+                <select id="functionId" name="functionId" required
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500">
                     <option value="">함수 선택</option>
                     <option th:each="function : ${functionList}"
                             th:value="${function.functionId}"
@@ -238,15 +163,25 @@
             </div>
 
             <div class="form-group">
-                <label for="ptBaseName">포인트 기준 이름:</label>
-                <input type="text" id="ptBaseName" name="ptBaseName" placeholder="포인트 기준 이름 입력" required>
+                <label for="ptBaseName" class="block text-sm font-medium text-gray-700">포인트 기준 이름:</label>
+                <input type="text" id="ptBaseName" name="ptBaseName" placeholder="포인트 기준 이름 입력" required
+                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500">
             </div>
 
             <div class="form-group">
-                <button type="submit">포인트 목록 등록</button>
+                <label for="ptBaseDescription" class="block text-sm font-medium text-gray-700">포인트 기준 설명:</label>
+                <textarea id="ptBaseDescription" name="ptBaseDescription" placeholder="포인트 지급 기준에 대한 설명 입력" rows="4" required
+                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="w-full bg-purple-600 text-white font-medium py-2 px-4 rounded-lg shadow hover:bg-purple-700">
+                    포인트 목록 등록
+                </button>
             </div>
         </form>
     </div>
+
 
 
 
@@ -266,69 +201,21 @@
             </select>
         </div>
 
-        <!-- 규칙집합 목록 표시 -->
-        <div id="ruleSummarySection" class="hidden">
-            <h3>규칙집합 목록</h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>Function ID</th>
-                    <th>Cell ID</th>
-                    <th>Dimension 1 Name</th>
-                    <th>Dimension 2 Name</th>
-                    <th>Dimension 3 Name</th>
-                    <th>Dimension 4 Name</th>
-                    <th>Target Value</th>
-                </tr>
-                </thead>
-                <tbody id="ruleSummaryTable"></tbody>
-            </table>
-        </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const ptBaseSelect = document.getElementById('ptBaseId');
-
-                ptBaseSelect.addEventListener('change', loadRuleSummary);
-
-                function loadRuleSummary() {
-                    const selectedPtBaseId = ptBaseSelect.value;
-                    const ruleSummarySection = document.getElementById('ruleSummarySection');
-                    const ruleSummaryTable = document.getElementById('ruleSummaryTable');
-
-                    ruleSummaryTable.innerHTML = ''; // 기존 데이터 초기화
-
+            document.addEventListener('change', (event) => {
+                const target = event.target;
+                if (target && target.id === 'ptBaseId') {
+                    console.log('Change event triggered');
+                    const selectedPtBaseId = target.value;
                     if (selectedPtBaseId) {
-                        fetch(`/admin/ruleSet?ptBaseId=${selectedPtBaseId}`)
-                            .then(response => response.json())
-                            .then(data => console.log(data))
-                            .then(data => {
-                                if (data.length > 0) {
-                                    data.forEach(rule => {
-                                        const row = document.createElement('tr');
-                                        row.innerHTML = `
-                                        <td>${rule.functionId}</td>
-                                        <td>${rule.cellId}</td>
-                                        <td>${rule.dimen1Name}</td>
-                                        <td>${rule.dimen2Name}</td>
-                                        <td>${rule.dimen3Name}</td>
-                                        <td>${rule.dimen4Name}</td>
-                                        <td>${rule.targetValue}</td>
-                                    `;
-                                        ruleSummaryTable.appendChild(row);
-                                    });
-                                    ruleSummarySection.classList.remove('hidden');
-                                } else {
-                                    ruleSummarySection.classList.add('hidden');
-                                }
-                            })
-                            .catch(error => console.error('Error fetching rule summaries:', error));
-                    } else {
-                        ruleSummarySection.classList.add('hidden');
+                        window.location.href = `/admin/ruleSetPage?ptBaseId=${selectedPtBaseId}`;
                     }
                 }
             });
+
         </script>
+
     </div>
 
 

@@ -11,4 +11,6 @@ public class PtBaseForm { //포인트 기본목록
     private int functionId;
 
     private String ptBaseName;
+
+    private String ptBaseDescription;
 }

@@ -22,12 +22,25 @@ public class AdminService {
         adminRepository.savePtBase(ptBaseForm);
     }
 
+    public FunctionInfo findFunction(int ptBaseId) {
+        return adminRepository.findFunction(ptBaseId);
+    }
+
+
     public String findCodeMetaName(String codeMetaId) {
         return adminRepository.findCodeMetaName(codeMetaId);
     }
 
+    public PtBaseInfo findPtBase(int ptBaseId) {
+        return adminRepository.findPtBase(ptBaseId);
+    }
+
     public List<RuleSetInfo> findRuleSet(int ptBaseId) {
         return adminRepository.findRuleSetByPtBaseId(ptBaseId);
+    }
+
+    public List<RuleMatrixInfo> findAllRuleMatrixByFunctionId(int functionId) {
+        return adminRepository.findAllRuleMatrixByFunctionId(functionId);
     }
 
     public List<CodeMetaInfo> findAllCodeMeta() {
