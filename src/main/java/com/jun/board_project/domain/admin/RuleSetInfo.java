@@ -20,19 +20,12 @@ public class RuleSetInfo {
 
     private int targetValue;
 
-    private String dimen1;
+    private String dimen1Value;
 
-    private String dimen2;
+    private String dimen2Value;
 
-    private String dimen3;
+    private String dimen3Value;
 
-    private String dimen4;
+    private String dimen4Value;
 
-    private String dimen1Name;
-
-    private String dimen2Name;
-
-    private String dimen3Name;
-
-    private String dimen4Name;
 }

@@ -19,8 +19,6 @@ public class RuleSetController {
         PtBaseInfo ptBaseInfo = adminService.findPtBase(ptBaseId);
         FunctionInfo functionInfo = adminService.findFunction(ptBaseInfo.getFunctionId());
         List<RuleSetInfo> ruleSetInfoList = adminService.findRuleSet(ptBaseId);
-        List<RuleMatrixInfo> ruleMatrixInfoList = adminService.findAllRuleMatrixByFunctionId(ptBaseInfo.getFunctionId());
-
 
         model.addAttribute("ptBaseInfo", ptBaseInfo);
         model.addAttribute("functionInfo", functionInfo);
@@ -32,25 +30,7 @@ public class RuleSetController {
         String [] dimenName = new String[4];
 
 
-        for (RuleSetInfo ruleSetInfo : ruleSetInfoList) {
-            dimenId[0] = ruleSetInfo.getDimen1();
-            dimenId[1] = ruleSetInfo.getDimen2();
-            dimenId[2] = ruleSetInfo.getDimen3();
-            dimenId[3] = ruleSetInfo.getDimen4();
-        }
 
-        for (int i = 0; i < 4; i++) {
-            dimenName[i] = adminService.findCodeMetaName(dimenId[i]);
-        }
-
-        for (RuleSetInfo ruleSetInfo : ruleSetInfoList) {
-            ruleSetInfo.setDimen1Name(dimenName[0]);
-            ruleSetInfo.setDimen2Name(dimenName[1]);
-            ruleSetInfo.setDimen3Name(dimenName[2]);
-            ruleSetInfo.setDimen4Name(dimenName[3]);
-        }
-
-        model.addAttribute("ruleMatrixList", ruleMatrixInfoList);
         model.addAttribute("ruleSetList", ruleSetInfoList);
 
         return "admin/ruleSetPage";

@@ -45,18 +45,25 @@
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
             </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200" th:each="matrix, iterStat : ${ruleMatrixList}">
-            <tr class="hover:bg-gray-100">
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${matrix.functionId}"></td>
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${matrix.cellId}"></td>
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${matrix.dimenValue1}"></td>
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${matrix.dimenValue2}"></td>
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${matrix.dimenValue3}"></td>
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${matrix.dimenValue4}"></td>
-                <!-- ruleSetInfo에서 targetValue 가져오기 -->
-                <td class="px-6 py-4 text-sm text-gray-900" th:text="${ruleSetInfo[iterStat.index].targetValue}"></td>
+
+            <tbody th:each="ruleSet : ${ruleSetList}">
+            <tr id="row-${ruleSet.id}" class="hover:bg-gray-100">
+                <td class="px-6 py-4 text-sm text-gray-900" th:text="${ruleSet.functionId}"></td>
+                <td class="px-6 py-4 text-sm text-gray-900" th:text="${ruleSet.cellId}"></td>
+                <td class="px-6 py-4 text-sm text-gray-900 dimen1" th:text="${ruleSet.dimen1Value}"></td>
+                <td class="px-6 py-4 text-sm text-gray-900 dimen2" th:text="${ruleSet.dimen2Value}"></td>
+                <td class="px-6 py-4 text-sm text-gray-900 dimen3" th:text="${ruleSet.dimen3Value}"></td>
+                <td class="px-6 py-4 text-sm text-gray-900 dimen4" th:text="${ruleSet.dimen4Value}"></td>
+                <td class="px-6 py-4 text-sm text-gray-900 targetValue" th:text="${ruleSet.targetValue}"></td>
+                <td class="px-6 py-4 text-sm action">
+                    <button class="text-blue-600 hover:underline" onclick="openEditRow('${ruleSet.id}')">수정</button> |
+                    <button class="text-red-600 hover:underline" onclick="deleteRule('${ruleSet.id}')">삭제</button>
+                </td>
             </tr>
             </tbody>
+
+
+
 
         </table>
 
@@ -91,5 +98,102 @@
         </form>
     </div>
 </div>
+
+<script>
+    let currentEditingRuleId = null;
+
+    function openEditRow(ruleId) {
+        // 기존 열 편집 중인 경우 초기화
+        if (currentEditingRuleId !== null) {
+            cancelEditRow(currentEditingRuleId);
+        }
+
+        currentEditingRuleId = ruleId;
+
+        // 테이블에서 해당 행 가져오기
+        const row = document.getElementById(`row-${ruleId}`);
+        const dimen1Cell = row.querySelector('.dimen1');
+        const dimen2Cell = row.querySelector('.dimen2');
+        const dimen3Cell = row.querySelector('.dimen3');
+        const dimen4Cell = row.querySelector('.dimen4');
+        const targetValueCell = row.querySelector('.targetValue');
+        const actionCell = row.querySelector('.action');
+
+        // 기존 값을 입력 필드로 변경
+        dimen1Cell.innerHTML = `<input type="text" id="edit-dimen1-${ruleId}" value="${dimen1Cell.innerText}" class="border border-gray-300 rounded-md px-2 py-1 w-full">`;
+        dimen2Cell.innerHTML = `<input type="text" id="edit-dimen2-${ruleId}" value="${dimen2Cell.innerText}" class="border border-gray-300 rounded-md px-2 py-1 w-full">`;
+        dimen3Cell.innerHTML = `<input type="text" id="edit-dimen3-${ruleId}" value="${dimen3Cell.innerText}" class="border border-gray-300 rounded-md px-2 py-1 w-full">`;
+        dimen4Cell.innerHTML = `<input type="text" id="edit-dimen4-${ruleId}" value="${dimen4Cell.innerText}" class="border border-gray-300 rounded-md px-2 py-1 w-full">`;
+        targetValueCell.innerHTML = `<input type="text" id="edit-targetValue-${ruleId}" value="${targetValueCell.innerText}" class="border border-gray-300 rounded-md px-2 py-1 w-full">`;
+
+        // Action 버튼 수정
+        actionCell.innerHTML = `
+            <button class="text-green-600 hover:underline" onclick="saveEditRow('${ruleId}')">저장</button> |
+            <button class="text-gray-600 hover:underline" onclick="cancelEditRow('${ruleId}')">취소</button>
+        `;
+    }
+
+    function cancelEditRow(ruleId) {
+        // 페이지 새로고침으로 원래 상태로 돌아가게 처리
+        location.reload();
+    }
+
+    function saveEditRow(ruleId) {
+        const dimen1Value = document.getElementById(`edit-dimen1-${ruleId}`).value;
+        const dimen2Value = document.getElementById(`edit-dimen2-${ruleId}`).value;
+        const dimen3Value = document.getElementById(`edit-dimen3-${ruleId}`).value;
+        const dimen4Value = document.getElementById(`edit-dimen4-${ruleId}`).value;
+        const targetValue = document.getElementById(`edit-targetValue-${ruleId}`).value;
+
+        // Ajax 요청으로 수정 내용 전송
+        fetch(`/admin/updateRule`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ruleId: ruleId,
+                dimen1Value: dimen1Value,
+                dimen2Value: dimen2Value,
+                dimen3Value: dimen3Value,
+                dimen4Value: dimen4Value,
+                targetValue: targetValue
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('규칙이 성공적으로 수정되었습니다.');
+                    location.reload();  // 수정 후 페이지 새로고침
+                } else {
+                    alert('수정에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function deleteRule(ruleId) {
+        if (confirm('정말로 이 규칙을 삭제하시겠습니까?')) {
+            // 페이지 리다이렉트 방식
+            window.location.href = `/admin/deleteRule?ruleId=${ruleId}`;
+
+            // 또는 Ajax 요청 방식 (백엔드에서 DELETE API 제공 시)
+            /*
+            fetch(`/admin/rule/${ruleId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('규칙이 성공적으로 삭제되었습니다.');
+                    location.reload();  // 페이지 새로고침
+                } else {
+                    alert('삭제에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+            */
+        }
+    }
+</script>
+
 </body>
 </html>

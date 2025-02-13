@@ -135,9 +135,10 @@ public class AdminRepository {
         String sql =
          """
          SELECT * 
-         FROM rule_set a, fnparam b
-         WHERE a.function_id = b.function_id
-         AND a.pt_base_id = ?""";
+         FROM rule_set a, rule_matrix b
+         WHERE a.cell_id = b.cell_id
+         AND b.function_id = a.function_id
+         AND pt_base_id = ?""";
 
         return jdbcTemplate.query(sql, new Object[]{ptBaseId}, (rs, rowNum) -> {
             RuleSetInfo ruleSetInfo = new RuleSetInfo();
@@ -147,10 +148,10 @@ public class AdminRepository {
             ruleSetInfo.setStartDt(rs.getString("start_dt"));
             ruleSetInfo.setEndDt(rs.getString("end_dt"));
             ruleSetInfo.setTargetValue(rs.getInt("target_value"));
-            ruleSetInfo.setDimen1(rs.getString("dimen1"));
-            ruleSetInfo.setDimen2(rs.getString("dimen2"));
-            ruleSetInfo.setDimen3(rs.getString("dimen3"));
-            ruleSetInfo.setDimen4(rs.getString("dimen4"));
+            ruleSetInfo.setDimen1Value(rs.getString("dimen1_value"));
+            ruleSetInfo.setDimen2Value(rs.getString("dimen2_value"));
+            ruleSetInfo.setDimen3Value(rs.getString("dimen3_value"));
+            ruleSetInfo.setDimen4Value(rs.getString("dimen4_value"));
             return ruleSetInfo;
         });
     }
