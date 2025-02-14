@@ -42,16 +42,17 @@ public class RuleSetController {
     @RequestMapping(value = "/admin/ruleSet", method = RequestMethod.POST)
     public ResponseEntity<Void> addRuleSetAndMatrix(@RequestBody Map<String, Object> requestData) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        System.out.println(requestData);
 
         // ruleSet JSON 처리
         Map<String, Object> ruleSetData = (Map<String, Object>) requestData.get("ruleSet");
         System.out.println(ruleSetData);
 
         RuleSetForm ruleSetForm = new RuleSetForm();
-        ruleSetForm.setPtBaseId(Integer.parseInt((String) ruleSetData.get("ptBaseId")));
-        ruleSetForm.setFunctionId(Integer.parseInt((String) ruleSetData.get("functionId")));
-        ruleSetForm.setCellId(Integer.parseInt((String) ruleSetData.get("cellId")));
-        ruleSetForm.setTargetValue(Integer.parseInt((String) ruleSetData.get("targetValue")));
+        ruleSetForm.setPtBaseId(Integer.parseInt(ruleSetData.get("ptBaseId").toString()));
+        ruleSetForm.setFunctionId(Integer.parseInt(ruleSetData.get("functionId").toString()));
+        ruleSetForm.setCellId(Integer.parseInt(ruleSetData.get("cellId").toString()));
+        ruleSetForm.setTargetValue(Integer.parseInt(ruleSetData.get("targetValue").toString()));
 
         ruleSetForm.setEndDt("99991231");
         ruleSetForm.setStartDt(LocalDate.now().format(formatter));
@@ -59,19 +60,21 @@ public class RuleSetController {
         // ruleMatrix JSON 처리
         Map<String, Object> ruleMatrixData = (Map<String, Object>) requestData.get("ruleMatrix");
         System.out.println(ruleMatrixData);
+
         RuleMatrixForm ruleMatrixForm = new RuleMatrixForm();
-        ruleMatrixForm.setFunctionId((Integer) ruleMatrixData.get("functionId"));
-        ruleMatrixForm.setCellId((Integer) ruleMatrixData.get("cellId"));
-        ruleMatrixForm.setDimen1Value((String) ruleMatrixData.get("dimen1Value"));
-        ruleMatrixForm.setDimen2Value((String) ruleMatrixData.get("dimen2Value"));
-        ruleMatrixForm.setDimen3Value((String) ruleMatrixData.get("dimen3Value"));
-        ruleMatrixForm.setDimen4Value((String) ruleMatrixData.get("dimen4Value"));
+        ruleMatrixForm.setFunctionId(Integer.parseInt(ruleMatrixData.get("functionId").toString()));
+        ruleMatrixForm.setCellId(Integer.parseInt(ruleMatrixData.get("cellId").toString()));
+        ruleMatrixForm.setDimen1Value(ruleMatrixData.get("dimen1Value").toString());
+        ruleMatrixForm.setDimen2Value(ruleMatrixData.get("dimen2Value").toString());
+        ruleMatrixForm.setDimen3Value(ruleMatrixData.get("dimen3Value").toString());
+        ruleMatrixForm.setDimen4Value(ruleMatrixData.get("dimen4Value").toString());
 
         // 서비스 호출
         adminService.saveRuleSet(ruleSetForm);
         adminService.saveRuleMatrix(ruleMatrixForm);
         return ResponseEntity.ok().build();
     }
+
 
 
 }

@@ -41,4 +41,6 @@ public class MemberService implements UserDetailsService {
         member.setMemberPw(passwordEncoder.encode(member.getMemberPw()));
         memberRepository.save(member);
     }
+
+
 }

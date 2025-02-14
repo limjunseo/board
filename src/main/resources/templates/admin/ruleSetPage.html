@@ -213,20 +213,21 @@
         newRow.classList.add('bg-green-50');
 
         newRow.innerHTML = `
-            <td class="px-6 py-4 text-sm text-gray-900">새 규칙</td>
-            <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-cellId" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="Cell ID"></td>
-            <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen1Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
-            <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen2Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
-            <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen3Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
-            <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen4Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
-            <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-targetValue" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="Target Value"></td>
-            <td class="px-6 py-4 text-sm">
-                <button class="text-green-600 hover:underline" onclick="saveNewRule()">저장</button> |
-                <button class="text-gray-600 hover:underline" onclick="cancelAddRow()">취소</button>
-            </td>
-        `;
+        <td class="px-6 py-4 text-sm text-gray-900">${functionId}</td>
+        <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-cellId" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="Cell ID"></td>
+        <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen1Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
+        <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen2Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
+        <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen3Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
+        <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-dimen4Value" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="값 입력"></td>
+        <td class="px-6 py-4 text-sm text-gray-900"><input type="text" id="new-targetValue" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="Target Value"></td>
+        <td class="px-6 py-4 text-sm">
+            <button class="text-green-600 hover:underline" onclick="saveNewRule()">저장</button> |
+            <button class="text-gray-600 hover:underline" onclick="cancelAddRow()">취소</button>
+        </td>
+    `;
         tableBody.appendChild(newRow);
     }
+
 
     function cancelAddRow() {
         document.getElementById('new-rule-row').remove();
