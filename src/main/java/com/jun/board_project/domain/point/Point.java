@@ -15,4 +15,10 @@ public class Point {
 
     //포인트 구분코드 - 포인트지급(003), 포인트사용(004), 포인트소멸(005)
     private String pointCd;
+
+    private int value;
+
+    public void setSeq(int seq) {
+        this.Seq = seq;
+    }
 }

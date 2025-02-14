@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 public class PointService {
     private final PointRepository pointRepository;
 
-    public PointService(PointRepository pointRepository) {
-        this.pointRepository = pointRepository;
+    public void savePoint(Point point) {
+        int seq = pointRepository.findSeqByMemberId(point.getMemberId());
+        point.setSeq(seq);
+        pointRepository.savePoint(point);
     }
-
 
 }
