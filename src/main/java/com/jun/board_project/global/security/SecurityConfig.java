@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -30,6 +32,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")      // 로그인 처리 URL
                         .usernameParameter("memberId")     // 사용자명 파라미터 이름
                         .passwordParameter("pw")           // 비밀번호 파라미터 이름
+                        .successHandler(customAuthenticationSuccessHandler) // 로그인 성공 핸들러
                         .defaultSuccessUrl("/")            // 로그인 성공 후 리다이렉트 경로
                         .failureUrl("/login?error=true")   // 로그인 실패 시 경로
                         .permitAll()

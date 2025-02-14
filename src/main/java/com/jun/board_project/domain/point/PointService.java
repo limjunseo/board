@@ -30,8 +30,6 @@ public class PointService {
 
         //멤버 정보로 포인트값 가져오기
         int pointValue = ruleSetService.findTargetValue(pointBaseCd, dimensValue);
-
-        
         pointRepository.savePoint(point);
     }
 

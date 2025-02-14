@@ -18,6 +18,4 @@ public enum PointBaseCd {
         this.code = code;
         this.functionId = functionId;
     }
-
-
 }
