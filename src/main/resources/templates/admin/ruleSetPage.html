@@ -196,6 +196,9 @@
     }
 
     let isAddingNewRule = false;
+    const ptBaseId = '[[@{${ptBaseInfo.ptBaseId}}]]';  // Thymeleaf로 ptBaseId 가져오기 (문자열로 변환)
+    const functionId = '[[@{${functionInfo.functionId}}]]';  // Thymeleaf로 functionId 가져오기 (문자열로 변환)
+
 
     function openAddRow() {
         if (isAddingNewRule) {
@@ -230,18 +233,18 @@
         isAddingNewRule = false;
     }
 
+
+
     function saveNewRule() {
         const ruleSet = {
-            ptBaseId: '1',  // 예시로 ptBaseId는 지정 (변경 가능)
-            functionId: 'YOUR_FUNCTION_ID',  // 현재 functionId 값 가져오기
+            ptBaseId: ptBaseId,  // Thymeleaf에서 가져온 동적 ptBaseId
+            functionId: functionId,  // Thymeleaf에서 가져온 동적 functionId
             cellId: document.getElementById('new-cellId').value || '0',
-            startDt: '2025-02-13',  // 임의의 날짜로 설정 (동적으로 입력 가능)
-            endDt: '2025-12-31',  // 임의의 날짜로 설정
             targetValue: document.getElementById('new-targetValue').value || '0'
         };
 
         const ruleMatrix = {
-            functionId: ruleSet.functionId,
+            functionId: functionId,  // 동적 functionId
             cellId: ruleSet.cellId,
             dimen1Value: document.getElementById('new-dimen1Value').value || '0',
             dimen2Value: document.getElementById('new-dimen2Value').value || '0',
@@ -249,23 +252,24 @@
             dimen4Value: document.getElementById('new-dimen4Value').value || '0'
         };
 
-        fetch('/admin/addRuleSetAndMatrix', {
+        fetch('/admin/ruleSet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ ruleSet: ruleSet, ruleMatrix: ruleMatrix })  // 두 개의 객체를 하나의 JSON으로 전달
+            body: JSON.stringify({ ruleSet: ruleSet, ruleMatrix: ruleMatrix })
         })
             .then(response => {
                 if (response.ok) {
                     alert('새 규칙이 성공적으로 추가되었습니다.');
-                    location.reload();  // 새로고침
+                    location.reload();
                 } else {
                     alert('규칙 추가에 실패했습니다.');
                 }
             })
             .catch(error => console.error('Error:', error));
     }
+
 
 </script>
 
