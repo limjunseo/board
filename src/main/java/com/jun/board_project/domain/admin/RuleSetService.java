@@ -1,9 +1,8 @@
 package com.jun.board_project.domain.admin;
 
+import com.jun.board_project.domain.point.PointBaseCd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
 
 @RequiredArgsConstructor
 @Service
@@ -12,9 +11,9 @@ public class RuleSetService {
     private final RuleMatrixService ruleMatrixService;
 
 
-    public int findTargetValue(int ptBaseId, int functionId, String[] diemens, Timestamp targetDt) {
-        int cellId = ruleMatrixService.findCellId(ptBaseId, diemens); //규칙매트릭스의 cellId 조회
-        return ruleSetRepository.findTargetValue(ptBaseId, functionId, cellId, targetDt);
+    public int findTargetValue(PointBaseCd pointBaseCd, String[] diemens) {
+        int cellId = ruleMatrixService.findCellId(pointBaseCd.getCode(), diemens); //규칙매트릭스의 cellId 조회
+        return ruleSetRepository.findTargetValue(pointBaseCd.getCode(), pointBaseCd.getFunctionId(), cellId, "99991231");
     }
 
 }
