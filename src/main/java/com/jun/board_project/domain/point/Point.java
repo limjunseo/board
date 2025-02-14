@@ -21,4 +21,8 @@ public class Point {
     public void setSeq(int seq) {
         this.Seq = seq;
     }
+
+    public void setPointCd(String pointCd) {
+        this.pointCd = pointCd;
+    }
 }

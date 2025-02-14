@@ -17,5 +17,10 @@ public class Member {
 
     private String memberRank;
 
+    private String seqLoingYn; //연속출석여부
+
+    private String newYn; //멤버 신규여부
+
+    private String memberShipYn; //멤버십여부
 
 }
