@@ -22,7 +22,9 @@ public class Point {
         this.Seq = seq;
     }
 
-    public void setPointCd(String pointCd) {
+
+    public Point(String memberId, String pointCd) {
+        this.memberId = memberId;
         this.pointCd = pointCd;
     }
 }

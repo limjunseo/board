@@ -13,7 +13,4 @@ public class MemberLoginHis {
 
     private LocalDateTime loginDate;
 
-    public void setTimestamp(LocalDateTime loginDate) {
-        this.loginDate = loginDate;
-    }
 }
