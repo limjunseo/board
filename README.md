@@ -8,5 +8,7 @@
 [SQL튜닝1] https://delicate-apparatus-9f0.notion.site/SQL-1-19088a9005cf80b686e6f6772c4567d6
 <br/>[SQL튜닝2] https://delicate-apparatus-9f0.notion.site/SQL-2-19988a9005cf800caf96dd06e41943b7?pvs=73
 
+
 <br/> <br/>
+Rule 기반 데이터 모델 <br/>
 <br/>[Rule-Matrix 모델]<br/> https://delicate-apparatus-9f0.notion.site/Rule-Matrix-19488a9005cf80628e87cc019e083718?pvs=74
