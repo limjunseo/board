@@ -10,13 +10,12 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Service
 public class LoginSuccessService {
-    private final MemberLoginHisRepository memberLoginHisRepository;
+    private final MemberLoginHisService memberLoginHisService;
     private final PointService pointService;
 
     public void handleLoginSuccess(String memberId) {
         MemberLoginHis memberLoginHis = new MemberLoginHis(memberId, LocalDateTime.now());
-        memberLoginHisRepository.save(memberLoginHis);
-
+        memberLoginHisService.saveMemberLoginHis(memberLoginHis);
         pointService.savePoint(memberId, PointBaseCd.LOGIN);
     }
 }

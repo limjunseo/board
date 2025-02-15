@@ -22,8 +22,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         String memberId = authentication.getName();
 
-        loginSuccessService.handleLoginSuccess(memberId);
+        System.out.println("로그인 성공 핸들러 실행");
 
+        loginSuccessService.handleLoginSuccess(memberId);
         // 로그인 성공 후 기본 페이지로 리다이렉트
         response.sendRedirect("/");
     }

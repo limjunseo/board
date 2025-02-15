@@ -14,11 +14,10 @@ public class RuleMatrixRepository {
                 select cell_id 
                 from rule_matrix 
                 where function_id = ?
-                and dimen1 = ?
-                and dimen2 = ?
-                and dimen3 = ?
-                and dimen4 = ?
-                """;
+                and dimen1_value = ?
+                and dimen2_value = ?
+                and dimen3_value = ?
+                and dimen4_value = ?""";
 
         return jdbcTemplate.queryForObject(sql, int.class, functionId, dimens[0], dimens[1], dimens[2], dimens[3]);
 
