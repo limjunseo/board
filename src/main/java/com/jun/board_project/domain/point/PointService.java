@@ -17,7 +17,9 @@ public class PointService {
     private final RuleMatrixService ruleMatrixService;
 
     public void savePoint(String memberId, PointBaseCd pointBaseCd) {
-        Point point = new Point(memberId, PointCd.POINT_GIVE.getCode()); //포인트 지급지출소멸 구분코드 설정/ 여기서는 지급코드 설정
+
+        //포인트 지급지출소멸 구분코드와 포인트기본목록 코드 설정
+        Point point = new Point(memberId, PointCd.POINT_GIVE.getCode(), pointBaseCd.getCode());
 
         int seq = pointRepository.findSeqByMemberId(memberId);
         point.setSeq(seq); //포인트 일련번호 설정
@@ -29,6 +31,7 @@ public class PointService {
 
         //멤버 정보로 포인트값 가져오기
         int pointValue = ruleSetService.findTargetValue(pointBaseCd, dimensValue);
+        point.setValue(pointValue);
         pointRepository.savePoint(point);
     }
 

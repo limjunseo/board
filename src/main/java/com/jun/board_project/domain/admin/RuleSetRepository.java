@@ -16,8 +16,8 @@ public class RuleSetRepository {
             where pt_base_id = ?
             and function_id = ?
             and cell_id = ?
-            and start_date <= ?
-            and end_date >= ?
+            and start_dt <= ?
+            and end_dt >= ?
         """;
         return jdbcTemplate.queryForObject(sql, int.class, ptBaseId, functionId, cellId, targetDate, targetDate);
     }

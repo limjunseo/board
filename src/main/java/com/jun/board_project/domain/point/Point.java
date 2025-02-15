@@ -18,13 +18,21 @@ public class Point {
 
     private int value;
 
+    //포인트기본목록 -> 포인트 지급 근거로 사용
+    private int ptBaseId;
+
     public void setSeq(int seq) {
         this.Seq = seq;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
 
-    public Point(String memberId, String pointCd) {
+
+    public Point(String memberId, String pointCd, int ptBaseId) {
         this.memberId = memberId;
         this.pointCd = pointCd;
+        this.ptBaseId = ptBaseId;
     }
 }

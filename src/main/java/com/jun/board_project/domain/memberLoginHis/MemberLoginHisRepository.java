@@ -22,7 +22,8 @@ public class MemberLoginHisRepository {
             (select '1'
                 from member_login_his
                 where member_id = ?
-                and login_date >= trunc(sysdate)) then 'y' else 'n' end )
+                and login_date >= trunc(sysdate)) then 'N' else 'Y' end) 
+    from dual
     
     """;
         return jdbcTemplate.queryForObject(sql, String.class, memberId);

@@ -11,8 +11,8 @@ public class PointRepository {
 
     //포인트 적립
     public void savePoint(Point point) {
-        String sql = "insert into point(member_id, seq, point_cd, value) values(?, ?, ?)";
-        jdbcTemplate.update(sql, point.getMemberId(), point.getSeq(), point.getPointCd(), point.getValue());
+        String sql = "insert into point(member_id, seq, point_cd, value, pt_base_id) values(?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, point.getMemberId(), point.getSeq(), point.getPointCd(), point.getValue(), point.getPtBaseId());
     }
 
     //max + 1 채번

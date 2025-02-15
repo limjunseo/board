@@ -10,6 +10,9 @@ public class RuleMatrixRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public int findCellId(int functionId, String [] dimens) {
+        System.out.println("functionId = " + functionId);
+        System.out.println("dimens = " + dimens[0] + ", " + dimens[1] + ", " + dimens[2] + ", " + dimens[3]);
+
         String sql = """
                 select cell_id 
                 from rule_matrix 

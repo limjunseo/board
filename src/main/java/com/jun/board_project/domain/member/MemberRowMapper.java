@@ -13,6 +13,9 @@ public class MemberRowMapper implements RowMapper<Member> {
         member.setMemberPw(rs.getString("member_pw"));
         member.setMemberName(rs.getString("member_name"));
         member.setMemberRank(rs.getString("member_rank"));
+        member.setNewYn(rs.getString("new_yn"));
+        member.setMembershipYn(rs.getString("membership_yn"));
+        member.setSeqloginYn(rs.getString("seqlogin_yn"));
         return member;
     }
 }
