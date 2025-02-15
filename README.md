@@ -10,5 +10,4 @@
 
 
 <br/> <br/>
-Rule 기반 데이터 모델 <br/>
-<br/>[Rule-Matrix 모델]<br/> https://delicate-apparatus-9f0.notion.site/Rule-Matrix-19488a9005cf80628e87cc019e083718?pvs=74
+<br/>[Rule-Matrix 데이터 모델]<br/> https://delicate-apparatus-9f0.notion.site/Rule-Matrix-19488a9005cf80628e87cc019e083718?pvs=74
