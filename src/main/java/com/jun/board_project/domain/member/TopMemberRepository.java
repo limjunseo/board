@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Repository
-public class TopMemberHisRepository {
+public class TopMemberRepository {
     private JdbcTemplate jdbcTemplate;
 
     public void calTopMember() {
         String sql = """
     insert into top_member_his
-    select a.member_id, to_char(trunc(sysdate - 1), 'yyyymmdd'), a.score, a.rn
+    select a.member_id, trunc(sysdate - 1), a.score, a.rn
     from (
         select t.member_id, sum(t.cnt) score, rank() over (order by sum(t.cnt) desc) rn
         from (
@@ -50,4 +52,14 @@ public class TopMemberHisRepository {
         jdbcTemplate.update(sql);
     }
 
+    //어제의 우수멤버 조회
+    public List<TopMemberInfo> findYesterdayTopMember() {
+        String sql = """
+        SELECT * 
+        FROM TOP_MEMBER_HIS
+        WHERE CREATED_DT >= TRUNC(SYSDATE - 1)
+        """;
+        return jdbcTemplate.query(sql, new TopMemberInfoRowMapper());
+
+    }
 }

@@ -127,20 +127,42 @@
     </ul>
 
     <!-- 어제의 우수 멤버 TOP 10 -->
-    <h2>어제의 우수 멤버 TOP 10</h2>
-    <ul>
-        <li th:each="member : ${yesterdayTopMembers}">
-            <span th:text="${member.rank} + '위: ' + ${member.name}"></span>
-        </li>
-    </ul>
+    <h2 style="font-weight: bold; color: #2C3E50; margin-bottom: 20px;">어제의 우수 멤버 TOP 10</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+        <div th:each="member : ${yesterdayTopMembers}"
+             style="width: calc(33.333% - 10px); background-color: #ECF0F1; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0; color: #2980B9;">
+                <span th:text="${member.rank} + '위'"></span>
+            </h3>
+            <p style="margin: 8px 0; font-size: 16px; color: #34495E;">
+                <span th:text="'이름: ' + ${member.name}"></span>
+            </p>
+            <p style="margin: 0; font-size: 14px; color: #7F8C8D;">
+                <span th:text="'점수: ' + ${member.score}"></span>
+            </p>
+        </div>
+    </div>
 
-    <!-- 지난달의 우수 멤버 TOP 10 -->
-    <h2>지난달의 우수 멤버 TOP 10</h2>
-    <ul>
-        <li th:each="member : ${lastMonthTopMembers}">
-            <span th:text="${member.rank} + '위: ' + ${member.name}"></span>
-        </li>
-    </ul>
+    <!-- 금달의 우수 멤버 TOP 10 -->
+    <h2 style="font-weight: bold; color: #2E8B57; margin-top: 40px; margin-bottom: 20px;">금달의 우수 멤버 TOP 10</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+        <div th:each="member : ${currentMonthTopMembers}"
+             style="width: calc(33.333% - 10px); background-color: #D4EFDF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0; color: #1E8449;">
+                <span th:text="${member.rank} + '위'"></span>
+            </h3>
+            <p style="margin: 8px 0; font-size: 16px; color: #2C3E50;">
+                <span th:text="'이름: ' + ${member.name}"></span>
+            </p>
+            <p style="margin: 0; font-size: 14px; color: #7DCEA0;">
+                <span th:text="'점수: ' + ${member.score}"></span>
+            </p>
+        </div>
+    </div>
+
+
+
+
 </div>
 
 </body>

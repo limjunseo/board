@@ -54,13 +54,13 @@ public class MemberService implements UserDetailsService {
         memberRepository.updateNewYn();
     }
 
-    public void updateMembershipYn() {
-        memberRepository.updateMembershipYn();
-    }
+//    public void updateMembershipYn() {
+//        memberRepository.updateMembershipYn();
+//    }
 
-    public void updateMemberRank() {
-        memberRepository.updateMemberRank();
-    }
+//    public void updateMemberRank() {
+//        memberRepository.updateMemberRank();
+//    }
 
 
 }
