@@ -32,4 +32,22 @@ public class MemberRepository {
                 member.getMemberName(), MemberRank.defaultRank());
     }
 
+
+    //멤버 연속 출석여부 update
+    public void updateSeqloginYn() {
+        String sql = """
+        UPDATE MEMBER m
+        SET m.seqlogin_yn = 'Y'
+        WHERE m.seqlogin_yn <> 'Y'
+        AND EXISTS (
+            SELECT '1'
+            FROM MEMBER_LOGIN_HIS mlh
+            WHERE m.member_id = mlh.member_id
+            AND mlh.login_date >= TRUNC(SYSDATE - 1)
+    );
+""";
+
+        jdbcTemplate.update(sql);
+    }
+
 }

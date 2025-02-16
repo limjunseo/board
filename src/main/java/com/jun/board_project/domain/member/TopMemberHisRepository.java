@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.job;
+package com.jun.board_project.domain.member;
 
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class TopMemberHisRepository {
     private JdbcTemplate jdbcTemplate;
 
-    public void saveTopMember() {
+    public void calTopMember() {
         String sql = """
     insert into top_member_his
     select a.member_id, to_char(trunc(sysdate - 1), 'yyyymmdd'), a.score, a.rn
