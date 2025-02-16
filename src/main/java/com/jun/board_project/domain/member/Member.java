@@ -17,9 +17,11 @@ public class Member {
 
     private String memberRank;
 
+    private String memberCreatedDt;
+
     private String seqloginYn; //연속출석여부
 
-    private String newYn; //멤버 신규여부
+    private String newYn; //멤버 신규여부, memberCreatedDt가 7일이내면 'Y'
 
     private String membershipYn; //멤버십여부
 

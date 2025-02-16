@@ -46,5 +46,21 @@ public class MemberService implements UserDetailsService {
         return memberRepository.findByMemberId(memberId);
     }
 
+    public void updateSeqloginYn(){
+        memberRepository.updateSeqloginYn();
+    }
+
+    public void updateNewYn() {
+        memberRepository.updateNewYn();
+    }
+
+    public void updateMembershipYn() {
+        memberRepository.updateMembershipYn();
+    }
+
+    public void updateMemberRank() {
+        memberRepository.updateMemberRank();
+    }
+
 
 }

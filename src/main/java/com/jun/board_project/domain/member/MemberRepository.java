@@ -46,6 +46,16 @@ public class MemberRepository {
             AND mlh.login_date >= TRUNC(SYSDATE - 1)
     );
 """;
+        jdbcTemplate.update(sql);
+    }
+
+    //멤버 신규여부 update, 가입일 7일이 지난 회원은 'N'으로 변경
+    public void updateNewYn() {
+        String sql = """
+        UPDATE MEMBER m
+        SET m.new_yn = 'N'
+        WHERE m.new_yn <> 'N'
+        AND m.member_created_dt < TO_CHAR(SYSDATE - 7, 'YYYYMMDD')""";
 
         jdbcTemplate.update(sql);
     }
