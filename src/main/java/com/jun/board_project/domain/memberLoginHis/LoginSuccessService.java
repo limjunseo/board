@@ -22,8 +22,6 @@ public class LoginSuccessService {
         if (isFirstLogin.equals("N")) {
             return;
         }
-
-
         pointService.savePoint(memberId, PointBaseCd.LOGIN);
     }
 }

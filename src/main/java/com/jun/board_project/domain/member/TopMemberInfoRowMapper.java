@@ -10,7 +10,10 @@ public class TopMemberInfoRowMapper implements RowMapper<TopMemberInfo> {
     public TopMemberInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         TopMemberInfo topMemberInfo = new TopMemberInfo();
         topMemberInfo.setMemberId(rs.getString("member_id"));
-        topMemberInfo.setMemberRank(rs.getString("member_rank"));
+        topMemberInfo.setRanking(rs.getString("rank"));
+        topMemberInfo.setScore(rs.getInt("score"));
+        topMemberInfo.setCreatedDt(rs.getString("created_dt"));
+
         return topMemberInfo;
     }
 }

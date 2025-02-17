@@ -14,6 +14,9 @@ public class Scheduler {
         schedulerService.calTopMember(); //일일단위 우수멤버 선정 스케줄
     }
 
-
+    @Scheduled(cron = "0 0 0 * * *")
+    public void updateMemberInfoAndPointBase() {
+        schedulerService.updateMemberInfoAndPointBase(); //일일단위 회원정보 업데이트 스케줄
+    }
 
 }

@@ -8,13 +8,10 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @Setter
-public class TopMemberInfo {
+public class MonthTopMemberInfo {
     private String memberId;
-
-    private String createdDt; //date
 
     private String ranking;
 
-    private int score;
-    
+    private int selectedCntInThisMonth;
 }

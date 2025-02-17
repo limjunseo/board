@@ -127,15 +127,15 @@
     </ul>
 
     <!-- 어제의 우수 멤버 TOP 10 -->
-    <h2 style="font-weight: bold; color: #2C3E50; margin-bottom: 20px;">어제의 우수 멤버 TOP 10</h2>
+    <h2 style="font-weight: bold; color: #2C3E50; margin-bottom: 20px;">어제의 우수 멤버 TOP 10 (게시글 + 게시글좋아요 + 작성댓글 합산점수)</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 15px;">
         <div th:each="member : ${yesterdayTopMembers}"
              style="width: calc(33.333% - 10px); background-color: #ECF0F1; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <h3 style="margin: 0; color: #2980B9;">
-                <span th:text="${member.rank} + '위'"></span>
+                <span th:text="${member.ranking} + '위'"></span>
             </h3>
             <p style="margin: 8px 0; font-size: 16px; color: #34495E;">
-                <span th:text="'이름: ' + ${member.name}"></span>
+                <span th:text="'이름: ' + ${member.memberId}"></span>
             </p>
             <p style="margin: 0; font-size: 14px; color: #7F8C8D;">
                 <span th:text="'점수: ' + ${member.score}"></span>
@@ -143,19 +143,19 @@
         </div>
     </div>
 
-    <!-- 금달의 우수 멤버 TOP 10 -->
-    <h2 style="font-weight: bold; color: #2E8B57; margin-top: 40px; margin-bottom: 20px;">금달의 우수 멤버 TOP 10</h2>
+    <!-- 이번달 우수 멤버 TOP 10 -->
+    <h2 style="font-weight: bold; color: #2E8B57; margin-top: 40px; margin-bottom: 20px;">이번달 우수 멤버 TOP 10</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 15px;">
-        <div th:each="member : ${currentMonthTopMembers}"
+        <div th:each="member : ${monthTopMembers}"
              style="width: calc(33.333% - 10px); background-color: #D4EFDF; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <h3 style="margin: 0; color: #1E8449;">
-                <span th:text="${member.rank} + '위'"></span>
+                <span th:text="${member.ranking} + '위'"></span>
             </h3>
             <p style="margin: 8px 0; font-size: 16px; color: #2C3E50;">
-                <span th:text="'이름: ' + ${member.name}"></span>
+                <span th:text="'이름: ' + ${member.memberId}"></span>
             </p>
             <p style="margin: 0; font-size: 14px; color: #7DCEA0;">
-                <span th:text="'점수: ' + ${member.score}"></span>
+                <span th:text="'이번달 우수멤버 선정 횟수 : ' + ${member.selectedCntInThisMonth}"></span>
             </p>
         </div>
     </div>

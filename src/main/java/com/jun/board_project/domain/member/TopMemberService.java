@@ -17,4 +17,8 @@ public class TopMemberService {
     public List<TopMemberInfo> findYesterdayTopMember() {
         return topMemberRepository.findYesterdayTopMember();
     }
+
+    public List<MonthTopMemberInfo> findThisMonthTopMember() {
+        return topMemberRepository.findThisMonthTopMember();
+    }
 }

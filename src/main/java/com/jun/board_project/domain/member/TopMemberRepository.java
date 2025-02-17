@@ -13,7 +13,7 @@ public class TopMemberRepository {
 
     public void calTopMember() {
         String sql = """
-    insert into top_member_his
+    insert into top_member
     select a.member_id, trunc(sysdate - 1), a.score, a.rn
     from (
         select t.member_id, sum(t.cnt) score, rank() over (order by sum(t.cnt) desc) rn
@@ -56,10 +56,28 @@ public class TopMemberRepository {
     public List<TopMemberInfo> findYesterdayTopMember() {
         String sql = """
         SELECT * 
-        FROM TOP_MEMBER_HIS
+        FROM TOP_MEMBER
         WHERE CREATED_DT >= TRUNC(SYSDATE - 1)
         """;
         return jdbcTemplate.query(sql, new TopMemberInfoRowMapper());
 
+    }
+
+    //이번달 우수멤버 조회
+    public List<MonthTopMemberInfo> findThisMonthTopMember() {
+        String sql = """
+    SELECT *
+    FROM (
+        SELECT member_id, 
+               count(*) AS selected_cnt_in_this_month, 
+               RANK() OVER (ORDER BY count(*) DESC) AS rn
+        FROM TOP_MEMBER 
+        WHERE created_dt >= TRUNC(SYSDATE, 'MM')
+        GROUP BY member_id
+    ) t
+    WHERE t.rn <= 10
+""";
+
+        return jdbcTemplate.query(sql, new MonthTopMemberInfoRowMapper());
     }
 }
