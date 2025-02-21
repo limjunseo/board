@@ -1,6 +1,6 @@
 package com.jun.board_project.domain.admin;
 
-import com.jun.board_project.domain.point.PointBaseCd;
+import com.jun.board_project.domain.point.pointBase.PointBaseCd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.point;
+package com.jun.board_project.domain.point.pointBase;
 
 import lombok.Getter;
 

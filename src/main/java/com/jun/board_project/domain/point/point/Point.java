@@ -1,11 +1,10 @@
-package com.jun.board_project.domain.point;
+package com.jun.board_project.domain.point.point;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Builder

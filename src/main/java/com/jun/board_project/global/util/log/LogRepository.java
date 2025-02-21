@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class LogRepository {
     private final JdbcTemplate  jdbcTemplate;
 
-    public void insertUpdateMemberInfoAndPointBaseLog(UpdateLogInfo updateLogInfo) {
+    public void insertUpdateCompleteLog(UpdateLogInfo updateLogInfo) {
         String sql = """
     
     INSERT INTO UPDATE_LOG (UPDATE_LOG_ID, UPDATE_DT) VALUES (?, ?)

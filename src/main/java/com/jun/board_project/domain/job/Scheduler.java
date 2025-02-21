@@ -16,7 +16,9 @@ public class Scheduler {
 
     @Scheduled(cron = "0 0 0 * * *")
     public void updateMemberInfoAndPointBase() {
-        schedulerService.updateMemberInfoAndPointBase(); //일일단위 회원정보 업데이트 스케줄
+        schedulerService.updateMemberInfoAndPointInfo(); //일일단위 회원정보 업데이트 스케줄
     }
+
+    @Scheduled(After)
 
 }

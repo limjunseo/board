@@ -10,9 +10,11 @@ import java.time.LocalDateTime;
 public class LogService {
     private final LogRepository logRepository;
 
-    public void insertUpdateMemberInfoAndPointBaseLog() {
+    public void insertUpdateCompleteLog() {
         int updateLogId = logRepository.nextVal();
         UpdateLogInfo updateLogInfo = new UpdateLogInfo(updateLogId, LocalDateTime.now());
-        logRepository.insertUpdateMemberInfoAndPointBaseLog(updateLogInfo);
+        logRepository.insertUpdateCompleteLog(updateLogInfo);
     }
+
+
 }

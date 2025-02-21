@@ -1,14 +1,14 @@
-package com.jun.board_project.domain.point;
+package com.jun.board_project.domain.point.point;
 
 import com.jun.board_project.domain.admin.RuleMatrixService;
 import com.jun.board_project.domain.admin.RuleSetService;
 import com.jun.board_project.domain.member.Member;
 import com.jun.board_project.domain.member.MemberService;
+import com.jun.board_project.domain.point.pointBase.PointBaseCd;
 import com.jun.board_project.global.util.FnparamToDimens;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor

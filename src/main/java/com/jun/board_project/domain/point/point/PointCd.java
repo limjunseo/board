@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.point;
+package com.jun.board_project.domain.point.point;
 
 //포인트 지급사용소멸 구분코드
 public enum PointCd {

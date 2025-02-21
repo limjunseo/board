@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.point;
+package com.jun.board_project.domain.point.point;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;

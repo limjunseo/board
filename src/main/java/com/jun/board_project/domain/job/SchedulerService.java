@@ -2,6 +2,7 @@ package com.jun.board_project.domain.job;
 
 import com.jun.board_project.domain.member.MemberService;
 import com.jun.board_project.domain.member.TopMemberRepository;
+import com.jun.board_project.global.util.log.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class SchedulerService {
     private final TopMemberRepository topMemberRepository;
     private final MemberService memberService;
+    private final LogService logService;
+    private final PointBaseService pointBaseService;
 
     public void calTopMember() {
         topMemberRepository.calTopMember(); //회원 이력으로 우수 회원 구하기
@@ -23,6 +26,10 @@ public class SchedulerService {
 //        pointBaseService.updatePointBase();
 //        logService.insertUpdateMemberInfoAndPointBaseLog();
 //    }
+
+    public void insertUpdateCompleteLog() {
+        logService.insertUpdateCompleteLog();
+    }
 
 
 
