@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Builder
 @Getter @NoArgsConstructor @AllArgsConstructor
 public class Point {
@@ -21,6 +24,10 @@ public class Point {
     //포인트기본목록 -> 포인트 지급 근거로 사용
     private int ptBaseId;
 
+    
+    //포인트 계산기준시간
+    private LocalDateTime pointDt;
+
     public void setSeq(int seq) {
         this.Seq = seq;
     }
@@ -30,9 +37,10 @@ public class Point {
     }
 
 
-    public Point(String memberId, String pointCd, int ptBaseId) {
+    public Point(String memberId, String pointCd, int ptBaseId, LocalDateTime pointDt) {
         this.memberId = memberId;
         this.pointCd = pointCd;
         this.ptBaseId = ptBaseId;
+        this.pointDt = pointDt;
     }
 }

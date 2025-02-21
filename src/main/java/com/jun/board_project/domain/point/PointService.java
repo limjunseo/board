@@ -8,6 +8,9 @@ import com.jun.board_project.global.util.FnparamToDimens;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 public class PointService {
@@ -19,7 +22,7 @@ public class PointService {
     public void savePoint(String memberId, PointBaseCd pointBaseCd) {
 
         //포인트 지급지출소멸 구분코드와 포인트기본목록 코드 설정
-        Point point = new Point(memberId, PointCd.POINT_GIVE.getCode(), pointBaseCd.getCode());
+        Point point = new Point(memberId, PointCd.POINT_GIVE.getCode(), pointBaseCd.getCode(), LocalDateTime.now());
 
         int seq = pointRepository.findSeqByMemberId(memberId);
         point.setSeq(seq); //포인트 일련번호 설정
@@ -34,5 +37,4 @@ public class PointService {
         point.setValue(pointValue);
         pointRepository.savePoint(point);
     }
-
 }
