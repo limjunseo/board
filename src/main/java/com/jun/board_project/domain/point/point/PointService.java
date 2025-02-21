@@ -22,7 +22,7 @@ public class PointService {
     public void savePoint(String memberId, PointBaseCd pointBaseCd) {
 
         //포인트 지급지출소멸 구분코드와 포인트기본목록 코드 설정
-        Point point = new Point(memberId, PointCd.POINT_GIVE.getCode(), pointBaseCd.getCode(), LocalDateTime.now());
+        Point point = new Point(memberId, PointCd.POINT_GIVE, pointBaseCd.getCode(), LocalDateTime.now());
 
         int seq = pointRepository.findSeqByMemberId(memberId);
         point.setSeq(seq); //포인트 일련번호 설정
@@ -36,5 +36,9 @@ public class PointService {
         int pointValue = ruleSetService.findTargetValue(pointBaseCd, dimensValue);
         point.setValue(pointValue);
         pointRepository.savePoint(point);
+    }
+
+    public void modifyPoint() {
+
     }
 }

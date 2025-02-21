@@ -16,12 +16,13 @@ public class Point {
     private int Seq;
 
     //포인트 구분코드 - 포인트지급(003), 포인트사용(004), 포인트소멸(005)
-    private String pointCd;
+    private PointCd pointCd;
 
     private int value;
 
     //포인트기본목록 -> 포인트 지급 근거로 사용
     private int ptBaseId;
+
 
     
     //포인트 계산기준시간
@@ -36,7 +37,7 @@ public class Point {
     }
 
 
-    public Point(String memberId, String pointCd, int ptBaseId, LocalDateTime pointDt) {
+    public Point(String memberId, PointCd pointCd, int ptBaseId, LocalDateTime pointDt) {
         this.memberId = memberId;
         this.pointCd = pointCd;
         this.ptBaseId = ptBaseId;
