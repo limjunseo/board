@@ -1,4 +1,4 @@
-package com.jun.board_project.global.util;
+package com.jun.board_project.global.util.cd;
 
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;

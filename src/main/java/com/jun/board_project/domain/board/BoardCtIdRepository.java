@@ -1,7 +1,6 @@
 package com.jun.board_project.domain.board;
 
 
-import com.jun.board_project.global.util.Cd;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.jun.board_project.global.util;
+package com.jun.board_project.global.util.cd;
 
 public enum Cd {
     BOARD_CT_CD("001"),
