@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Repository
 public class LogRepository {
@@ -28,4 +30,9 @@ public class LogRepository {
         return jdbcTemplate.queryForObject(sql, int.class);
     }
 
+    //마지막 업데이트 시간
+    public LocalDateTime findLastUpdateDt() {
+        String sql = "select max(update_dt) from update_log";
+        return jdbcTemplate.queryForObject(sql, LocalDateTime.class);
+    }
 }

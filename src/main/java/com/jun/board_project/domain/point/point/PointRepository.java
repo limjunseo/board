@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.point.point;
 
+import com.jun.board_project.domain.point.pointBase.PointBaseCd;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,8 @@ public class PointRepository {
         String sql = "insert into point_temp(member_id, seq, point_cd, value, pt_base_id, point_dt) values(?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, point.getMemberId(), point.getSeq(), point.getPointCd(), point.getValue(), point.getPtBaseId(), point.getPointDt());
     }
+
+
 
     //max + 1 채번
     public int findSeqByMemberId(String memberId) {

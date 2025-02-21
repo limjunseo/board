@@ -16,5 +16,8 @@ public class LogService {
         logRepository.insertUpdateCompleteLog(updateLogInfo);
     }
 
+    public LocalDateTime findLastUpdateDt() {
+        return logRepository.findLastUpdateDt();
+    }
 
 }

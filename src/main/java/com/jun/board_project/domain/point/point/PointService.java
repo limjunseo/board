@@ -38,7 +38,12 @@ public class PointService {
         pointRepository.savePoint(point);
     }
 
-    public void modifyPoint() {
-
+    //멤버가 받을 수 있는 포인트값 조회 ex)출석포인트, 게시글작성포인트
+    public int findPoint(String memberId, PointBaseCd pointBaseCd) {
+        Member member = memberService.findMemberById(memberId);
+        String [] dimensValue = FnparamToDimens.fnparamToMemberDimens(pointBaseCd.getFunctionId(), member);
+        
+        return ruleSetService.findTargetValue(pointBaseCd, dimensValue);
     }
+
 }
