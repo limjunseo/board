@@ -50,25 +50,6 @@ public class PointRepository {
         jdbcTemplate.update(sql);
     }
 
-    //잘못 계산된 포인트 내역 수정
-    public void modifyPoint() {
-        String sql = """
-    
-    UPDATE (
-        SELECT pm.value AS point_value, rs.target_value AS new_point_value
-        FROM POINT_MODIFICATION pm
-        JOIN PT_BASE pb ON pm.pt_base_id = pb.pt_base_id
-        JOIN RULE_SET rs ON rs.pt_base_id = pb.pt_base_id
-            AND rs.function_id = pb.function_id
-        WHERE pm.point_dt BETWEEN rs.start_dt AND rs.end_dt
-        AND rs.target_value <> pm.value
-    )
-    SET point_value = new_point_value
-        
-    """;
-
-            jdbcTemplate.update(sql);
-    }
 
     //다시 포인트 임시 테이블에 병합
     public void mergeIntoPointTemp(){
