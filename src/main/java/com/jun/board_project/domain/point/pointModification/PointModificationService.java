@@ -9,6 +9,7 @@ import com.jun.board_project.global.util.log.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,8 +50,8 @@ public class PointModificationService {
             int targetValue = ruleSetService.findTargetValue(pointBaseCd, dimensValue);
 
             if(value != targetValue){
-                //포인트 수정
-                pointModificationRepository.modifyPoint(pointModificationInfo.getPtModId(), targetValue);
+                //다른 값이 들어가 있으면 수정. 추후에 배치로 처리하도록 변경
+                pointModificationRepository.modifyPoint(memberId, pointModificationInfo.getSeq(), targetValue);
             }
 
 

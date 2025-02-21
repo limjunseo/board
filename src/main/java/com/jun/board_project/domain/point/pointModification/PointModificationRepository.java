@@ -14,8 +14,16 @@ import java.util.List;
 public class PointModificationRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public void modifyPoint() {
-        
+    public void modifyPoint(String memberId, int seq, int targetValue) {
+        String sql = """
+    
+    UPDATE POINT_MODIFICATION 
+    SET value = ?
+    WHERE member_id = ?
+    AND seq = ?
+    
+    """;
+        jdbcTemplate.update(sql, targetValue, memberId, seq);
     }
 
     public List<PointModificationInfo> findPointModificationInfo(LocalDateTime updateTime) {
