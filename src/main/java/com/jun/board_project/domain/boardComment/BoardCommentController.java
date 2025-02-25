@@ -2,7 +2,7 @@ package com.jun.board_project.domain.boardComment;
 
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLike;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeForm;
-import com.jun.board_project.domain.member.MemberDetails;
+import com.jun.board_project.domain.member.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

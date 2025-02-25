@@ -1,10 +1,10 @@
 package com.jun.board_project.domain.main;
 
-import com.jun.board_project.domain.board.BoardCtDto;
-import com.jun.board_project.domain.board.BoardCtIdRepository;
-import com.jun.board_project.domain.member.MonthTopMemberInfo;
-import com.jun.board_project.domain.member.TopMemberInfo;
-import com.jun.board_project.domain.member.TopMemberService;
+import com.jun.board_project.domain.board.boardCt.BoardCtDto;
+import com.jun.board_project.domain.board.boardCt.BoardCtIdRepository;
+import com.jun.board_project.domain.member.topMember.MonthTopMemberInfo;
+import com.jun.board_project.domain.member.topMember.TopMemberInfo;
+import com.jun.board_project.domain.member.topMember.TopMemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -1,15 +1,14 @@
 package com.jun.board_project.domain.point.pointModification;
 
-import com.jun.board_project.domain.admin.RuleSetService;
-import com.jun.board_project.domain.member.Member;
-import com.jun.board_project.domain.member.MemberService;
+import com.jun.board_project.domain.admin.ruleSet.RuleSetService;
+import com.jun.board_project.domain.member.member.Member;
+import com.jun.board_project.domain.member.member.MemberService;
 import com.jun.board_project.domain.point.pointBase.PointBaseCd;
 import com.jun.board_project.global.util.FnparamToDimens;
 import com.jun.board_project.global.util.log.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.List;
 

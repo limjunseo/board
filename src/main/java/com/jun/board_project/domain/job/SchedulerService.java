@@ -1,7 +1,8 @@
 package com.jun.board_project.domain.job;
 
-import com.jun.board_project.domain.member.MemberService;
-import com.jun.board_project.domain.member.TopMemberRepository;
+import com.jun.board_project.domain.member.member.MemberService;
+import com.jun.board_project.domain.member.topMember.TopMemberRepository;
+import com.jun.board_project.domain.point.pointBase.PointBaseService;
 import com.jun.board_project.global.util.log.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

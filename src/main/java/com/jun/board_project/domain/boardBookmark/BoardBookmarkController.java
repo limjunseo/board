@@ -1,6 +1,6 @@
 package com.jun.board_project.domain.boardBookmark;
 
-import com.jun.board_project.domain.member.MemberDetails;
+import com.jun.board_project.domain.member.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

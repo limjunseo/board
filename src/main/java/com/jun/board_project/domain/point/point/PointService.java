@@ -1,9 +1,9 @@
 package com.jun.board_project.domain.point.point;
 
-import com.jun.board_project.domain.admin.RuleMatrixService;
-import com.jun.board_project.domain.admin.RuleSetService;
-import com.jun.board_project.domain.member.Member;
-import com.jun.board_project.domain.member.MemberService;
+import com.jun.board_project.domain.admin.ruleMatrix.RuleMatrixService;
+import com.jun.board_project.domain.admin.ruleSet.RuleSetService;
+import com.jun.board_project.domain.member.member.Member;
+import com.jun.board_project.domain.member.member.MemberService;
 import com.jun.board_project.domain.point.pointBase.PointBaseCd;
 import com.jun.board_project.global.util.FnparamToDimens;
 import lombok.RequiredArgsConstructor;

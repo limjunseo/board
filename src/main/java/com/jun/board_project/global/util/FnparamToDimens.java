@@ -1,6 +1,6 @@
 package com.jun.board_project.global.util;
 
-import com.jun.board_project.domain.member.Member;
+import com.jun.board_project.domain.member.member.Member;
 
 public class FnparamToDimens {
 
