@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.boardComment;
+package com.jun.board_project.domain.boardComment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @Getter @Builder @Setter
-public class BoardCommentForm {
+public class BoardCommentRequestDto {
     private String commentContent;
 
 }

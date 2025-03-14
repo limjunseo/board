@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.boardComment;
 
+import com.jun.board_project.domain.boardComment.dto.BoardCommentRequestDto;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLike;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeForm;
 import com.jun.board_project.domain.member.member.MemberDetails;
@@ -20,13 +21,13 @@ public class BoardCommentController {
     @RequestMapping(value = "/board/{boardCtId}/{boardId}/comment", method = RequestMethod.POST)
     public String saveComment(@PathVariable("boardCtId") String boardCtId,
                               @PathVariable("boardId") int boardId,
-                              @ModelAttribute BoardCommentForm boardCommentForm,
+                              @ModelAttribute BoardCommentRequestDto boardCommentRequestDto,
                               @AuthenticationPrincipal MemberDetails member) {
 
         BoardComment boardComment = BoardComment.builder()
                 .boardId(boardId)
                 .memberId(member.getUsername())
-                .commentContent(boardCommentForm.getCommentContent())
+                .commentContent(boardCommentRequestDto.getCommentContent())
                 .build();
 
         boardCommentService.saveComment(boardComment);
@@ -39,7 +40,7 @@ public class BoardCommentController {
     public String saveCommentReply(@PathVariable("boardCtId") String boardCtId,
                               @PathVariable("boardId") int boardId,
                               @PathVariable("commentId") int commentId,
-                              @ModelAttribute BoardCommentForm boardCommentForm,
+                              @ModelAttribute BoardCommentRequestDto boardCommentRequestDto,
                                  @AuthenticationPrincipal MemberDetails member) {
 
 
@@ -47,7 +48,7 @@ public class BoardCommentController {
                 .boardId(boardId)
                 .commentId(commentId)
                 .memberId(member.getUsername())
-                .commentContent(boardCommentForm.getCommentContent())
+                .commentContent(boardCommentRequestDto.getCommentContent())
                 .build();
 
         boardCommentService.saveCommentRe(boardComment);

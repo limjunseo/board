@@ -1,5 +1,7 @@
 package com.jun.board_project.domain.board.board;
 
+import com.jun.board_project.domain.board.board.dto.BoardRequestDto;
+import com.jun.board_project.domain.board.board.dto.BoardInfo;
 import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
 import com.jun.board_project.domain.boardDetail.BoardDetail;
 import com.jun.board_project.domain.boardDetail.BoardDetailRepository;
@@ -19,7 +21,7 @@ public class BoardService {
     private final BoardLikeRepository boardLikeRepository;
 
     @Transactional
-    public int save(BoardForm boardForm)   {
+    public int save(BoardRequestDto boardRequestDto)   {
         //max + 1 채번
         int boardId = boardRepository.nextVal();
 
@@ -31,22 +33,22 @@ public class BoardService {
 
         Board board = Board.builder()
                 .boardId(boardId)
-                .boardTitle(boardForm.getBoardTitle())
-                .memberId(boardForm.getMemberId())
-                .boardCtId(boardForm.getBoardCtId())
+                .boardTitle(boardRequestDto.getBoardTitle())
+                .memberId(boardRequestDto.getMemberId())
+                .boardCtId(boardRequestDto.getBoardCtId())
                 .build();
         boardRepository.save(board);
 
         BoardDetail boardDetail = BoardDetail.builder()
                 .boardId(boardId)
-                .boardContent(boardForm.getBoardContent())
+                .boardContent(boardRequestDto.getBoardContent())
                 .build();
         boardDetailRepository.save(boardDetail);
 
         return boardId;
     }
 
-    public BoardDto getBoard(int boardId) {
+    public BoardInfo getBoard(int boardId) {
         return boardRepository.findById(boardId);
     }
 

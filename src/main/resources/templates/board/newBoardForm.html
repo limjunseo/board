@@ -66,7 +66,7 @@
 <body>
 <div class="container">
     <h1>새 글 작성</h1>
-    <form th:action="@{/board/{boardCtId}/new(boardCtId=${boardForm.boardCtId})}" th:object="${boardForm}" method="post">
+    <form th:action="@{/board/{boardCtId}/new(boardCtId=${boardRequestDto.boardCtId})}" th:object="${boardRequestDto}" method="post">
         <label for="title">Title</label>
         <input type="hidden" th:field="*{boardCtId}">
 

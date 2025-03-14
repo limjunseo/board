@@ -1,6 +1,8 @@
 package com.jun.board_project.domain.board.board;
 
 
+import com.jun.board_project.domain.board.board.dto.BoardInfo;
+import com.jun.board_project.domain.board.board.dto.BoardInfoRowMapper;
 import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
 import com.jun.board_project.domain.board.boardCt.BoardCtPageDtoRowMapper;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,7 @@ public class BoardRepository {
     }
 
     //특정 게시글 상세내용과 좋아요수 반환
-    public BoardDto findById(int boardId) {
+    public BoardInfo findById(int boardId) {
 
         String sql = """
     select a.board_id, a.board_title, a.board_created_dt, a.board_ct_id, b.board_content,
@@ -47,7 +49,7 @@ public class BoardRepository {
     and a.board_id = ?
     """;
 
-        return jdbcTemplate.queryForObject(sql, new BoardDtoRowMapper() , boardId);
+        return jdbcTemplate.queryForObject(sql, new BoardInfoRowMapper() , boardId);
     }
 
     //게시글별 좋아요수 반환

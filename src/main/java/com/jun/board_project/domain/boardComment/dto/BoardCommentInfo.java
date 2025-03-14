@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.boardComment;
+package com.jun.board_project.domain.boardComment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Getter @Builder
 @AllArgsConstructor @ToString
-public class BoardCommentDto {
+public class BoardCommentInfo {
     private int boardId;
 
     //기준 댓글번호

@@ -1,5 +1,7 @@
 package com.jun.board_project.domain.boardComment;
 
+import com.jun.board_project.domain.boardComment.dto.BoardCommentInfo;
+import com.jun.board_project.domain.boardComment.dto.BoardCommentInfoRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,7 +13,7 @@ import java.util.List;
 public class BoardCommentRepository {
     private final JdbcTemplate jdbcTemplate;
 
-    public List<BoardCommentDto> findCommentByBoardId(int boardId) {
+    public List<BoardCommentInfo> findCommentByBoardId(int boardId) {
         String sql = """
         select a.*,
                 (select count(*)
@@ -25,7 +27,7 @@ public class BoardCommentRepository {
 
 
 
-        return jdbcTemplate.query(sql, new BoardCommentDtoRowMapper(), boardId);
+        return jdbcTemplate.query(sql, new BoardCommentInfoRowMapper(), boardId);
     }
 
     //기본 댓글, 대댓글 저장

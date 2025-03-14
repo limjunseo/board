@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.boardComment;
 
+import com.jun.board_project.domain.boardComment.dto.BoardCommentInfo;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLike;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class BoardCommentService {
         return boardCommentRepository.saveComment(boardComment);
     }
 
-    public List<BoardCommentDto> findCommentByBoardId(int boardId) {
+    public List<BoardCommentInfo> findCommentByBoardId(int boardId) {
         return boardCommentRepository.findCommentByBoardId(boardId);
     }
 

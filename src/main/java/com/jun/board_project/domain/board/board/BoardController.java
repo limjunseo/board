@@ -1,10 +1,12 @@
 package com.jun.board_project.domain.board.board;
 
+import com.jun.board_project.domain.board.board.dto.BoardRequestDto;
+import com.jun.board_project.domain.board.board.dto.BoardInfo;
 import com.jun.board_project.domain.board.boardCt.BoardCtDto;
 import com.jun.board_project.domain.board.boardCt.BoardCtIdRepository;
 import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
 import com.jun.board_project.domain.boardBookmark.BoardBookmarkService;
-import com.jun.board_project.domain.boardComment.BoardCommentDto;
+import com.jun.board_project.domain.boardComment.dto.BoardCommentInfo;
 import com.jun.board_project.domain.boardComment.BoardCommentService;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
 import com.jun.board_project.domain.boardLike.BoardLike;
@@ -30,23 +32,23 @@ public class BoardController {
 
     //새 글 작성 페이지
     @RequestMapping(value = "/board/{boardCtId}/new", method = RequestMethod.GET)
-    public String getBoardNewFormPage(@ModelAttribute BoardForm boardForm) {
+    public String getBoardNewFormPage(@ModelAttribute BoardRequestDto boardRequestDto) {
         //새 글 기본양식
-        boardForm.setDefault();
+        boardRequestDto.setDefault();
 
         return "board/newBoardForm";
     }
 
     //새글 작성 POST 요청
     @RequestMapping(value = "/board/{boardCtId}/new", method = RequestMethod.POST)
-    public String save(@AuthenticationPrincipal MemberDetails member, @ModelAttribute BoardForm boardForm) {
+    public String save(@AuthenticationPrincipal MemberDetails member, @ModelAttribute BoardRequestDto boardRequestDto) {
         if(!member.isEnabled()) {
             return "redirect:/login";
         }
 
-        boardForm.setMemberId(member.getUsername());
+        boardRequestDto.setMemberId(member.getUsername());
 
-        boardService.save(boardForm);
+        boardService.save(boardRequestDto);
         return "redirect:/";
     }
 
@@ -71,21 +73,21 @@ public class BoardController {
     @RequestMapping(value = "/board/{boardCtId}/{boardId}", method = RequestMethod.GET)
     public String getBoard(@PathVariable("boardId") int boardId, @PathVariable("boardCtId") String boardCtId,
                            @AuthenticationPrincipal MemberDetails member, ModelMap model) {
-        BoardDto boardDto = boardService.getBoard(boardId);
-        List<BoardCommentDto> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
+        BoardInfo boardInfo = boardService.getBoard(boardId);
+        List<BoardCommentInfo> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
         List<BoardCommentLikeDto> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
         String bookmarkYn = boardBookmarkService.findBookmarkYn(boardId, member.getUsername());
         String likeYn = boardLikeService.findLikeYn(boardId, member.getUsername());
 
 
-        boardDto.setBookmarkYn(bookmarkYn); //북마크 여부설정
-        boardDto.setLikeYn(likeYn);
+        boardInfo.setBookmarkYn(bookmarkYn); //북마크 여부설정
+        boardInfo.setLikeYn(likeYn);
 
         //좋아요한 댓글 is liked true 설정
-        for (BoardCommentDto boardCommentDto : boardCommentListDto) {
+        for (BoardCommentInfo boardCommentInfo : boardCommentListDto) {
             for (BoardCommentLikeDto boardCommentLikeDto : boardCommentLikeListDto) {
-                if (boardCommentDto.getCommentId() == boardCommentLikeDto.getCommentId() && boardCommentDto.getCommentSeq() == boardCommentLikeDto.getCommentSeq()) {
-                    boardCommentDto.setLiked(true);
+                if (boardCommentInfo.getCommentId() == boardCommentLikeDto.getCommentId() && boardCommentInfo.getCommentSeq() == boardCommentLikeDto.getCommentSeq()) {
+                    boardCommentInfo.setLiked(true);
                 }
             }
         }
@@ -94,7 +96,7 @@ public class BoardController {
         //게시글 좋아요숫자, 좋아요여부
         model.addAttribute("bookmarkYn", bookmarkYn); //북마크 여부
         model.addAttribute("boardCommentList", boardCommentListDto); //댓글 리스트
-        model.addAttribute("board", boardDto); //게시글 상세내용
+        model.addAttribute("board", boardInfo); //게시글 상세내용
         return "board/boardDetail";
     }
 

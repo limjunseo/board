@@ -1,14 +1,14 @@
-package com.jun.board_project.domain.boardComment;
+package com.jun.board_project.domain.boardComment.dto;
 
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BoardCommentDtoRowMapper implements RowMapper<BoardCommentDto> {
+public class BoardCommentInfoRowMapper implements RowMapper<BoardCommentInfo> {
     @Override
-    public BoardCommentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return BoardCommentDto.builder()
+    public BoardCommentInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return BoardCommentInfo.builder()
                 .boardId(rs.getInt("board_id"))
                 .commentId(rs.getInt("comment_id"))
                 .commentSeq(rs.getInt("comment_seq"))

@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.boardBookmark;
+package com.jun.board_project.domain.boardBookmark.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Getter
-public class BoardBookmarkPageDto {
+public class BoardBookmarkInfo {
     private int boardId;
 
     private String memberId;

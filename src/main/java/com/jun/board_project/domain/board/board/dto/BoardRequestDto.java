@@ -1,5 +1,6 @@
-package com.jun.board_project.domain.board.board;
+package com.jun.board_project.domain.board.board.dto;
 
+import com.jun.board_project.domain.board.board.Board;
 import com.jun.board_project.domain.boardDetail.BoardDetail;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,7 +8,7 @@ import lombok.ToString;
 
 @ToString
 @Getter @Builder
-public class BoardForm {
+public class BoardRequestDto {
     private String memberId;
 
     private String boardCtId;
