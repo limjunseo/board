@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.member.member;
 
+import com.jun.board_project.domain.member.member.dto.MemberRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

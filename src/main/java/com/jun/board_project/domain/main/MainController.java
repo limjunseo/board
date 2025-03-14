@@ -2,8 +2,8 @@ package com.jun.board_project.domain.main;
 
 import com.jun.board_project.domain.board.boardCt.BoardCtDto;
 import com.jun.board_project.domain.board.boardCt.BoardCtIdRepository;
-import com.jun.board_project.domain.member.topMember.MonthTopMemberInfo;
-import com.jun.board_project.domain.member.topMember.TopMemberInfo;
+import com.jun.board_project.domain.member.topMember.dto.MonthTopMemberInfo;
+import com.jun.board_project.domain.member.topMember.dto.TopMemberInfo;
 import com.jun.board_project.domain.member.topMember.TopMemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,6 @@
-package com.jun.board_project.domain.member.member;
+package com.jun.board_project.domain.member.member.dto;
 
+import com.jun.board_project.domain.member.member.Member;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

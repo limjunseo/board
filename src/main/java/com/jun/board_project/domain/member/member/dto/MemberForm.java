@@ -1,5 +1,6 @@
-package com.jun.board_project.domain.member.member;
+package com.jun.board_project.domain.member.member.dto;
 
+import com.jun.board_project.domain.member.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

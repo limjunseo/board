@@ -2,6 +2,7 @@ package com.jun.board_project.domain.member.member;
 
 import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
 import com.jun.board_project.domain.board.board.BoardService;
+import com.jun.board_project.domain.member.member.dto.MemberForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

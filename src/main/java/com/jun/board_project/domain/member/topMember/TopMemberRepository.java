@@ -1,5 +1,9 @@
 package com.jun.board_project.domain.member.topMember;
 
+import com.jun.board_project.domain.member.topMember.dto.MonthTopMemberInfo;
+import com.jun.board_project.domain.member.topMember.dto.MonthTopMemberInfoRowMapper;
+import com.jun.board_project.domain.member.topMember.dto.TopMemberInfo;
+import com.jun.board_project.domain.member.topMember.dto.TopMemberInfoRowMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

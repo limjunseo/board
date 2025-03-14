@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.member.member;
 
+import com.jun.board_project.domain.member.member.dto.MemberForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

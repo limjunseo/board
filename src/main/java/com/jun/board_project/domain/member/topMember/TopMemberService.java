@@ -1,5 +1,7 @@
 package com.jun.board_project.domain.member.topMember;
 
+import com.jun.board_project.domain.member.topMember.dto.MonthTopMemberInfo;
+import com.jun.board_project.domain.member.topMember.dto.TopMemberInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

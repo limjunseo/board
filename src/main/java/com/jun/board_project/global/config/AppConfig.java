@@ -1,4 +1,4 @@
-package com.jun.board_project.global.util;
+package com.jun.board_project.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

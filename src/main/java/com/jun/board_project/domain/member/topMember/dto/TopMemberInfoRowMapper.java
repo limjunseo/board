@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.member.topMember;
+package com.jun.board_project.domain.member.topMember.dto;
 
 import org.springframework.jdbc.core.RowMapper;
 
