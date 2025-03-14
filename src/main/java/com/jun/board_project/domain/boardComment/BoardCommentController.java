@@ -2,7 +2,7 @@ package com.jun.board_project.domain.boardComment;
 
 import com.jun.board_project.domain.boardComment.dto.BoardCommentRequestDto;
 import com.jun.board_project.domain.boardCommentLike.BoardCommentLike;
-import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeForm;
+import com.jun.board_project.domain.boardCommentLike.dto.BoardCommentLikeReqeustDto;
 import com.jun.board_project.domain.member.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -61,14 +61,14 @@ public class BoardCommentController {
     @RequestMapping(value = "/board/{boardCtId}/{boardId}/comment/like", method = RequestMethod.POST)
     public String saveCommentLike(@PathVariable("boardCtId") String boardCtId,
                                   @PathVariable("boardId") int boardId,
-                                  @ModelAttribute BoardCommentLikeForm boardCommentLikeForm,
+                                  @ModelAttribute BoardCommentLikeReqeustDto boardCommentLikeReqeustDto,
                                   @AuthenticationPrincipal MemberDetails member) {
 
         BoardCommentLike boardCommentLike
                 = BoardCommentLike.builder()
-                .commentId(boardCommentLikeForm.getCommentId())
+                .commentId(boardCommentLikeReqeustDto.getCommentId())
                 .boardId(boardId)
-                .commentSeq(boardCommentLikeForm.getCommentSeq())
+                .commentSeq(boardCommentLikeReqeustDto.getCommentSeq())
                 .memberId(member.getUsername()).build();
 
         System.out.println(boardCommentLike);

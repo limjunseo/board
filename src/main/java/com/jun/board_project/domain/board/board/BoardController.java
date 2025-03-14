@@ -8,7 +8,7 @@ import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
 import com.jun.board_project.domain.boardBookmark.BoardBookmarkService;
 import com.jun.board_project.domain.boardComment.dto.BoardCommentInfo;
 import com.jun.board_project.domain.boardComment.BoardCommentService;
-import com.jun.board_project.domain.boardCommentLike.BoardCommentLikeDto;
+import com.jun.board_project.domain.boardCommentLike.dto.BoardCommentLikeInfo;
 import com.jun.board_project.domain.boardLike.BoardLike;
 import com.jun.board_project.domain.boardLike.BoardLikeService;
 import com.jun.board_project.domain.member.member.MemberDetails;
@@ -75,7 +75,7 @@ public class BoardController {
                            @AuthenticationPrincipal MemberDetails member, ModelMap model) {
         BoardInfo boardInfo = boardService.getBoard(boardId);
         List<BoardCommentInfo> boardCommentListDto = boardCommentService.findCommentByBoardId(boardId);
-        List<BoardCommentLikeDto> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
+        List<BoardCommentLikeInfo> boardCommentLikeListDto = boardCommentService.findLikedBoardCommentByBoardIdAndMemberId(boardId, member.getUsername());
         String bookmarkYn = boardBookmarkService.findBookmarkYn(boardId, member.getUsername());
         String likeYn = boardLikeService.findLikeYn(boardId, member.getUsername());
 
@@ -85,8 +85,8 @@ public class BoardController {
 
         //좋아요한 댓글 is liked true 설정
         for (BoardCommentInfo boardCommentInfo : boardCommentListDto) {
-            for (BoardCommentLikeDto boardCommentLikeDto : boardCommentLikeListDto) {
-                if (boardCommentInfo.getCommentId() == boardCommentLikeDto.getCommentId() && boardCommentInfo.getCommentSeq() == boardCommentLikeDto.getCommentSeq()) {
+            for (BoardCommentLikeInfo boardCommentLikeInfo : boardCommentLikeListDto) {
+                if (boardCommentInfo.getCommentId() == boardCommentLikeInfo.getCommentId() && boardCommentInfo.getCommentSeq() == boardCommentLikeInfo.getCommentSeq()) {
                     boardCommentInfo.setLiked(true);
                 }
             }

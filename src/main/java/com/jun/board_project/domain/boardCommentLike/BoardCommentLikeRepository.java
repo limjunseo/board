@@ -1,5 +1,6 @@
 package com.jun.board_project.domain.boardCommentLike;
 
+import com.jun.board_project.domain.boardCommentLike.dto.BoardCommentLikeInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,7 @@ public class BoardCommentLikeRepository {
     }
 
     //member가 특정 board에서 좋아요 누른 댓글들 가져오기
-    public List<BoardCommentLikeDto> findLikedBoardComment(int boardId, String memberId) {
+    public List<BoardCommentLikeInfo> findLikedBoardComment(int boardId, String memberId) {
         String sql = """
         select comment_id, comment_seq
         from board_comment_like
@@ -31,7 +32,7 @@ public class BoardCommentLikeRepository {
         and member_id = ? """;
 
         return jdbcTemplate.query(sql, new Object[]{boardId, memberId}, (rs, rowNum) ->
-                BoardCommentLikeDto.builder()
+                BoardCommentLikeInfo.builder()
                         .commentId(rs.getInt("comment_id"))
                         .commentSeq(rs.getInt("comment_seq"))
                         .build()

@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.boardCommentLike;
+package com.jun.board_project.domain.boardCommentLike.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BoardCommentLikeForm {
+public class BoardCommentLikeReqeustDto {
     private int commentId;
 
     private int commentSeq;
