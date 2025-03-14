@@ -1,10 +1,10 @@
 package com.jun.board_project.domain.board.board;
 
+import com.jun.board_project.domain.board.board.dto.BoardCtInfo;
 import com.jun.board_project.domain.board.board.dto.BoardRequestDto;
 import com.jun.board_project.domain.board.board.dto.BoardInfo;
-import com.jun.board_project.domain.board.boardCt.BoardCtDto;
 import com.jun.board_project.domain.board.boardCt.BoardCtIdRepository;
-import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
+import com.jun.board_project.domain.board.board.dto.BoardMainPageInfo;
 import com.jun.board_project.domain.boardBookmark.BoardBookmarkService;
 import com.jun.board_project.domain.boardComment.dto.BoardCommentInfo;
 import com.jun.board_project.domain.boardComment.BoardCommentService;
@@ -60,11 +60,11 @@ public class BoardController {
                                ModelMap model) {
 
 
-        List<BoardCtPageDto> boardList = boardService.getBoardList(boardCtId, page);
-        BoardCtDto boardCtDto = boardCtIdRepository.findByCtId(boardCtId);
+        List<BoardMainPageInfo> boardList = boardService.getBoardList(boardCtId, page);
+        BoardCtInfo boardCtInfo = boardCtIdRepository.findByCtId(boardCtId);
 
         model.addAttribute("currentPage", page);     // 현재 페이지 번호
-        model.addAttribute("boardCtDto", boardCtDto);
+        model.addAttribute("boardCtDto", boardCtInfo);
         model.addAttribute("boardList", boardList);
         return "board/boardList";
     }

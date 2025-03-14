@@ -1,6 +1,6 @@
 package com.jun.board_project.domain.member.member;
 
-import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
+import com.jun.board_project.domain.board.board.dto.BoardMainPageInfo;
 import com.jun.board_project.domain.board.board.BoardService;
 import com.jun.board_project.domain.member.member.dto.MemberForm;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class MemberController {
     @RequestMapping(value = "/member/profile", method = RequestMethod.GET)
     public String getProfile(@AuthenticationPrincipal MemberDetails member, ModelMap model) {
         //로그인한 유저의 북마크 게시글들을 가져온다
-        List<BoardCtPageDto> bookmarkedBoardList = boardService.getBookmarkedBoardList(member.getUsername());
+        List<BoardMainPageInfo> bookmarkedBoardList = boardService.getBookmarkedBoardList(member.getUsername());
 
         model.put("bookmarkedBoardList", bookmarkedBoardList);
         return "member/profile";

@@ -28,11 +28,11 @@ public class BoardInfo {
     private String likeYn; //좋아요 여부
     
     
-    void setLikeYn(String likeYn) {
+    public void setLikeYn(String likeYn) {
         this.likeYn = likeYn;
     }
 
-    void setBookmarkYn(String bookmarkYn) {
+    public void setBookmarkYn(String bookmarkYn) {
         this.bookmarkYn = bookmarkYn;
     }
     

@@ -1,4 +1,4 @@
-package com.jun.board_project.domain.board.boardCt;
+package com.jun.board_project.domain.board.board.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Getter
-public class BoardCtPageDto {
+public class BoardMainPageInfo {
     private int boardId;
 
     private String memberId;

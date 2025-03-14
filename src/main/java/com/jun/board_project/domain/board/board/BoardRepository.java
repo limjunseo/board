@@ -3,8 +3,8 @@ package com.jun.board_project.domain.board.board;
 
 import com.jun.board_project.domain.board.board.dto.BoardInfo;
 import com.jun.board_project.domain.board.board.dto.BoardInfoRowMapper;
-import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
-import com.jun.board_project.domain.board.boardCt.BoardCtPageDtoRowMapper;
+import com.jun.board_project.domain.board.board.dto.BoardMainPageInfo;
+import com.jun.board_project.domain.board.board.dto.BoardMainPageInfoRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -54,7 +54,7 @@ public class BoardRepository {
 
     //게시글별 좋아요수 반환
     //특정 카테고리 게시글 조회 페이지별로 10개씩 반환
-    public List<BoardCtPageDto> findAllByBoardCtId(String boardCtId, int page) {
+    public List<BoardMainPageInfo> findAllByBoardCtId(String boardCtId, int page) {
         String sql = """
     SELECT a.*,
            (SELECT count(*)
@@ -74,11 +74,11 @@ public class BoardRepository {
     """;
 
 
-        return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), boardCtId, page, page);
+        return jdbcTemplate.query(sql, new BoardMainPageInfoRowMapper(), boardCtId, page, page);
     }
 
     //특정 회원이 북마크한 게시글 리스트 반환
-    public List<BoardCtPageDto> findBookmarkedBoardList(String memberId) {
+    public List<BoardMainPageInfo> findBookmarkedBoardList(String memberId) {
         String sql = """
             select a.*,
                  (select count(*) from board_like where board_id = a.board_id) as board_like_cnt
@@ -88,11 +88,11 @@ public class BoardRepository {
     """;
 
 
-        return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), memberId);
+        return jdbcTemplate.query(sql, new BoardMainPageInfoRowMapper(), memberId);
 
     }
 
-    public List<BoardCtPageDto> findHotBoard(String boardCtId, int page) {
+    public List<BoardMainPageInfo> findHotBoard(String boardCtId, int page) {
         String sql = """
         SELECT b.*, a.board_like_cnt
         FROM (
@@ -114,7 +114,7 @@ public class BoardRepository {
         """;
 
 
-            return jdbcTemplate.query(sql, new BoardCtPageDtoRowMapper(), page, page);
+            return jdbcTemplate.query(sql, new BoardMainPageInfoRowMapper(), page, page);
     }
 
 

@@ -2,7 +2,7 @@ package com.jun.board_project.domain.board.board;
 
 import com.jun.board_project.domain.board.board.dto.BoardRequestDto;
 import com.jun.board_project.domain.board.board.dto.BoardInfo;
-import com.jun.board_project.domain.board.boardCt.BoardCtPageDto;
+import com.jun.board_project.domain.board.board.dto.BoardMainPageInfo;
 import com.jun.board_project.domain.boardDetail.BoardDetail;
 import com.jun.board_project.domain.boardDetail.BoardDetailRepository;
 import com.jun.board_project.domain.boardLike.BoardLike;
@@ -57,17 +57,16 @@ public class BoardService {
         boardLikeRepository.saveBoardLike(boardLike);
     }
 
-    public List<BoardCtPageDto> getBoardList(String boardCtId, int page) {
+    public List<BoardMainPageInfo> getBoardList(String boardCtId, int page) {
 
         //HOT 게시판 조회
         if(boardCtId.equals("04")) {
-            System.out.println("boardCtId = " + boardCtId  + "if 문 안쪽 실행");
             return boardRepository.findHotBoard(boardCtId, page);
         }
         return boardRepository.findAllByBoardCtId(boardCtId, page);
     }
 
-    public List<BoardCtPageDto> getBookmarkedBoardList(String memberId) {
+    public List<BoardMainPageInfo> getBookmarkedBoardList(String memberId) {
         return boardRepository.findBookmarkedBoardList(memberId);
     }
 
